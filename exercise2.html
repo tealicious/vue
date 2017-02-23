@@ -1,0 +1,30 @@
+<html>
+<body>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel='stylesheet' href='styles.css' />
+</head>
+<div id="exercise">
+    <!-- 1) Show an alert when the Button gets clicked -->
+    <div>
+        <p>
+          <button v-on:click='alert' class='btn btn-info'>Show Alert</button>
+        </p>
+    </div>
+    <!-- 2) Listen to the "keydown" event and store the value in a data property (hint: event.target.value gives you the value) -->
+    <div>
+        <input type="text" v-on:keyup='storeValue'>
+        <h2>{{ value }}</h2>
+    </div>
+    <!-- 3) Adjust the example from 2) to only fire if the "key down" is the ENTER key -->
+    <div>
+        <input type="text" v-on:keyup.enter='storeValue'>
+        <h2>{{ value }}</h2>
+    </div>
+</div>
+
+<script src='vue.js'></script>
+<script src='exercise2.js'></script>
+
+</body>
+</html>

@@ -1,70 +1,42 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-  <Style>
-  body {
-      margin: 5% auto;
-      background: #f2f2f2;
-      color: #444444;
-      font-family: 'Courier New';
-      font-size: 14px;
-      line-height: 1.6;
-      text-shadow: 0 1px 0 #ffffff;
-      max-width: 73%;
-  }
-  a {
-      border-bottom: 1px solid #444444;
-      color: #444444;
-      text-decoration: none;
-  }
-
-  a:hover {
-      border-bottom: 0;
-  }
-  h1, h2 {
-      line-height: 1.3;
-      margin-top:1rem;
-  }
-</Style>
+  <link rel='stylesheet' href='styles.css' />
 </head>
 
 <body>
-<div class='container'>
-
-  <div id='app'>
+<div class='container' id='app' v-on:mousemove="updateCoordinates">
     <input type="text" v-on:input="changeTitle">
-    <h1 v-once>{{ title }}</h1>
-    <h2>{{ sayHello() }}</h2>
+    <h1>{{ title }}</h1>
+    <h2 v-once>{{ sayHello() }}</h2>
     <p>
       <a v-bind:href="link" target='_blank'>Google</a>
     </p>
     <p v-html='finishedLink'></p>
-  </div>
-
-
+    <p>
+      <button class='btn btn-info' v-on:click="increaseCount(2, $event)">Click Me</button>
+    </p>
+    <h2>{{ counter }}</h2>
+    <p>
+      <button class='btn btn-warning' v-on:click="decreaseCount(2, $event)">Click Me</button>
+    </p>
+    <h2>
+      Coordinates: {{ x }}, {{ y }}
+    </h2>
+    <h2 class='deadSpace' v-on:mousemove.stop="">Dead Space
+    </h2><!--the .stop addition to the mousemove event stops any function from propagating on the paired element and event
+    all modifiers @
+    http://vuejs.org/v2/guide/events.html#Event-Modifiers
+    -->
+    <input type='text' v-on:keyup.enter='alertMe' />
+    <!-- key modifiers @
+    http://vuejs.org/v2/guide/events.html#Key-Modifiers
+    -->
 </div>
 
 
 <script src='vue.js'></script>
-<script>
-  new Vue({
-  	el: '#app',
-    data: {
-    	title: 'Hello World!',
-      link: '//google.com',
-      finishedLink: '<a href="//google.com" target="_blank">Google</a>'
-    },
-    methods: {
-    	changeTitle: function(e) {
-      	this.title = e.target.value;
-      },
-      sayHello: function() {
-        this.title = 'Hello!';
-        return this.title;
-      }
-    }
-  });
-</script>
+<script src='app.js'></script>
 
 
 </body>
