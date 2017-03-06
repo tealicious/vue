@@ -1,0 +1,43 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel='stylesheet' href='css/styles.css' />
+</head>
+
+<body>
+<!-- <div class='container' id='app'>
+ <button class='btn btn-primary' v-on:click='increase'>+</button>
+ <button class='btn btn-info' v-on:click='decrease'>-</button>
+ <h2>Counter: {{ counter }}</h2>
+ <h2>Result:</h2>
+ <p>
+   {{ result }}
+ </p>
+</div> -->
+
+<div class='container' id='app'>
+  <h2>
+    First Counter: {{ counter }}
+  </h2>
+  <button class='btn btn-primary' @click='counter++'>+</button>
+  <button class='btn btn-info' @click='counter--'>-</button>
+  <h2>
+    Second Counter: {{ secondCounter }}
+  </h2>
+ <button class='btn btn-primary' @click='secondCounter++'>+</button>
+ <button class='btn btn-info' @click='secondCounter--'>-</button>
+  <h2>Result:</h2>
+  <p>
+    {{ clickResult()}}
+    <br />
+    {{ output }}
+  </p>
+</div>
+
+
+<script src='js/vue.js'></script>
+<script src='js/computedMethods.js'></script>
+
+
+</body>
+</html>

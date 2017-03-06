@@ -3,6 +3,7 @@ new Vue({
   data: {
     title: 'Hello World!',
     link: '//google.com',
+    linkTitle: 'Google.com',
     finishedLink: '<a href="//google.com" target="_blank">Google</a>',
     counter: 0,
     counter2:0,
@@ -16,6 +17,15 @@ new Vue({
     output: function() {
       console.log('computed');
       return this.counter2 > 5 ? 'more than 5' : 'less than 5';
+    }
+  },
+  watch: {
+    // watching the counter variable for change then performing a function (in this case a timeout)
+    counter: function(value) {
+      var vm = this;
+      setTimeout(function() {
+        vm.counter = 0;
+      }, 2000)
     }
   },
   methods: {
@@ -46,6 +56,15 @@ new Vue({
     // }
     alertMe: function(e) {
       alert(e.target.value);
+    },
+    changeLink: function() {
+      if (this.link == '//google.com') {
+        this.link = '//apple.com';
+        this.linkTitle = 'Apple.com';
+      } else {
+        this.link = '//gsoogle.com';
+        this.linkTitle = 'Google.com';
+      }
     }
   }
 });

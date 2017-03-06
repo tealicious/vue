@@ -1,0 +1,37 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel='stylesheet' href='css/styles.css' />
+</head>
+
+<body>
+
+<div>
+  <p>
+    without explicitly stating this, the object of this lesson was to illustrate the relational chain between a computed method and the watch command. When 'watch()' changes our value to 0 five seconds after the initial input, the 'output()' method, which is also tied to any changes on the data object 'value', returns its else statement (since 0 != 37)
+  </p>
+</div>
+
+<div id="exercise">
+    <!-- 1) Show a "result" of 'not there yet' as long as "value" is not equal to 37 - you can change "value" with the buttons. Print 'done' once you did it -->
+
+    <!-- 2) Watch for changes in the "result" and reset the "value" after 5 seconds (hint: setTimeout(..., 5000) -->
+
+    <div>
+        <h2>
+          Current Value: {{ value }}
+        </h2>
+        <button class='btn btn-primary' @click="value += 5">+ 5</button>
+        <button class='btn btn-info' @click="value++">+ 1</button>
+        <button class='btn btn-warning' @click="value--">- 1</button>
+        <p>{{ output }}</p>
+    </div>
+
+</div>
+
+<script src='js/vue.js'></script>
+<script src='js/exercise3.js'></script>
+
+
+</body>
+</html>
