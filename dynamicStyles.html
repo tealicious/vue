@@ -8,14 +8,49 @@
 <body>
 
 <div id='app'>
-  <div
-  class='demo'
-  @click="attachRed = !attachRed"
-  :class="{red: attachRed}"></div>
-  <div class='demo'
-  :class="{red: attachRed}"></div>
-  <div class='demo'
-  :class="{red: attachRed}"></div>
+
+  <!-- dynamic styles with classes -->
+
+  <div class='wrapper'>
+    <div
+    class='demo'
+    @click="attachRed = !attachRed"
+    :class="{red: attachRed, blue: !attachRed}"></div>
+    <!-- same divs, but below we are putting the dynamic color statements into a computed method and calling them instead of leaving them on the dom -->
+    <div
+    class='demo'
+    @click="attachRed = !attachRed"
+    :class="divClassesRed"></div>
+    <div
+    class='demo'
+    @click="attachBlue = !attachBlue"
+    :class="divClassesBlue"></div>
+    <div
+    class='demo'
+    @click="attachGreen = !attachGreen"
+    :class="divClassesGreen"></div>
+    <div
+    class='demo'
+    :class="[color, {red: attachRed}]"
+    style='margin-left:auto;
+    margin-right:auto;'></div>
+  </div>
+
+  <hr />
+  <input type='text' v-model='color' />
+
+  <!-- dynamic styles without classes -->
+
+  <div class='wrapper2'>
+    <div class='demo2' :Style='{backgroundColor: color2}'></div>
+    <div class='demo2' :style='myStyle'></div>
+    <div class='demo2' :style='[myStyle, {height: width + "vmin"}]'></div>
+  </div>
+
+  <hr />
+  <input type='text' v-model='color2' />
+  <input style='margin-top:1rem' type='text' v-model='width' />
+  <input style='margin-top:1rem' type='range' v-model='width' />
 </div>
 
 

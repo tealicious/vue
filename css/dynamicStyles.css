@@ -8,24 +8,41 @@ body,html {
 
 #app {
   display:flex;
+  flex-flow:column nowrap;
+  justify-content:flex-start;
+  align-items:center;
+  height:auto;
+}
+
+.wrapper, .wrapper2 {
+  display:flex;
   flex-flow:row wrap;
   justify-content:space-around;
+  align-items:flex-start;
+  width:50%;
+  padding-top:5rem;
+}
+
+.wrapper2 {
+  flex-flow:column nowrap;
   align-items:center;
-  height:100%;
-  width:100%;
-  //cursor:pointer;
 }
 
-.demo {
-  width:20vmin;
-  height:20vmin;
+.demo, .demo2 {
+  width:22vmin;
+  height:22vmin;
   background:slategray;
+  margin:0 0 2vmin 0;
+  cursor:pointer;
 }
 
-.demo:first-of-type {
-    cursor:pointer;
-}
 
 .red {background:firebrick;}
 .green {background:teal;}
 .blue {background:slateblue;}
+
+input {
+  margin:1rem;
+  align-self:center;
+  text-align:center;
+}
