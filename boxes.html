@@ -1,0 +1,103 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel='stylesheet' href='css/styles.css' />
+  <link rel='stylesheet' href='css/dynamicStyles.css' />
+</head>
+
+<body>
+
+<div id='app'>
+
+  <!-- dynamic styles with classes -->
+
+  <div class='wrapper'>
+    <div class='demo'
+
+    @click='colorToggle = !colorToggle'
+    :class='{"red": colorToggle}'>
+<!-- REMEMBER: all initial data objects are set to FALSE -->
+<!-- @click (colorToggle : false) = (colorToggle! or colorToggle = true) -->
+<!-- v-bind:class is set to '.red' when (colorToggle == true) aka !colorToggle-->
+    </div>
+    <div class='demo'
+
+    @click='colorToggle = !colorToggle'
+    :class='{"blue": colorToggle}'>
+    </div>
+<!-- different color classes set to change when the colorToggle data object's truth changes -->
+    <div class='demo'
+
+    @click='colorToggle = !colorToggle'
+    :class='{"green": colorToggle}'>
+    </div>
+
+
+<!-- Same concept as above, but we are calling the v-bind:class attribute from our computed methods instead of creating a function in the DOM -->
+    <div class='demo'
+    @click='colorToggle = !colorToggle'
+    :class='divClassRed'><!--rendered from the Computed Methods-->
+    </div>
+    <div class='demo'
+    @click='colorToggle = !colorToggle'
+    :class='divClassBlue'><!--rendered from the Computed Methods-->
+    </div>
+    <div class='demo'
+    @click='colorToggle = !colorToggle'
+    :class='divClassGreen'><!--rendered from the Computed Methods-->
+    </div>
+  </div>
+
+  <hr />
+  <p style='margin:0;'>type a created class to get color</p>
+  <input type='text' v-model='color' />
+  <div class='wrapper' style='padding-top:0;'>
+    <div class='demo'
+    :class='[color, {"red":colorToggle}]'>
+<!--rendered from the Color data property we have attached to the input below-->
+<!-- array syntax lets us set a class to default to if the first object in the array is not being used -->
+<!--NOTE: don't use parenthesis on the data objects when v-binding -->
+    </div>
+  </div>
+
+  <hr />
+<!-- dynamic styles without classes -->
+  <p style='margin:0;'>type a color declaration to get color</p>
+  <input type='text' v-model='inlineColor' />
+  <div class='wrapper' style='padding-top:0;'>
+    <div class='demo'
+    :style={"background-color":inlineColor}>
+<!-- using v-bind directly on the inline style element to call to the inlineColor data object-->
+    </div>
+    <div class='demo'
+    :style="myColorStyle">
+<!-- using computed property of myColorStyle to perform color on input instead of the above inline method -->
+    </div>
+  </div>
+
+  <hr />
+  <p style='margin:0;'>type a width unit to get width</p>
+  <input type='text' v-model='width' />
+<!-- both inputs are bound to the width data object, so at it changes from one inut, the other is updated in-sync -->
+  <input type='range' v-model='width' min='0' max='100' />
+  <div class='wrapper' style='padding-top:0; width:100%;'>
+    <div class='demo'
+    :style="myWidthStyle">
+<!-- using computed property of myWidthStyle to perform width change on input instead of the above inline method -->
+    </div>
+  </div>
+
+
+  <div class='wrapper2'>
+  </div>
+
+  <hr />
+</div>
+
+
+<script src='js/vue.js'></script>
+<script src='js/boxes.js'></script>
+
+
+</body>
+</html>
