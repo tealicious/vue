@@ -45,4 +45,5 @@ input {
   margin:1rem;
   align-self:center;
   text-align:center;
+  min-width:200px;
 }

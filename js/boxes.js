@@ -29,7 +29,6 @@ new Vue({
     },
     myWidthStyle: function() {
       return {
-        backgroundColor: this.inlineColor,
         width: this.width + 'vmin'
       };
     }

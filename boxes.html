@@ -49,7 +49,7 @@
   </div>
 
   <hr />
-  <p style='margin:0;'>type a created class to get color</p>
+  <p style='margin:0;'>type a created class to change color</p>
   <input type='text' v-model='color' />
   <div class='wrapper' style='padding-top:0;'>
     <div class='demo'
@@ -62,7 +62,7 @@
 
   <hr />
 <!-- dynamic styles without classes -->
-  <p style='margin:0;'>type a color declaration to get color</p>
+  <p style='margin:0;'>type any color declaration to change color</p>
   <input type='text' v-model='inlineColor' />
   <div class='wrapper' style='padding-top:0;'>
     <div class='demo'
@@ -76,7 +76,7 @@
   </div>
 
   <hr />
-  <p style='margin:0;'>type a width unit to get width</p>
+  <p style='margin:0;'>type a width unit, or use slider to change width</p>
   <input type='text' v-model='width' />
 <!-- both inputs are bound to the width data object, so at it changes from one inut, the other is updated in-sync -->
   <input type='range' v-model='width' min='0' max='100' />
@@ -84,6 +84,15 @@
     <div class='demo'
     :style="myWidthStyle">
 <!-- using computed property of myWidthStyle to perform width change on input instead of the above inline method -->
+    </div>
+  </div>
+
+  <hr />
+  <p style='margin-bottom:2rem'>this box is effected by BOTH color and width inputs, as well as a third inline method pairing the div height to the width data object</p>
+  <div class='wrapper' style='padding-top:0; width:100%;'>
+    <div class='demo'
+    :style="[myColorStyle, myWidthStyle, {height: width + 'vmin'}]">
+<!-- using array syntax, this div's style is bound to both computed properties myWidthStyle, and myColorStyle, as well as a third inline method -->
     </div>
   </div>
 
