@@ -1,6 +1,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel='stylesheet' href='css/material.min.css' />
   <link rel='stylesheet' href='css/styles.css' />
   <link rel='stylesheet' href='css/exercise4.css' />
 </head>
@@ -10,35 +11,53 @@
 <div id="exercise">
   <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
   <div>
-    <button class='btn btn-primary'
+    <button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'
     @click="startEffect">Start Effect</button>
-    <div id="effect" :class='startEffect'></div>
+    <div id="effect" v-bind:class="effectClasses" class='demo-card-square mdl-card mdl-shadow--2dp'></div>
   </div>
   <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
-  <div>I got no class :(</div>
+  <p :class="['margins', 'centering']">{{happyP}}</p>
   <!-- 3) Let the user enter a class (create some example classes) and attach it -->
   <div>
-    <input type="text">
-    <div></div>
+    <div class="mdl-textfield mdl-js-textfield">
+      <input v-model='color' class="mdl-textfield__input" type="text">
+      <label class="mdl-textfield__label" for="sample1">enter a class here...</label>
+    </div>
+    <div :class="[{visible:true}, color]" class='demo-card-square mdl-card mdl-shadow--2dp' >
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+        <i class="material-icons">+</i>
+      </button>
+    </div>
   </div>
   <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
   <div>
-    <input type="text">
-    <input type="text">
-    <div></div>
+    <div class="mdl-textfield mdl-js-textfield">
+      <input class="mdl-textfield__input" type="text">
+      <label class="mdl-textfield__label" for="sample1">enter a class here...</label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield">
+      <input class="mdl-textfield__input" type="text">
+      <label class="mdl-textfield__label" for="sample1">class on or off...</label>
+    </div>
+    <div class='demo-card-square mdl-card mdl-shadow--2dp'>
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+        <i class="material-icons">+</i>
+      </button>
+    </div>
   </div>
   <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
   <div>
-    <input type="text">
+    <input class="mdl-textfield__input" type="text">
     <div></div>
   </div>
   <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
   <div>
-    <button class='btn btn-primary' v-on:click="startProgress">Start Progress</button>
+    <button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' v-on:click="startProgress">Start Progress</button>
     <div></div>
   </div>
 </div>
 
+<script src='js/material.min.js'></script>
 <script src='js/vue.js'></script>
 <script src='js/exercise4.js'></script>
 
