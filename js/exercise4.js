@@ -1,21 +1,24 @@
 new Vue({
   el: '#exercise',
   data: {
-    attachShrink    : false,
-    attachHighlight : false
+    effectClasses: {
+      highlight : false,
+      shrink    : true
+    },
+    happyP      :'Now I have classes!',
+    color       :'' 
   },
   methods: {
     startEffect: function() {
-        return {
-          shrink: this.attachShrink,
-          highlight: !this.attachShrink
-        };
-        setInterval(function(){
-          this.attachShrink
-        }, 3000);
-        setInterval(function(){
-          !this.attachShrink
-        }, 1500);
+      var vm = this;
+      vm.effectClasses.highlight  = !vm.effectClasses.highlight;
+      vm.effectClasses.shrink     = !vm.effectClasses.shrink;
+      setInterval(function() {
+        vm.effectClasses.highlight  = !vm.effectClasses.highlight;
+        vm.effectClasses.shrink     = !vm.effectClasses.shrink;
+      }, 1500)
+    },
+    startProgress: function() {
     }
   }
 });
