@@ -10,13 +10,13 @@ margin:5rem auto;}
 }
 
 .highlight {
-  background-color: firebrick;
+  background-color: rgb(233, 30, 99);
   width: 200px !important;
   transition:all .4s ease;
 }
 
 .shrink {
-  background-color: slategray;
+  background-color: rgb(33,150,243);
   width: 50px !important;
   transition:all .4s ease;
 }
@@ -25,6 +25,17 @@ margin:5rem auto;}
   margin-left:50%;
   transform:translateX(-50%);
   margin-bottom:4rem;
+  margin-top:4rem;
+}
+
+.mdl-card {
+  justify-content:center;
+}
+
+.mdl-button--fab {
+  align-self:center;
+  margin:0;
+  transform:translate(0, 0);
 }
 
 .margins {
@@ -34,7 +45,7 @@ margin:5rem auto;}
 .centering {
   text-align:center;
 }
-.mdl-textfield{
+.mdl-textfield, .mdl-checkbox{
   width:80%;
   margin:1rem 0 1rem 50%;;
   transform:translateX(-50%);
@@ -52,6 +63,7 @@ margin:5rem auto;}
 
 .mdl-card {
   margin:auto;
+  opacity:0;
 }
 
 .blue {

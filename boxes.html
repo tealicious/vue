@@ -78,8 +78,8 @@
   <hr />
   <p style='margin:0;'>type a width unit, or use slider to change width</p>
   <input type='text' v-model='width' />
-<!-- both inputs are bound to the width data object, so at it changes from one inut, the other is updated in-sync -->
-  <input type='range' v-model='width' min='0' max='100' />
+<!-- both inputs are bound to the width data object, so at it changes from one input, the other is updated in-sync -->
+  <input class="mdl-slider mdl-js-slider" type='range' v-model='width' min='0' max='100' />
   <div class='wrapper' style='padding-top:0; width:100%;'>
     <div class='demo'
     :style="myWidthStyle">

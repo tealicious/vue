@@ -13,42 +13,67 @@
   <div>
     <button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'
     @click="startEffect">Start Effect</button>
-    <div id="effect" v-bind:class="effectClasses" class='demo-card-square mdl-card mdl-shadow--2dp'></div>
+    <div id="effect" v-bind:class="['visible', effectClasses]" class='demo-card-square mdl-card mdl-shadow--2dp'></div>
   </div>
-  <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
-  <p :class="['margins', 'centering']">{{happyP}}</p>
+  <!-- 2) Create a couple of CSS classes and attach them via the array syntax
+
+  without quotes, we are refernecing a data object, with them we are directly referencing a created class-->
+  <p :class="[margins, 'centering', ]">{{happyP}}</p>
   <!-- 3) Let the user enter a class (create some example classes) and attach it -->
   <div>
-    <div class="mdl-textfield mdl-js-textfield">
-      <input v-model='color' class="mdl-textfield__input" type="text">
-      <label class="mdl-textfield__label" for="sample1">enter a class here...</label>
-    </div>
     <div :class="[{visible:true}, color]" class='demo-card-square mdl-card mdl-shadow--2dp' >
       <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
         <i class="material-icons">+</i>
       </button>
     </div>
+    <div class="mdl-textfield mdl-js-textfield">
+      <input v-model='color' class="mdl-textfield__input" type="text">
+      <label class="mdl-textfield__label" for="sample1">enter an existing class here...</label>
+    </div>
   </div>
   <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
   <div>
-    <div class="mdl-textfield mdl-js-textfield">
-      <input class="mdl-textfield__input" type="text">
-      <label class="mdl-textfield__label" for="sample1">enter a class here...</label>
-    </div>
-    <div class="mdl-textfield mdl-js-textfield">
-      <input class="mdl-textfield__input" type="text">
-      <label class="mdl-textfield__label" for="sample1">class on or off...</label>
-    </div>
-    <div class='demo-card-square mdl-card mdl-shadow--2dp'>
+    <div :class="[{visible:visible}, color]" class='demo-card-square mdl-card mdl-shadow--2dp'>
       <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
         <i class="material-icons">+</i>
       </button>
     </div>
+    <div class="mdl-textfield mdl-js-textfield">
+      <input v-model='color' class="mdl-textfield__input" type="text">
+      <label class="mdl-textfield__label" for="sample1" >enter an existng class here...</label>
+    </div>
+    <!--
+    <div class="mdl-textfield mdl-js-textfield">
+      <input class="mdl-textfield__input" type="text" >
+      <label class="mdl-textfield__label" for="sample1">class on or off...</label>
+      all strings are interpretted as true when paired to boolean data objects so entering any text in this field sets it to true while removing it sets it to false
+    </div>
+    -->
+    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+      <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" v-model='visible'>
+      <span class="mdl-checkbox__label">visible classes on or off</span>
+    </label>
   </div>
   <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
   <div>
-    <input class="mdl-textfield__input" type="text">
-    <div></div>
+    <div>
+      <div :style='myStylesComputed' class='demo-card-square mdl-card mdl-shadow--2dp'>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+          <i class="material-icons">+</i>
+        </button>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input v-model='myStyles.width' class="mdl-textfield__input" type="text">
+        <label class="mdl-textfield__label" for="sample1" >width</label>
+      </div>
+      <input class="mdl-slider mdl-js-slider" type='range' v-model='myStyles.width' min='30' max='100' />
+
+      <div class="mdl-textfield mdl-js-textfield">
+        <input v-model='myStyles.height' class="mdl-textfield__input" type="text">
+        <label class="mdl-textfield__label" for="sample1" >height</label>
+      </div>
+      <input class="mdl-slider mdl-js-slider" type='range' v-model='myStyles.height' min='150' max='300' />
+    </div>
   </div>
   <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
   <div>
