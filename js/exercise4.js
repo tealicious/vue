@@ -16,7 +16,11 @@ new Vue({
       height: 300,
       backgroundColor: 'rgb(33,150,243)',
       opacity: 1
-    }
+    },
+    progressBar: {
+      width: 0
+    },
+    toggle: false
   },
   methods: {
     startEffect: function() {
@@ -26,9 +30,15 @@ new Vue({
       setInterval(function() {
         vm.effectClasses.highlight  = !vm.effectClasses.highlight;
         vm.effectClasses.shrink     = !vm.effectClasses.shrink;
-      }, 1500)
+      }, 1500);
     },
     startProgress: function() {
+       vm = this;
+       var width  = 0;
+        setInterval(function() {
+          width += 2;
+          vm.progressBar.width = width + '%';
+        },500);
     }
   },
   computed: {

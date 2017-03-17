@@ -72,13 +72,14 @@
         <input v-model='myStyles.height' class="mdl-textfield__input" type="text">
         <label class="mdl-textfield__label" for="sample1" >height</label>
       </div>
-      <input class="mdl-slider mdl-js-slider" type='range' v-model='myStyles.height' min='150' max='300' />
+      <input class="mdl-slider mdl-js-slider" type='range' v-model='myStyles.height' min='200' max='300' />
     </div>
   </div>
   <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
   <div>
-    <button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' v-on:click="startProgress">Start Progress</button>
-    <div></div>
+    <button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' @click="startProgress">Start Progress</button>
+    <div :class="['progress-bar']" v-bind:style='progressBar'></div>
+    <!-- <input class="mdl-slider mdl-js-slider" type='range' v-model='myStyles.height' min='200' max='300' /> -->
   </div>
 </div>
 
