@@ -1,0 +1,63 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel='stylesheet' href='css/material.min.css' />
+  <link rel='stylesheet' href='css/styles.css' />
+  <link rel='stylesheet' href='css/dynamicStyles.css' />
+</head>
+<body>
+
+
+	<div id="app">
+		<ul>
+      <li v-for="ingredient in ingredients">{{ ingredient }}</li>
+    </ul>
+    <ul>
+      <!-- get the index positon from an array -->
+      <li v-for="(ingredient, i) in ingredients">{{ ingredient }} ({{ (i + 1) }})
+      </li>
+    </ul>
+      <!-- templating to recreate lists -->
+    <template v-for="(ingredient, index) in ingredients">
+      <h1> {{ ingredient }} </h1>
+      <p> {{ index }} </p>
+    </template>
+    <!-- accessing array items with dot notation -->
+    <ul v-for="person in persons">
+      <li>{{ person.name }}</li>
+      <li>{{ person.age }}</li>
+      <li>{{ person.color }}</li>
+    </ul>
+    <!-- shorthand for above; looping through and displaying all values inside an array -->
+    <ul v-for="person in persons">
+      <li v-for="value in person">{{ value }}</li>
+    </ul>
+    <!-- extracting all parts of array object -->
+    <ul v-for="person in persons">
+      <li v-for="(value, key, index) in person">{{ hey }}: {{ value }} ({{  (index + 1) }})</li>
+    </ul>
+    <!-- list of numbers -->
+    <ul v-for="n in 10">
+      <li> {{n}} </li>
+    </ul>
+
+<hr />
+<hr />
+
+<!-- pushing to an array -->
+<!-- use :key to bind data to vue instance so that if any data is changed through 2-way binding,all values of the array are also updated -->
+<button @click='foods.push("spaghetti")'>
+  mom's spaghetti
+</button>
+<ul>
+  <li v-for="(food, i) in foods" :key='food'>{{ food }}{{ (i + 1) }}</li>
+</ul>
+
+	</div>
+
+
+<script src='js/vue.js'></script>
+<script src='js/lists.js'></script>
+<script src='js/material.min.js'></script>
+</body>
+</html>

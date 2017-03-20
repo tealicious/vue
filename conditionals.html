@@ -18,7 +18,8 @@
 		<template v-if="!show">
 			<p>tape dese nuts to yo chin</p>
 		</template>
-		<p>
+    <!-- hiding/showing is so common it gets its own if-statemnet: v-show is a simpler way of doing hide/show toggle states instead of using v-if binding. v-show adds display:none while using the 'show' data property will remove and append to the dom entirely on toggle -->
+		<p v-show="show">
 			Do you also see me?
 		</p>
 		<button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'
