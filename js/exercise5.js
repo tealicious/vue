@@ -1,5 +1,5 @@
 new Vue({
-  el: '#exercise',
+  el: '#app',
   data: {
     array: ['Max', 'Anna', 'Chris', 'Manu'],
     myObject: {
@@ -8,9 +8,10 @@ new Vue({
       books: '3'
     },
     testData: {
-      name: 'TESTOBJECT', 
+      name: 'TESTOBJECT',
       id: 10,
       data: [1.67, 1.33, 0.98, 2.21]
-    }
+    },
+    show: true
   }
 });

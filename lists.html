@@ -34,7 +34,8 @@
     </ul>
     <!-- extracting all parts of array object -->
     <ul v-for="person in persons">
-      <li v-for="(value, key, index) in person">{{ hey }}: {{ value }} ({{  (index + 1) }})</li>
+      <!-- order sets what is displayed, these could be namned anything -->
+      <li v-for="(value, key, index) in person">{{ key }}: {{ value }} ({{  (index + 1) }})</li>
     </ul>
     <!-- list of numbers -->
     <ul v-for="n in 10">
