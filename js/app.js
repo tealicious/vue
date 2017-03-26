@@ -62,7 +62,7 @@ new Vue({
         this.link = '//apple.com';
         this.linkTitle = 'Apple.com';
       } else {
-        this.link = '//gsoogle.com';
+        this.link = '//google.com';
         this.linkTitle = 'Google.com';
       }
     }
