@@ -6,3 +6,7 @@ cd vue-cli
 npm-install
 (run localhost and project dependencies)
 npm run dev
+
+add this to package.json for sass support:
+
+"vue-style-loader": "^2.0.5"
