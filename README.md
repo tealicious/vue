@@ -8,7 +8,7 @@ vue init webpack-simple vue-cli
 
 cd vue-cli
 
-npm-install
+npm install
 
 (run localhost and project dependencies)
 
