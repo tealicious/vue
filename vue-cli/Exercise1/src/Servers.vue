@@ -1,6 +1,6 @@
 <template>
   <div>
-      <single-server-status v-for="server in 5"></single-server-status>
+    <single-server-status v-for="server in 5"></single-server-status>
   </div>
 </template>
 

@@ -10,13 +10,7 @@
         <hr>
         <div class="row">
             <div class="col-xs-12 col-sm-6">
-                <ul class="list-group">
-                    <li
-                            class="list-group-item"
-                            v-for="index in 5">
-                         Server #{{ index }}
-                    </li>
-                </ul>
+              <server-count></server-count>
             </div>
             <div class="col-xs-12 col-sm-6">
               <server-status></server-status>
@@ -35,9 +29,11 @@
 
 <script>
 import ServerStatus from './Servers.vue'
+import ServerCount from './ServerCount.vue'
 export default {
   components: {
-    'server-status': ServerStatus
+    'server-status': ServerStatus,
+    'server-count': ServerCount
   }
 }
 </script>
