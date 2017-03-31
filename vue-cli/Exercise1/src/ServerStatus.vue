@@ -1,7 +1,7 @@
 <template>
-  <ul class="list-group">
+  <div>
     <li class="list-group-item" @click="updateServer">{{serverStatus}}</li>
-  </ul>
+  </div>
 </template>
 
 <script>

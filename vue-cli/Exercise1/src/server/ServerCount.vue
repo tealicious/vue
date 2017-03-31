@@ -7,3 +7,10 @@
       </li>
 </div>
 </template>
+
+
+<style scoped>
+.list-group-item {
+  border: 1px solid slateblue;
+}
+</style>
