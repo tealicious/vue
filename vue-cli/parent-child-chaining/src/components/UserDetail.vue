@@ -10,7 +10,11 @@
 
 <script>
 export default {
-  props: ['passedName'],
+  //props: ['passedName'],
+  props: {
+    passedName: [String, Array]
+    // place props in an object to create validation (so that passing an incorrect data type doesn't prevent the rest of the instance from rendering)
+  },
   // we are saying the property 'passedName' can be changed from outside the template
   // props name must match name used in template
   methods: {
