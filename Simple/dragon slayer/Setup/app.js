@@ -30,7 +30,7 @@ var vm = new Vue({
         newThis.playerHealth -= playerDamage;
         newThis.turns.unshift({
           isPlayer: false,
-          text: 'Dragon hits player for ' + playerDamage
+          text: 'Dragon retaliates for ' + playerDamage
         });
       }, 150);
     },
@@ -39,7 +39,7 @@ var vm = new Vue({
       this.dragonHealth -= damage;
       this.turns.unshift({
         isPlayer: true,
-        text: 'Player hits Monster for ' + damage
+        text: 'Player hits Monster hard for ' + damage
       });
       this.checkWin();
       var newThis = this;
@@ -48,10 +48,9 @@ var vm = new Vue({
         newThis.playerHealth -= playerDamage;
         newThis.turns.unshift({
           isPlayer: false,
-          text: 'Dragon hits player for ' + playerDamage
+          text: 'Dragon retaliates for ' + playerDamage
         });
       }, 150);
-
     },
     heal: function() {
       var healing = this.calculateHealing(5, 15);
