@@ -8,10 +8,10 @@ var vm = new Vue({
   },
   methods: {
     startGame: function() {
-      this.turns = [];
       this.gameIsRunning = true;
       var newThis = this;
       setTimeout(function(){
+        newThis.turns = [];
         newThis.playerHealth = 100;
         newThis.dragonHealth = 100;
       }, 500);
