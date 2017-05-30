@@ -29,15 +29,4 @@
 
 <style>
 
-.list-group-item {
-  display:flex;
-  flex-flow:row wrap;
-  justify-content:space-between;
-  align-items:center;
-  cursor:pointer;
-}
-p {
-  margin-bottom:0;
-}
-
 </style>

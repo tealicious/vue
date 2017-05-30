@@ -1,16 +1,17 @@
 <template>
   <div id="server">
-    <p>Server Status: {{ serverStatus }}</p>
-    <button @click="toggleStatus()">Change</button>
+    <div>
+      <p>Server Status: {{ serverStatus }}</p>
+      <button @click="toggleStatus()">Change</button>
+    </div>
   </div>
 </template>
 
 <script>
-import { eventBus } from './main';
 export default {
   data: function() {
     return {
-      status : 'Critical',
+      //status : 'Critical',
       statusToggle: false
     };
   },
@@ -23,14 +24,8 @@ export default {
       } else {
         this.serverStatus = 'Critical'
       }
-      //this.$emit('serverDetailChanged', this.serverStatus)
-      eventBus.$emit('serverDetailChanged', this.serverStatus)
+      this.$emit('serverDetailChanged', this.serverStatus)
     }
-  },
-  created() {
-    eventBus.$on('serverDetailChanged', (status) => {
-      this.serverStatus = status;
-    });
   }
 }
 </script>
@@ -38,12 +33,15 @@ export default {
 <style lang="scss">
 #server {
   display:flex;
-  flex-flow:row nowrap;
+  flex-flow:row wrap;
   justify-content:space-around;
   align-items:center;
   width:100%;
   button {
     order:-1;
+  }
+  > div {
+    width:100%;
   }
 }
 </style>

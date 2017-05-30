@@ -4,17 +4,17 @@
       <img class='vue-shadow' src="./assets/logo.png">
     </div>
     <br />
-    <div>
+    <h2>chaining through parent</h2>
+    <div v-for="server in 2">
       <server-status
       :serverStatus='status'
       @serverDetailChanged="status = $event"
       ></server-status>
       <br />
     </div>
-    <div>
-      <server-status
-      :serverStatus='status'
-      ></server-status>
+    <h2>eventbus</h2>
+    <div v-for="server in 2">
+      <server-bus></server-bus>
       <br />
     </div>
   </div>
@@ -22,6 +22,7 @@
 
 <script>
 import Server from './Server.vue'
+import Serverbus from './ServerBus.vue'
 export default {
   data: function() {
     return {
@@ -37,7 +38,8 @@ export default {
     }
   },
   components: {
-    'server-status': Server
+    'server-status': Server,
+    'server-bus': Serverbus
   }
 }
 </script>
@@ -48,9 +50,9 @@ export default {
   display:flex;
   flex-flow:column wrap;
   justify-content:flex-start;
-  align-items:center;
+  //align-items:center;
   width:100%;
-  height:100vh;
+  min-height:100vh;
   .center-content {
     margin-top:4rem;
     img {

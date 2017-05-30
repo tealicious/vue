@@ -1,16 +1,9 @@
 <template>
     <div class="col-xs-12 col-sm-6">
         <ul class="list-group">
-            <li
-                class="list-group-item"
-                v-for="server in servers">
-                <p class='number'>
-                  Server #{{ server.id }}
-                </p>
-                <p class='status'>
-                  {{ server.status }}
-                </p>
-            </li>
+            <app-server
+            v-for="server in servers"
+            :server="server"></app-server>
         </ul>
     </div>
 </template>
@@ -21,6 +14,7 @@
 
 
   import { eventBus } from '../../main'; //move up 2 directories to find main.js
+  import Server from './Server.vue';
 
   export default {
     data: function() {
@@ -32,6 +26,9 @@
           { id: 4, status: 'Normal'},
         ]
       };
+    },
+    components: {
+      appServer: Server
     }
   }
 </script>
