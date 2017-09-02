@@ -7,12 +7,12 @@
 </template>
 
 <script>
-  import { eventBus } from '../../main';  
+  import { eventBus } from '../../main';
   export default {
     props: ['server'],
     methods: {
       selectServer() {
-        eventBus.$emit('selectServer', this.server)
+        eventBus.$emit('selectServer', this.server);
       }
     }
   }
