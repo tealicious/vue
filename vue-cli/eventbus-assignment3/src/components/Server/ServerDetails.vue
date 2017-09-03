@@ -10,6 +10,8 @@
             @click="makeUnknown"></button>
             <button class='critical'
             @click="makeCritical"></button>
+            <button class='clear'
+            @click="clearServer"></button>
         </li>
     </div>
 
@@ -25,11 +27,16 @@ export default {
   },
   created() {
     eventBus.$on('shareServer', (server)=>{
-       this.server = server;
+      if(server.isActive){
+         this.server = server;
+      } else {
+         this.server = null;
+      }
     });
   },
   methods: {
     clearServer() {
+      this.server.isActive = false;
       this.server = null;
     },
     makeNormal() {
@@ -61,6 +68,9 @@ export default {
 }
 .unknown {
   background-color:#f0ad4e;
+}
+.clear {
+  background-color:white;
 }
 button {
   width:15px;

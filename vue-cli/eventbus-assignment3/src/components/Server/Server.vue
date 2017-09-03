@@ -12,10 +12,14 @@ export default {
   props: ['server', 'servers'],
   methods: {
     shareServer() {
-      this.servers.forEach(function(server){
-        server.isActive = false;
-      });
-      this.server.isActive = true;
+      if(this.server.isActive) {
+        this.server.isActive = false;
+      } else {
+        this.servers.forEach(function(server){
+          server.isActive = false;
+        });
+        this.server.isActive = !this.server.isActive;
+      }
       eventBus.$emit('shareServer', this.server);
     }
   }
