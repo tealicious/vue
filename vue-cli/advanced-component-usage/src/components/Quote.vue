@@ -1,18 +1,36 @@
 <template>
-  <div>
-
-  </div>
+    <div class='wrap'>
+        <div class='title'>
+            <slot name='title'>I will get overridden when the parent provides content</slot>
+            <span style='color:#ccc;'><slot name='subtitle'>override</slot></span>
+        </div>
+        <div class='content'>
+            <slot name='content'>I will get overridden when the parent provides content</slot>
+            <slot>I will get overridden when the parent provides content</slot>
+            <p>I am a very fine, native quote!</p>
+        </div>
+    </div>
 </template>
+
 <script>
-  export default {
-  }
+    export default {
+    }
 </script>
 <style scoped>
-  div {
-    border: 1px solid #ccc;
-    box-shadow: 1px 1px 2px black;
-    padding:30px;
-    margin:30px auto;
+div.wrap{
+    margin:auto;
+    border:2px solid lightgray;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-flow:column nowrap;
     text-align:center;
-  }
+}
+p {
+    margin:1rem 0;
+}
+.title {
+    font-style: italic;
+    color:firebrick;
+}
 </style>
