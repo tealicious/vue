@@ -87,7 +87,7 @@ import FullName from './FullName.vue';
         data: function() {
             return {
                 user: {
-                    fullName: '',
+                    fullName: 'Jon Doe',
                     email: '',
                     password:'',
                     storeDataPreference: 'No'
