@@ -34,7 +34,7 @@
                   </div>
                   <div class='form-group'>
                     <label for="password">Password</label>
-                    <input required id="password" class="form-control" type="text"
+                    <input required id="password" class="form-control" type="password"
                     v-model="user.password"/>
                   </div>
                   <div class='form-group'>
