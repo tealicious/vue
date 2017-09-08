@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-Vue.filter('to-lowercase', function(value) {
-    return value.toLowerCase();
+Vue.filter('appendNumChar', function(value) {
+  var length = value.length.toString();
+  var newString = value + " (" + length + ")";
+  return newString;
 });
 
 Vue.mixin({
