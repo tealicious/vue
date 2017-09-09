@@ -4,12 +4,13 @@
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <h1>Animations</h1>
                 <hr />
-                <button @click="showAlerts" class='btn btn-primary'>Show Native Alerts</button>
-                <button @click="showComponentAlerts" class='btn btn-warning'>Show Component Alerts</button>
+                <button @click="showComponentAlerts" class='btn btn-primary'>Show Component Alerts</button>
+                <button @click="showAlerts" class='btn btn-warning'>Show Native Alerts</button>
                 <br />
-                <br />
+                <hr />
                 <app-alert
-                :toggles = "toggles"
+                :dismissToggle = "dismissToggle"
+                :countAlerts = "countAlerts"
                 :alerts = "alerts"
                 v-for="alert in alerts"
                 :alert = "alert">
@@ -22,9 +23,16 @@
                            :class="alert.type"
                             >
                           {{ alert.animation }}
-                          <button type="button" class="close" @click="alert.toggle = !alert.toggle"
+                          <button type="button" class="close" @click="alert.toggle = !alert.toggle; countAlerts()"
                           >&times;</button>
                       </div>
+                </transition>
+                <transition name="fade">
+                    <div v-if="dismissToggle">
+                        <hr  />
+                        <button
+                        @click="dismissAlerts" class='btn btn-danger'>Dismiss All Alerts</button>
+                    </div>
                 </transition>
             </div>
         </div>
@@ -36,15 +44,17 @@
     export default {
         data() {
             return {
+                dismissToggle: false,
+                count:0,
                 nativeAlerts: [
-                    {id: 1, animation: "fade", toggle: false, type: "alert-warning"},
-                    {id: 2, animation: "slide-right", toggle: false, type: "alert-danger"},
+                    {id: 1, animation: "fade", toggle: false, type: "alert-info"},
+                    {id: 2, animation: "slide-right", toggle: false, type: "alert-warning"},
                     {id: 3, animation: "slide-left", toggle: false, type: "alert-info"}
                 ],
                 alerts: [
-                    {id: 1, animation: "fade", toggle: false, type: "alert-warning"},
+                    {id: 1, animation: "fade", toggle: false, type: "alert-success"},
                     {id: 2, animation: "slide-right", toggle: false, type: "alert-danger"},
-                    {id: 3, animation: "slide-left", toggle: false, type: "alert-info"}
+                    {id: 3, animation: "slide-left", toggle: false, type: "alert-success"}
                 ]
             }
         },
@@ -53,11 +63,42 @@
                 this.nativeAlerts.forEach((alert)=> {
                     alert.toggle = true;
                 })
+                this.dismissToggle = true;
             },
             showComponentAlerts() {
                 this.alerts.forEach((alert)=> {
                     alert.toggle = true;
                 })
+                this.dismissToggle = true;
+            },
+            dismissAlerts() {
+                this.alerts.forEach((alert)=> {
+                    alert.toggle = false;
+                })
+                this.nativeAlerts.forEach((alert)=> {
+                    alert.toggle = false;
+                })
+                this.dismissToggle = false;
+            },
+            countAlerts() {
+                this.alerts.forEach((alert)=> {
+                    if(alert.toggle == true) {
+                        this.count++
+                    } else {
+                        this.count = 0;
+                    }
+                });
+                this.nativeAlerts.forEach((alert)=> {
+                    if(alert.toggle == true) {
+                        this.count++
+                    } else {
+                        this.count = 0;
+                    }
+                });
+                console.log(this.count)
+                if (this.count == 0) {
+                    this.dismissToggle = false;
+                }
             }
         },
         components: {
@@ -70,7 +111,7 @@
     body {
         overflow-X:hidden;
     }
-    .alert-dismissable {
+    .alert-dismissable, div {
         transition:all .5s ease;
     }
     .fade-enter {
