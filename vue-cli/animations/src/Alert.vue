@@ -1,6 +1,6 @@
 <template>
   <div>
-    <transition :name="alert.animation">
+    <transition :name="alertAnimation" @after-leave="afterLeave">
           <div v-if="alert.toggle"
                class='alert alert-dismissable'
                :class="alert.type"
@@ -14,6 +14,6 @@
 </template>
 <script>
 export default {
-  props: ["alerts", "alert", "countAlerts", "dismissToggle", "nativeAlerts"]
+  props: [ "alertAnimation", "alert", "countAlerts", "afterLeave"]
 }
 </script>
