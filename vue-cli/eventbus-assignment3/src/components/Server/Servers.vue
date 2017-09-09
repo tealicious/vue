@@ -11,6 +11,7 @@
 </template>
 
 <script>
+//test
 import server from './Server.vue';
 export default {
   data: function() {
