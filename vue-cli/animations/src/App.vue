@@ -17,7 +17,8 @@
                 </app-alert>
                 <transition
                 v-for="alert in nativeAlerts"
-                :name="alert.animation">
+                :name="alert.animation"
+                appear>
                       <div v-if="alert.toggle"
                            class='alert alert-dismissable'
                            :class="alert.type"
@@ -81,22 +82,11 @@
                 this.dismissToggle = false;
             },
             countAlerts() {
-                this.alerts.forEach((alert)=> {
-                    if(alert.toggle == true) {
-                        this.count++
-                    } else {
-                        this.count = 0;
-                    }
-                });
-                this.nativeAlerts.forEach((alert)=> {
-                    if(alert.toggle == true) {
-                        this.count++
-                    } else {
-                        this.count = 0;
-                    }
-                });
-                console.log(this.count)
-                if (this.count == 0) {
+                var allAlerts = this.alerts.concat(this.nativeAlerts);
+                var numAlerts = allAlerts.reduce(function (n, alert) {
+                    return n + (alert.toggle == true);
+                }, 0);
+                if (numAlerts <= 0) {
                     this.dismissToggle = false;
                 }
             }

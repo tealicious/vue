@@ -6,7 +6,7 @@
                :class="alert.type"
                 >
               {{ alert.animation }}
-              <button type="button" class="close" @click="alert.toggle = !alert.toggle; countAlerts()"
+              <button type="button" class="close" @click="alert.toggle = false; countAlerts()"
               >&times;</button>
           </div>
     </transition>
@@ -14,6 +14,6 @@
 </template>
 <script>
 export default {
-  props: ["alerts", "alert", "countAlerts", "dismissToggle"]
+  props: ["alerts", "alert", "countAlerts", "dismissToggle", "nativeAlerts"]
 }
 </script>
