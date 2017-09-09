@@ -19,13 +19,11 @@
                 v-for="alert in alerts"
                 :alert="alert"
                 :alertAnimation = "alertAnimation"
-                :countAlerts = "countAlerts"
-                :afterLeave = "afterLeave">
+                :countAlerts = "countAlerts">
                 </app-alert>
                 <transition
                 v-for="alert in nativeAlerts"
-                :name="alertAnimation"
-                @after-leave="afterLeave">
+                :name="alertAnimation">
                       <div v-if="alert.toggle"
                            class='alert alert-dismissable'
                            :class="alert.type"
@@ -43,9 +41,9 @@
                     </div>
                 </transition>
                 <br />
-                <transition :name="alertAnimation" mode="out-in" appear>
-                    <div class="alert alert-info" v-if="!dismissToggle" key="info">What will I be?</div>
-                    <div class="alert alert-danger" v-else key="danger">This will clear all the itmes!</div>
+                <transition :name="alertAnimation" mode="in-out" appear>
+                        <div   class="alert alert-info" v-if="!dismissToggle" key="info">What will I be?</div>
+                        <div   class="alert alert-danger" v-else key="danger">This will clear all the itmes!</div>
                 </transition>
             </div>
         </div>
@@ -117,9 +115,6 @@
                 if (numAlerts <= 0) {
                     this.dismissToggle = false;
                 }
-            },
-            afterLeave(el) {
-                console.log(el, 'afterLeave');
             }
         },
         components: {
