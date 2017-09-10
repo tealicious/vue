@@ -1,6 +1,6 @@
 <template>
   <div>
-    <transition :name="alertAnimation" @after-leave="afterLeave">
+    <transition :name="alertAnimation">
           <div v-if="alert.toggle"
                class='alert alert-dismissable'
                :class="alert.type"

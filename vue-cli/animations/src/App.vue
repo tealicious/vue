@@ -45,6 +45,29 @@
                         <div   class="alert alert-info" v-if="!dismissToggle" key="info">What will I be?</div>
                         <div   class="alert alert-danger" v-else key="danger">This will clear all the itmes!</div>
                 </transition>
+                <hr />
+                <br />
+                <button @click="grow = !grow" class='btn btn-primary'>Toggle Vue</button>
+                <transition
+                @before-enter="beforeEnter"
+                @enter="enter"
+                @after-enter="afterEnter"
+                @before-leave="beforeLeave"
+                @leave="leave"
+                @after-leave="afterLeave"
+                :css="false">
+                    <div class='flex-div' v-if="grow">
+                        <img  src='./assets/logo.png'/>
+                    </div>
+                </transition>
+                <hr />
+                <br />
+                <button @click="selectedComponent == 'successAlert' ? selectedComponent = 'dangerAlert' : selectedComponent = 'successAlert';" class='btn btn-primary'>Toggle Alert</button>
+                <br />
+                <br />
+                <transition name="fade" mode="out-in">
+                    <component :is="selectedComponent"></component>
+                </transition>
             </div>
         </div>
     </div>
@@ -52,9 +75,13 @@
 
 <script>
     import Alert from './Alert.vue'
+    import DangerAlert from './DangerAlert.vue'
+    import SuccessAlert from './SuccessAlert.vue'
     export default {
         data() {
             return {
+                selectedComponent: 'successAlert',
+                grow: true,
                 alertAnimation: 'fade',
                 dismissToggle: false,
                 count:0,
@@ -115,10 +142,47 @@
                 if (numAlerts <= 0) {
                     this.dismissToggle = false;
                 }
+            },
+            beforeEnter(el) {
+                this.elementHeight = 100;
+                el.style.height = this.elementHeight + 'px';
+            },
+            enter(el, done) {
+                let round = 1;
+                const interval = setInterval(()=> {
+                    el.style.height = (this.elementHeight + round * 10) + 'px';
+                    round++;
+                    if(round > 20) {
+                        clearInterval(interval);
+                        done();
+                    }
+                }, 20);
+            },
+            afterEnter(el) {
+
+            },
+            beforeLeave(el) {
+                this.elementHeight = 300;
+                el.style.height = this.elementHeight + 'px';
+            },
+            leave(el, done){
+                let round = 1;
+                const interval = setInterval(()=> {
+                    el.style.height = (this.elementHeight - round * 10) + 'px';
+                    round++;
+                    if(round > 20) {
+                        clearInterval(interval);
+                        done();
+                    }
+                }, 20);
+            },
+            afterLeave(el) {
             }
         },
         components: {
-            appAlert: Alert
+            appAlert: Alert,
+            dangerAlert: DangerAlert,
+            successAlert: SuccessAlert
         }
     }
 </script>
@@ -153,5 +217,13 @@
     .slide-left-leave-active{
         transform:translateX(-50vw);
         opacity:0;
+    }
+    .flex-div {
+        display:flex;
+        height:300px;
+    }
+    img {
+    margin:auto;
+    height:100%;
     }
 </style>
