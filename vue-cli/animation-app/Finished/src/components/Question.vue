@@ -39,8 +39,8 @@
         },
         methods: {
             generateQuestion() {
-                const firstNumber = this.generateRandomNumber(1, 10);
-                const secondNumber = this.generateRandomNumber(1, 10);
+                const firstNumber = this.generateRandomNumber(1, 100);
+                const secondNumber = this.generateRandomNumber(1, 100);
                 const modeNumber = this.generateRandomNumber(1, 2);
 
                 let correctAnswer = 0;
