@@ -32,17 +32,28 @@
                     </transition-group>
                 </ul>
                 <hr />
-                <button class='btn btn-info' @click="getNirvana">Get nirvana</button>
+                <br />
+                <div class='form-group'>
+                  <label>Band</label>
+                  <input class='form-control' type='text' required="true"
+                  v-model="band.name"/>
+                </div>
+                <div class='form-group'>
+                  <label>Album</label>
+                  <input class='form-control' type='text' required="true"
+                  v-model="band.album"/>
+                </div>
+                <button class='btn btn-info' @click="getNirvana">Search Music</button>
                 <br />
                 <br />
                 <ul class="list-group">
                     <transition-group name="fade" mode="out-in">
                         <li class='list-group-item'
                             style="cursor:pointer"
-                            v-for="(item, index) in nirvana"
+                            v-for="(album, index) in musicSearch"
                             :key="index"
                             @click="remove">
-                            {{ item.name }} {{ item.email }}
+                            <img :src="album.thumb" />
                         </li>
                     </transition-group>
                 </ul>
@@ -60,15 +71,37 @@
                     email:''
                 },
                 users: [],
-                nrivana: [],
-                data: {
-                    q : "nirvana",
-                    per_page: 10
-                },
-                requestUrl: "https://vuexhr.firebaseio.com/data.json"
+                musicSearch: [],
+                requestUrl: "https://vuexhr.firebaseio.com/data.json",
+                requestMusic: "http://api.discogs.com/database/search?",
+                bandParam: "artist=",
+                albumParam: "&release_title=",
+                Oauth: "&key=COmwGBAqWkMRnFFmdiON&secret=vffgxgmpqRGbjVkRyJihMZBaOluuoHXY",
+                band: {
+                    name: 'nirvana',
+                    album: 'nevermind'
+                }
             }
         },
         methods: {
+             getNirvana() {
+                const requestString = this.bandParam + this.band.name + this.albumParam + this.band.album;
+                const callParams = this.requestMusic + requestString + this.Oauth;
+                this.$http.jsonp(callParams)
+                    .then(response => {
+                        return response.json();
+                    }).then( fetchedData => {
+                        const searchReturn = fetchedData.data.results;
+                        const musicSearchArray = [];
+                        for (let key in searchReturn) {
+                                // use the unique keynames to access their user objects
+                                musicSearchArray.push(searchReturn[key]);
+                        }
+                         this.musicSearch = musicSearchArray;
+                    }, error => {
+                        console.log(error);
+                    });
+            },
             remove(index) {
                 this.users.splice(index, 1);
             },
@@ -101,34 +134,6 @@
                     }, error => {
                         console.log(error);
                     });
-            },
-             getNirvana() {
-                this.$http.jsonp('http://api.discogs.com/database/search', this.data)
-                    .then(response => {
-                        console.log(response.json());
-                        return response.json(); // the response.json object must be chained into another .then() method to have its contents extraced, otherwise we just receive a promise object
-                    }).then( fetchedData => {
-                        const nirvanaArray = [];
-                        for (let key in fetchedData) {
-                                // use the unique keynames to access their user objects
-                                nirvanaArray.push(fetchedData[key]);
-                        }
-                        this.nirvana = nirvanaArray;
-                    }, error => {
-                        console.log(error);
-                    });
-                // $.ajax({
-                //         url: 'http://api.discogs.com/database/search',
-                //         type: "GET",
-                //         dataType: 'jsonp',
-                //         data: {
-                //         q: 'nirvana',
-                //         per_page: '10'
-                //         },
-                //         success: function (data) {
-                //         alert(data);
-                //         }
-                //     });
             }
         }
     }
