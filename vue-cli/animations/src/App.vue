@@ -69,9 +69,19 @@
                     <component :is="selectedComponent"></component>
                 </transition>
                 <hr />
+                <button class='btn btn-primary' @click="addItem">Add Item</button>
+                <br />
                 <br />
                 <ul class="list-group">
-                    <li v-for="number in numbers" class="list-group-item">{{ number }}</li>
+                    <transition-group :name="alertAnimation" >
+                        <li
+                            class="list-group-item"
+                            v-for="(number, index) in numbers"
+                            @click="removeItem(index)"
+                            :key="number"
+                            style="cursor:pointer;">{{ number }}
+                        </li>
+                    </transition-group>
                 </ul>
             </div>
         </div>
@@ -104,6 +114,19 @@
             }
         },
         methods: {
+            removeItem(index) {
+                this.numbers.splice(index, 1);
+                //remove the item at it's index location and remove 1 item
+            },
+            addItem() {
+                const pos = Math.floor(Math.random() * this.numbers.length);
+                // get a new, random index that will fit in the original length of numbers
+                this.numbers.splice(pos, 0, this.numbers.length + 1);
+                // splice can also be used to add:
+                    // 1. pass the pos var to give an index location,
+                    // 2. if deleteCount is 0 you can and MUSt pass a new element to be added or things get fucky
+                    // 3. add an index position at the end of numbers.length
+            },
             showAlerts() {
                 this.nativeAlerts.forEach((alert)=> {
                     alert.toggle = true;
@@ -197,32 +220,40 @@
     body {
         overflow-X:hidden;
     }
-    .alert-dismissable, .groupedAnimations, div {
+    .alert-dismissable, .groupedAnimations, div, li {
         transition:all .5s ease;
     }
     .fade-enter {
         opacity:0;
         min-height:0;
+        transition:all .5s ease;
     }
     .fade-leave-active {
         opacity:0;
         min-height:0;
+        transition:all .5s ease;
     }
     .slide-right-enter{
         opacity:0;
         transform:translateX(-50vw);
+        transition:all .5s ease;
     }
     .slide-right-leave-active{
         transform:translateX(50vw);
         opacity:0;
+        transition:all .5s ease;
+        position:absolute;
     }
     .slide-left-enter{
         opacity:0;
         transform:translateX(50vw);
+        transition:all .5s ease;
     }
     .slide-left-leave-active{
         transform:translateX(-50vw);
         opacity:0;
+        transition:all .5s ease;
+        position:absolute;
     }
     .flex-div {
         display:flex;
