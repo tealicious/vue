@@ -68,6 +68,11 @@
                 <transition name="fade" mode="out-in">
                     <component :is="selectedComponent"></component>
                 </transition>
+                <hr />
+                <br />
+                <ul class="list-group">
+                    <li v-for="number in numbers" class="list-group-item">{{ number }}</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -80,6 +85,7 @@
     export default {
         data() {
             return {
+                numbers: [1,2,3,4,5],
                 selectedComponent: 'successAlert',
                 grow: true,
                 alertAnimation: 'fade',
