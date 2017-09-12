@@ -4,7 +4,7 @@
         <div class="pmd-sidebar-overlay"></div>
         <app-aside></app-aside>
         <div id="content" class="pmd-content content-area dashboard">
-        	<album-search></album-search>
+        	   <album-search></album-search>
         </div>
         <app-footer></app-footer>
     </div>

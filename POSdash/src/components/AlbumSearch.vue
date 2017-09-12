@@ -1,28 +1,26 @@
 <template>
     <div class="container-fluid full-width-container">
         <div class="row" id="card-masonry">
-            <div class="row">
-                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                    <form v-on:submit.prevent="getAlbumList">
-                        <div class='form-group pmd-textfield pmd-textfield-floating-label col-md-6'>
-                          <label>Band</label>
-                          <input class='form-control' type='text' required="true"
-                          v-model="band.name"/>
-                        </div>
-                        <div class='form-group pmd-textfield pmd-textfield-floating-label col-md-6'>
-                          <label>Album</label>
-                          <input class='form-control' type='text' required="true"
-                          v-model="band.album"/>
-                        </div>
-                        <div class="pmd-card-actions">
-          					      <button class='pmd-ripple-effect btn btn-primary' type="submit">Search Music</button>
-                        </div>
-                    </form>
-                </div>
+            <div class="col-md-8 col-md-push-2 col-sm-12 col-xs-12">
+                <form v-on:submit.prevent="getAlbumList">
+                    <div class='form-group pmd-textfield pmd-textfield-floating-label col-md-6'>
+                      <!-- <label>Band</label> -->
+                      <input class='form-control' type='text' required="true"
+                      v-model="band.name"/>
+                    </div>
+                    <div class='form-group pmd-textfield pmd-textfield-floating-label col-md-6'>
+                      <!-- <label>Album</label> -->
+                      <input class='form-control' type='text' required="true"
+                      v-model="band.album"/>
+                    </div>
+                    <div class="pmd-card-actions">
+      					      <button class='pmd-ripple-effect btn btn-primary' type="submit">Search Music</button>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="row component-section">
-			<div class="col-md-9 component-box">
+			<div class="col-md-8 col-md-push-2 component-box">
 				<div class="component-box">
 					<!-- table card example -->
 					<div  class="pmd-card pmd-z-depth pmd-card-custom-view">
@@ -45,7 +43,7 @@
                                     v-for="(album, index) in musicSearch"
                                     :key="index"
                                     @click="remove">
-                                    <td></td>
+                                    <td class="select-checkbox"></td>
                                     <td>{{album.title}}</td>
                                 </tr>
                             <!-- </transition-group> -->
@@ -70,8 +68,8 @@
                 albumParam: "&release_title=",
                 Oauth: "&key=COmwGBAqWkMRnFFmdiON&secret=vffgxgmpqRGbjVkRyJihMZBaOluuoHXY",
                 band: {
-                    name: '',
-                    album: ''
+                    name: 'nirvana',
+                    album: 'nevermind'
                 }
             }
         },
