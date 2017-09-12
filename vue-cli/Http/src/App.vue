@@ -43,7 +43,7 @@
                   <input class='form-control' type='text' required="true"
                   v-model="band.album"/>
                 </div>
-                <button class='btn btn-info' @click="getNirvana">Search Music</button>
+                <button class='btn btn-info' @click="getAlbumList">Search Music</button>
                 <br />
                 <br />
                 <ul class="list-group">
@@ -84,7 +84,7 @@
             }
         },
         methods: {
-             getNirvana() {
+             getAlbumList() {
                 const requestString = this.bandParam + this.band.name + this.albumParam + this.band.album;
                 const callParams = this.requestMusic + requestString + this.Oauth;
                 this.$http.jsonp(callParams)
@@ -113,27 +113,27 @@
                 // 1. URL to post to ('data.json must be added for this example in order for firebase to work')
                 // 2. object to send
                 this.$http.post(this.requestUrl, this.user)
-                    .then(response => { //once we get response back, do something with it
-                        console.log(response.body.name);
-                    }, error => {
-                        console.log(error);
-                    });
+                .then(response => { //once we get response back, do something with it
+                    console.log(response.body.name);
+                }, error => {
+                    console.log(error);
+                });
             },
             fetchData() {
                 this.$http.get(this.requestUrl)
-                    .then(response => {
-                        console.log(response.json());
-                        return response.json(); // the response.json object must be chained into another .then() method to have its contents extraced, otherwise we just receive a promise object
-                    }).then( fetchedData => {
-                        const resultArray = [];
-                        for (let key in fetchedData) {
-                                // use the unique keynames to access their user objects
-                                resultArray.push(fetchedData[key]);
-                        }
-                        this.users = resultArray;
-                    }, error => {
-                        console.log(error);
-                    });
+                .then(response => {
+                    console.log(response.json());
+                    return response.json(); // the response.json object must be chained into another .then() method to have its contents extraced, otherwise we just receive a promise object
+                }).then( fetchedData => {
+                    const resultArray = [];
+                    for (let key in fetchedData) {
+                            // use the unique keynames to access their user objects
+                            resultArray.push(fetchedData[key]);
+                    }
+                    this.users = resultArray;
+                }, error => {
+                    console.log(error);
+                });
             }
         }
     }
