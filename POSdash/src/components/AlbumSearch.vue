@@ -23,9 +23,9 @@
 			<div class="col-md-8 col-md-push-2 component-box">
 				<div class="component-box">
 					<!-- table card example -->
-					<div  class="pmd-card pmd-z-depth pmd-card-custom-view">
+					<div class="pmd-card pmd-z-depth pmd-card-custom-view">
 						<div class="table-responsive">
-						<table id="example-checkbox" class="table pmd-table table-hover table-striped display responsive nowrap" cellspacing="0" width="100%">
+						<table id="example-checkbox" class="table pmd-table table-hover table-striped display responsive nowrap dataTable" cellspacing="0" width="100%">
 						<thead>
 							<tr>
 								<th></th>
@@ -39,11 +39,17 @@
 						</thead>
 						<tbody is="transition-group" name="fade" mode="out-in">
                             <!-- <transition-group > -->
-                                <tr style="cursor:pointer"
+                                <tr role="row"
+                                    style="cursor:pointer"
                                     v-for="(album, index) in musicSearch"
                                     :key="index"
+                                    class='selected'
                                     @click="remove">
-                                    <td class="select-checkbox"></td>
+                                    <td class="select-checkbox checkbox pmd-default-theme">
+                                        <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+                                        <input type="checkbox" value="">
+                                        </label>
+                                    </td>
                                     <td>{{album.title}}</td>
                                 </tr>
                             <!-- </transition-group> -->
@@ -93,7 +99,9 @@
                     });
             },
             remove(index) {
-                this.musicSearch.splice(index, 1);
+                // if(someThing){
+                //     this.musicSearch.splice(index, 1);
+                // }
             }
         }
     }
