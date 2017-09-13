@@ -1,0 +1,61 @@
+<template>
+  <form class="navbar-form navbar-left"
+        @submit.prevent="getAlbumList"
+        style="display:flex">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search"
+              required="true"
+              v-model="query">
+    </div>
+    <button class="pmd-ripple-effect btn btn-primary">Search</button>
+  </form>
+</template>
+
+<script>
+import {eventBus} from '../main';
+  export default {
+        data() {
+            return {
+                musicSearch: [],
+                requestMusic: "http://api.discogs.com/database/search?q=",
+                Oauth: "&key=COmwGBAqWkMRnFFmdiON&secret=vffgxgmpqRGbjVkRyJihMZBaOluuoHXY",
+                query: 'nirvana',
+                toggle: true
+            }
+        },
+        methods: {
+             getAlbumList() {
+                eventBus.$emit('startAjax', this.toggle);
+                const callParams = this.requestMusic + this.query + this.Oauth;
+                this.$http.jsonp(callParams)
+                    .then(response => {
+                        return response.json();
+                    }).then( fetchedData => {
+                        const searchReturn = fetchedData.data.results;
+                        const musicSearchArray = [];
+                        for (let key in searchReturn) {
+                                // use the unique keynames to access their user objects
+                                musicSearchArray.push(searchReturn[key]);
+                        }
+                         this.musicSearch = musicSearchArray;
+                         eventBus.$emit('getAlbumList', this.musicSearch);
+                    }, error => {
+                        console.log(error);
+                    });
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+.navbar-form {
+  display:flex;
+  border-color:transparent;
+  border:none !important;
+  box-shadow:none;
+  .form-group {
+    margin-bottom:0;
+    margin-right:3px;
+  }
+}
+</style>
