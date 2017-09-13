@@ -57,5 +57,14 @@ import {eventBus} from '../main';
     margin-bottom:0;
     margin-right:3px;
   }
+  input {
+    width:0;
+    min-width:200px;
+    transition: width .75s ease;
+  }
+  input:focus {
+    width:300px;
+    transition: width .25s ease;
+  }
 }
 </style>
