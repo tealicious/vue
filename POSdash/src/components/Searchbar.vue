@@ -63,8 +63,10 @@ import {eventBus} from '../main';
     transition: width .75s ease;
   }
   input:focus {
-    width:300px;
-    transition: width .25s ease;
+    @media screen and (min-width:736px){
+      width:300px;
+      transition: width .25s ease;
+    }
   }
 }
 </style>

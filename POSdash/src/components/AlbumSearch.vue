@@ -1,5 +1,6 @@
 <template>
     <div class="container-fluid full-width-container">
+        <search-form></search-form>
         <div class="row component-section">
 			<div class="col-md-10 col-md-push-1 component-box">
 				<div class="component-box">
@@ -29,23 +30,25 @@
     								<th>ID</th>
     								<th>UPC</th>
     								<th>Year</th>
+                                    <th>Format</th>
     							</tr>
     						</thead>
                             <paginate
                               name="musicSearch"
                               :list="musicSearch"
                               :per="10">
-                                <tr v-for="(artist, index) in paginated('musicSearch')">
+                                <tr v-for="(listing, index) in paginated('musicSearch')">
                                   <!-- <td class="select-checkbox checkbox pmd-default-theme">
                                       <label class="checkbox-inline pmd-checkbox">
                                       <input type="checkbox" value="" checked>
                                       </label>
                                   </td> -->
-                                  <td @click="remove" class="closeIcon"><i class="material-icons md-dark pmd-sm">close</i></td>
-                                  <td><a :href="artist.resource_url" target="blank">{{artist.title}}</a></td>
-                                  <td>{{artist.id}}</td>
-                                  <td>{{artist.singleUpc}}</td>
-                                  <td>{{artist.year}}</td>
+                                  <td @click="remove" class="closeIcon"><i class="fa fa-times" aria-hidden="true"></i></td>
+                                  <td><a :href="listing.resource_url" target="blank">{{listing.title}}</a></td>
+                                  <td>{{listing.id}}</td>
+                                  <td>{{listing.singleUpc}}</td>
+                                  <td>{{listing.year}}</td>
+                                  <td>{{listing.format}}</td>
                                 </tr>
                             </paginate>
     					</table>
@@ -58,7 +61,8 @@
 </template>
 
 <script>
-    import {eventBus} from '../main';
+    import {eventBus} from '../main'
+    import SearchForm from './SearchForm.vue'
     export default {
         data() {
             return {
@@ -71,12 +75,19 @@
                 this.musicSearch.splice(index, 1);
             }
         },
+        components: {
+            searchForm: SearchForm
+        },
         created() {
           eventBus.$on('getAlbumList', (search)=>{
             search.forEach( (item) => {
                 if(item.barcode){
                 const barCodeArray = item.barcode;
                 item.singleUpc = barCodeArray.shift();
+                }
+                if(item.format){
+                const formatArray = item.format;
+                item.format = formatArray.shift();
                 }
             });
             this.musicSearch = search;
@@ -85,7 +96,7 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
       /*TRANSITION ANIMATIONS*/
     .fade-enter-active, .fade-leave-active, .fade-move {
       transition: all .3s ease;
@@ -122,5 +133,23 @@
     }
     table a {
         color:#337ab7;
+    }
+    @media screen and (max-width: 767px){
+        .table-responsive {
+             margin-bottom: 0;
+            border:none;
+        }
+    }
+    .pmd-table.table > thead > tr, .pmd-table.table.table > tbody > tr {
+        td, th {
+            &:nth-of-type(3), &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(6) {
+                text-align:right !important;
+            }
+        }
+    }
+    .fa {
+        font-size: 18px;
+        transform:translateY(3px);
+        color:firebrick;
     }
 </style>
