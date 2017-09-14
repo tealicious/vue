@@ -21,6 +21,13 @@ export default {
             { name: "King Rob", path:"/user/King Rob" }
           ]
       }
+  },
+  // You can use beforeRouteEnter to check for some form of verification or validations before the page is allowed to load....
+  beforeRouteEnter(to, from, next) { //notice the method name and structure changes inside the vue component
+    console.log('inside .vue component setup');
+    if (true) {
+      next(); // explicitly tell beforeEach method to allow route actions to continues
+    }
   }
 }
 </script>

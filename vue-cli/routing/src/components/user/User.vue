@@ -5,7 +5,10 @@
     <!-- <p>Loaded ID passed via props: {{id}}</p> -->
     <button class="btn btn-danger" @click="navigateToHome">Git Outa Here!</button>
     <hr />
-    <router-view></router-view>
+    <!-- <transition name="fade" mode="out-in"> -->
+    <!-- ROUTES WITH HASH CANNOT BE TRANSITIONED -->
+      <router-view></router-view>
+    <!-- </transition> -->
   </div>
 </template>
 
