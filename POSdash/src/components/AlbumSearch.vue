@@ -1,84 +1,86 @@
 <template>
     <div class="container-fluid full-width-container">
         <search-form></search-form>
-        <div v-if="toggle"  class="row component-section">
-			<div class="col-md-10 col-md-push-1 component-box">
-				<div class="component-box">
-					<!-- table card example -->
-                    <paginate-links for="musicSearch"
-                        :async="true"
-                        :simple="{
-                            prev: 'Back',
-                            next: 'Next'
-                          }"
-                        :hide-single-page="true"
-                        :show-step-links="true"
-                        :classes="{
-                        'ul': 'simple-links-container',
-                        '.next > a': 'next-link',
-                        '.prev > a': 'prev-link'
-                      }">
-                    </paginate-links>
-                    <div class="table-responsive pmd-card pmd-z-depth">
-            			<paginate
-                          name="musicSearch"
-                          :list="musicSearch"
-                          :per="10"
-                          tag="table" class="table table-mc-red pmd-table">
-            				<thead>
-    							<tr>
-    								<th>Actions</th>
-    								<th>Title</th>
-    								<th>ID</th>
-    								<th>UPC</th>
-    								<th>Year</th>
-                                    <th>Format</th>
-    							</tr>
-    						</thead>
-                            <tbody v-for="(listing, index) in paginated('musicSearch')">
-                                    <tr>
-                                      <td class="pmd-table-row-action">
-                                          <a  class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"
-                                          @click="switchOpen"
-                                          ><i class="material-icons md-dark pmd-sm"></i></a>
-                                          <a class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm" @click="remove">
-                                              <i class="material-icons md-dark pmd-sm">delete</i>
-                                          </a>
-                                      </td>
-                                      <td><a :href="listing.resource_url" target="blank">{{listing.title}}</a></td>
-                                      <td>{{listing.id}}</td>
-                                      <td>{{listing.singleUpc}}</td>
-                                      <td>{{listing.year}}</td>
-                                      <td>{{listing.format}}</td>
-                                    </tr>
-                                    <tr class="child-table">
-                						<td colspan="12">
-                							<div class="direct-child-table">
-                								<table class="table pmd-table table-striped table-sm">
-                									<thead>
-                										<tr>
-                											<th>Type</th>
-                											<th>Country</th>
-                											<th>CatNo</th>
-                										</tr>
-                									</thead>
-                									<tbody>
-          									           <tr>
-                    										<td>{{listing.type}}</td>
-                    										<td>{{listing.country}}</td>
-                    										<td>{{listing.catno}}</td>
-            									         </tr>
-        							                </tbody>
-                    							</table>
-                    						</div>
-                    					</td>
-                    				</tr>
-                            </tbody>
-            		</paginate>
-            		</div>
-				</div>
-			</div>
-		</div>
+        <transition name="fade" mode="out-in">
+            <div v-if="toggle"  class="row component-section">
+    			<div class="col-md-10 col-md-push-1 component-box">
+    				<div class="component-box">
+    					<!-- table card example -->
+                        <paginate-links for="musicSearch"
+                            :async="true"
+                            :simple="{
+                                prev: 'Back',
+                                next: 'Next'
+                              }"
+                            :hide-single-page="true"
+                            :show-step-links="true"
+                            :classes="{
+                            'ul': 'simple-links-container',
+                            '.next > a': 'next-link',
+                            '.prev > a': 'prev-link'
+                          }">
+                        </paginate-links>
+                        <div class="table-responsive pmd-card pmd-z-depth">
+                			<paginate
+                              name="musicSearch"
+                              :list="musicSearch"
+                              :per="10"
+                              tag="table" class="table table-mc-red pmd-table">
+                				<thead>
+        							<tr>
+        								<th>Actions</th>
+        								<th>Title</th>
+        								<th>ID</th>
+        								<th>UPC</th>
+        								<th>Year</th>
+                                        <th>Format</th>
+        							</tr>
+        						</thead>
+                                <tbody v-for="(listing, index) in paginated('musicSearch')">
+                                        <tr>
+                                          <td class="pmd-table-row-action">
+                                              <a  class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"
+                                              @click="switchOpen"
+                                              ><i class="material-icons md-dark pmd-sm"></i></a>
+                                              <a class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm" @click="remove">
+                                                  <i class="material-icons md-dark pmd-sm">delete</i>
+                                              </a>
+                                          </td>
+                                          <td><a :href="listing.resource_url" target="blank">{{listing.title}}</a></td>
+                                          <td>{{listing.id}}</td>
+                                          <td>{{listing.singleUpc}}</td>
+                                          <td>{{listing.year}}</td>
+                                          <td>{{listing.format}}</td>
+                                        </tr>
+                                        <tr class="child-table">
+                    						<td colspan="12">
+                    							<div class="direct-child-table">
+                    								<table class="table pmd-table table-striped table-sm">
+                    									<thead>
+                    										<tr>
+                    											<th>Type</th>
+                    											<th>Country</th>
+                    											<th>CatNo</th>
+                    										</tr>
+                    									</thead>
+                    									<tbody>
+              									           <tr>
+                        										<td>{{listing.type}}</td>
+                        										<td>{{listing.country}}</td>
+                        										<td>{{listing.catno}}</td>
+                									         </tr>
+            							                </tbody>
+                        							</table>
+                        						</div>
+                        					</td>
+                        				</tr>
+                                </tbody>
+                		</paginate>
+                		</div>
+    				</div>
+    			</div>
+    		</div>
+        </transition>
     </div>
 </template>
 
@@ -94,11 +96,23 @@
             }
         },
         methods: {
-            remove(index) {
+            remove(e, index) {
                 this.musicSearch.splice(index, 1);
+                var target = e.target;
+                if (!target.matches('a')){
+                    var $parent = target.parentNode;
+                    $($parent).siblings().removeClass( "child-table-collapse" );
+                } else {
+                    $(target).siblings().removeClass( "child-table-collapse" );
+                }
+                var $parentTR = $(target).closest('tr');
+                var $uncleTR = $($parentTR).siblings('tr');
+                var $childTable = $($uncleTR).find('.direct-child-table');
+                if($($childTable).hasClass('showMe')){
+                    $($childTable).removeClass('showMe').slideToggle(300);
+                }
             },
             switchOpen(e) {
-                console.log(e.target);
                 var target = e.target;
                 if (!target.matches('a')){
                     var $parent = target.parentNode;
@@ -109,13 +123,16 @@
                 var $parentTR = $(target).closest('tr');
                 var $uncleTR = $($parentTR).siblings('tr');
                 var $childTable = $($uncleTR).find('.direct-child-table');
-                $($childTable).toggleClass('showme');
+                $($childTable).addClass('showMe').slideToggle(300);
             }
         },
         components: {
             searchForm: SearchForm
         },
         created() {
+          eventBus.$on('startAjax', (toggle)=> {
+            this.toggle = false;
+          })
           eventBus.$on('getAlbumList', (search)=>{
             search.forEach( (item) => {
                 if(item.barcode){
@@ -139,15 +156,19 @@
 </script>
 
 <style scoped lang="scss">
-      /*TRANSITION ANIMATIONS*/
-    .fade-enter-active, .fade-leave-active, .fade-move {
-      transition: all .3s ease;
-      /* set beziers on active classes */
-    }
-    .fade-enter, .fade-leave-to
-    /* 2.1.8 and up - set tranisitions on enter and leave-to*/ {
-      transform:translateX(100%);
-    }
+
+        /*TRANSITION ANIMATIONS*/
+        .fade-enter, .fade-leave-to {
+            /* set tranisition styles on enter and leave-to*/
+            opacity:0;
+        }
+        .fade-enter {
+            transform:scale(1.1);
+        }
+        .fade-enter-active, .fade-leave-active {
+            transition:opacity 300ms cubic-bezier(0.68, -0.1, 0.265, 1.55);
+            /* set beziers on active classes */
+        }
 
     .select-checkbox.checkbox.pmd-default-theme{
         margin:0;
@@ -189,9 +210,6 @@
     }
     .direct-child-table {
         display:none;
-        &.showme {
-            display:block;
-        }
     }
     .pmd-table-row-action {
         width: 110px;
@@ -216,13 +234,4 @@
         }
     }
 
-      /*TRANSITION ANIMATIONS*/
-    .fade-enter-active, .fade-leave-active, .fade-move {
-      transition: all .3s ease;
-      /* set beziers on active classes */
-    }
-    .fade-enter, .fade-leave-to
-    /* 2.1.8 and up - set tranisitions on enter and leave-to*/ {
-      opacity:0;
-    }
 </style>
