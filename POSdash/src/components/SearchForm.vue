@@ -36,7 +36,7 @@
                       </label>
                     </div>
                     <div class="col-sm-6 mobile-vert-spacer">
-		                    <button class='pull-right pmd-ripple-effect btn btn-primary' type="submit">Search Music</button>
+		                    <button class='pull-right pmd-ripple-effect btn btn-primary' type="submit">Search</button>
                         <button class='pull-right pmd-ripple-effect btn btn-default' @click.prevent="clearForm">Clear</button>
                     </div>
                 </form>

@@ -53,6 +53,10 @@ import {eventBus} from '../main';
   border-color:transparent;
   border:none !important;
   box-shadow:none;
+  margin-top:4px;
+  @media screen and (min-width:768px){
+    margin-top:8px;
+  }
   .form-group {
     margin-bottom:0;
     margin-right:3px;

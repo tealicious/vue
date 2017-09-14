@@ -19,6 +19,70 @@
                         '.prev > a': 'prev-link'
                       }">
                     </paginate-links>
+                    <div class="table-responsive pmd-card pmd-z-depth">
+            			<paginate
+                          name="musicSearch"
+                          :list="musicSearch"
+                          :per="10"
+                          tag="table" class="table table-mc-red pmd-table">
+            				<thead>
+    							<tr>
+    								<th>Actions</th>
+    								<th>Title</th>
+    								<th>ID</th>
+    								<th>UPC</th>
+    								<th>Year</th>
+                                    <th>Format</th>
+    							</tr>
+    						</thead>
+                            <tbody v-for="(listing, index) in paginated('musicSearch')">
+                                <tr>
+                                  <td class="pmd-table-row-action">
+                                      <a  class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"
+                                      :class="{'child-table-collapse' : isOpen}"
+                                      @click.capture="switchOpen"><i class="material-icons md-dark pmd-sm"></i></a>
+                                      <a @click.prevent="doNothing" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm" @click="remove">
+                                          <i class="material-icons md-dark pmd-sm">delete</i>
+                                      </a>
+                                  </td>
+                                  <td><a :href="listing.resource_url" target="blank">{{listing.title}}</a></td>
+                                  <td>{{listing.id}}</td>
+                                  <td>{{listing.singleUpc}}</td>
+                                  <td>{{listing.year}}</td>
+                                  <td>{{listing.format}}</td>
+                                </tr>
+                                <tr class="child-table">
+            						<td colspan="12">
+            							<div class="direct-child-table" :class="{showme : isOpen}">
+            								<table class="table pmd-table table-striped table-sm">
+            									<thead>
+            										<tr>
+            											<th>Title</th>
+            											<th>Amount (%)</th>
+            											<th>Status</th>
+            											<th>Created</th>
+            											<th></th>
+            										</tr>
+            									</thead>
+            									<tbody>
+      									           <tr>
+                										<td>Service Tax </td>
+                										<td>14.5</td>
+                										<td><span class="status-btn red-bg">InActive</span></td>
+                										<td>2014-03-03</td>
+                										<td class="pmd-table-row-action">
+                											<a href="javascript:void(0);" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-xs"><i class="material-icons md-dark pmd-xs">edit</i></a>
+                											<a href="javascript:void(0);" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-xs"><i class="material-icons md-dark pmd-xs">delete</i></a>
+                										</td>
+        									         </tr>
+    							                </tbody>
+                							</table>
+                						</div>
+                					</td>
+                				</tr>
+                            </tbody>
+            		</paginate>
+            		</div>
 					<div class="pmd-card pmd-z-depth pmd-card-custom-view">
 						<div class="table-responsive">
     						<table id="example-checkbox" class="table pmd-table table-hover table-striped display responsive nowrap dataTable" cellspacing="0" width="100%">
@@ -36,7 +100,8 @@
                             <paginate
                               name="musicSearch"
                               :list="musicSearch"
-                              :per="10">
+                              :per="10"
+                              tag="tbody">
                                 <tr v-for="(listing, index) in paginated('musicSearch')">
                                   <!-- <td class="select-checkbox checkbox pmd-default-theme">
                                       <label class="checkbox-inline pmd-checkbox">
@@ -67,12 +132,22 @@
         data() {
             return {
                 musicSearch: [],
-                paginate:['musicSearch']
+                paginate:['musicSearch'],
+                isOpen: false
             }
         },
         methods: {
             remove(index) {
                 this.musicSearch.splice(index, 1);
+            },
+            switchOpen(e) {
+                if (!e.target.matches('a')) return;
+                console.log(e.target);
+                var target = e.target;
+                $(target).toggleClass( "child-table-collapse" );
+            },
+            doNothing(e) {
+                event.stopPropagation();
             }
         },
         components: {
@@ -142,7 +217,7 @@
     }
     .pmd-table.table > thead > tr, .pmd-table.table.table > tbody > tr {
         td, th {
-            &:nth-of-type(3), &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(6) {
+            &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(6), &:last-of-type {
                 text-align:right !important;
             }
         }
@@ -150,6 +225,15 @@
     .fa {
         font-size: 18px;
         transform:translateY(3px);
-        color:firebrick;
+        color:#ff5722;
+    }
+    .direct-child-table {
+        display:none;
+        &.showme {
+            display:block;
+        }
+    }
+    .pmd-table-row-action {
+        width: 110px;
     }
 </style>

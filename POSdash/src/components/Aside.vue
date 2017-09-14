@@ -6,9 +6,9 @@
 			<li class="dropdown pmd-dropdown pmd-user-info visible-xs visible-md visible-sm visible-lg">
 				<a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" aria-expandedhref="javascript:void(0);">
 					<div class="media-left">
-						<img src="https://propeller.in/html-themes/propeller-admin/themes/images/user-icon.png" alt="New User">
+						<img src="../assets/logo.png" alt="New User">
 					</div>
-					<div class="media-body media-middle">Propeller Admin</div>
+					<div class="media-body media-middle">User</div>
 					<div class="media-right media-middle"><i class="dic-more-vert dic"></i></div>
 				</a>
 				<ul class="dropdown-menu">
@@ -183,3 +183,13 @@
 	</aside><!-- End Left sidebar -->
 	<!-- Sidebar Ends -->
 </template>
+
+<style lang="scss" scoped>
+.media-left {
+	img {
+		height:40px;
+		width:40px;
+		border-radius:100%;
+	}
+}
+</style>
