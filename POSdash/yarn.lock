@@ -4203,9 +4203,9 @@ vue-loader@^12.1.0:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
-"vue-paginate@https://github.com/tealicious/vue-paginate.git":
+vue-paginate@^3.5.0:
   version "3.5.0"
-  resolved "https://github.com/tealicious/vue-paginate.git#e0c5361858b81667c3464abf5e6afd001c115d0a"
+  resolved "https://registry.yarnpkg.com/vue-paginate/-/vue-paginate-3.5.0.tgz#ca849431dab2f5abae10998da33858b40abc60de"
   dependencies:
     vue "2.3.3"
 

@@ -1,6 +1,7 @@
 <template>
     <div class="container-fluid full-width-container">
-        <div class="row component-section">
+        <search-form></search-form>
+        <div v-if="toggle"  class="row component-section">
 			<div class="col-md-10 col-md-push-1 component-box">
 				<div class="component-box">
 					<!-- table card example -->
@@ -18,58 +19,101 @@
                         '.prev > a': 'prev-link'
                       }">
                     </paginate-links>
-					<div class="pmd-card pmd-z-depth pmd-card-custom-view">
-						<div class="table-responsive">
-    						<table id="example-checkbox" class="table pmd-table table-hover table-striped display responsive nowrap dataTable" cellspacing="0" width="100%">
-    						<thead>
+                    <div class="table-responsive pmd-card pmd-z-depth">
+            			<paginate
+                          name="musicSearch"
+                          :list="musicSearch"
+                          :per="10"
+                          tag="table" class="table table-mc-red pmd-table">
+            				<thead>
     							<tr>
-    								<th>
-                                    </th>
+    								<th>Actions</th>
     								<th>Title</th>
     								<th>ID</th>
     								<th>UPC</th>
     								<th>Year</th>
+                                    <th>Format</th>
     							</tr>
     						</thead>
-                            <paginate
-                              name="musicSearch"
-                              :list="musicSearch"
-                              :per="10">
-                                <tr v-for="(artist, index) in paginated('musicSearch')">
-                                  <!-- <td class="select-checkbox checkbox pmd-default-theme">
-                                      <label class="checkbox-inline pmd-checkbox">
-                                      <input type="checkbox" value="" checked>
-                                      </label>
-                                  </td> -->
-                                  <td @click="remove" class="closeIcon"><i class="material-icons md-dark pmd-sm">close</i></td>
-                                  <td><a :href="artist.resource_url" target="blank">{{artist.title}}</a></td>
-                                  <td>{{artist.id}}</td>
-                                  <td>{{artist.singleUpc}}</td>
-                                  <td>{{artist.year}}</td>
-                                </tr>
-                            </paginate>
-    					</table>
-    				</div>
-    			</div> <!-- table card example end -->
+                            <tbody v-for="(listing, index) in paginated('musicSearch')">
+                                    <tr>
+                                      <td class="pmd-table-row-action">
+                                          <a  class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"
+                                          @click="switchOpen"
+                                          ><i class="material-icons md-dark pmd-sm"></i></a>
+                                          <a class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm" @click="remove">
+                                              <i class="material-icons md-dark pmd-sm">delete</i>
+                                          </a>
+                                      </td>
+                                      <td><a :href="listing.resource_url" target="blank">{{listing.title}}</a></td>
+                                      <td>{{listing.id}}</td>
+                                      <td>{{listing.singleUpc}}</td>
+                                      <td>{{listing.year}}</td>
+                                      <td>{{listing.format}}</td>
+                                    </tr>
+                                    <tr class="child-table">
+                						<td colspan="12">
+                							<div class="direct-child-table">
+                								<table class="table pmd-table table-striped table-sm">
+                									<thead>
+                										<tr>
+                											<th>Type</th>
+                											<th>Country</th>
+                											<th>CatNo</th>
+                										</tr>
+                									</thead>
+                									<tbody>
+          									           <tr>
+                    										<td>{{listing.type}}</td>
+                    										<td>{{listing.country}}</td>
+                    										<td>{{listing.catno}}</td>
+            									         </tr>
+        							                </tbody>
+                    							</table>
+                    						</div>
+                    					</td>
+                    				</tr>
+                            </tbody>
+            		</paginate>
+            		</div>
 				</div>
-			</div> <!-- inverse table code and example end-->
+			</div>
 		</div>
     </div>
 </template>
 
 <script>
-    import {eventBus} from '../main';
+    import {eventBus} from '../main'
+    import SearchForm from './SearchForm.vue'
     export default {
         data() {
             return {
                 musicSearch: [],
-                paginate:['musicSearch']
+                paginate:['musicSearch'],
+                toggle: false
             }
         },
         methods: {
             remove(index) {
                 this.musicSearch.splice(index, 1);
+            },
+            switchOpen(e) {
+                console.log(e.target);
+                var target = e.target;
+                if (!target.matches('a')){
+                    var $parent = target.parentNode;
+                    $($parent).toggleClass( "child-table-collapse" );
+                } else {
+                    $(target).toggleClass( "child-table-collapse" );
+                }
+                var $parentTR = $(target).closest('tr');
+                var $uncleTR = $($parentTR).siblings('tr');
+                var $childTable = $($uncleTR).find('.direct-child-table');
+                $($childTable).toggleClass('showme');
             }
+        },
+        components: {
+            searchForm: SearchForm
         },
         created() {
           eventBus.$on('getAlbumList', (search)=>{
@@ -78,14 +122,23 @@
                 const barCodeArray = item.barcode;
                 item.singleUpc = barCodeArray.shift();
                 }
+                if(item.format){
+                const formatArray = item.format;
+                item.format = formatArray.shift();
+                }
             });
             this.musicSearch = search;
-          })
+            if(search.length > 0){
+                this.toggle = true;
+            } else {
+                this.toggle = false;
+            }
+        })
       }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
       /*TRANSITION ANIMATIONS*/
     .fade-enter-active, .fade-leave-active, .fade-move {
       transition: all .3s ease;
@@ -122,5 +175,54 @@
     }
     table a {
         color:#337ab7;
+    }
+    @media screen and (max-width: 767px){
+        .table-responsive {
+             margin-bottom: 0;
+            border:none;
+        }
+    }
+    .fa {
+        font-size: 18px;
+        transform:translateY(3px);
+        color:#ff5722;
+    }
+    .direct-child-table {
+        display:none;
+        &.showme {
+            display:block;
+        }
+    }
+    .pmd-table-row-action {
+        width: 110px;
+    }
+    .pmd-table.table > thead > tr, .pmd-table.table.table > tbody > tr {
+        td, th {
+            &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(6), &:last-of-type {
+                text-align:right !important;
+            }
+        }
+    }
+    .direct-child-table {
+        .pmd-table.table > thead > tr, .pmd-table.table.table > tbody > tr {
+            td, th {
+                &:nth-of-type(2) {
+                    text-align:center !important;
+                }
+                &:last-of-type {
+                    text-align:right !important;
+                }
+            }
+        }
+    }
+
+      /*TRANSITION ANIMATIONS*/
+    .fade-enter-active, .fade-leave-active, .fade-move {
+      transition: all .3s ease;
+      /* set beziers on active classes */
+    }
+    .fade-enter, .fade-leave-to
+    /* 2.1.8 and up - set tranisitions on enter and leave-to*/ {
+      opacity:0;
     }
 </style>

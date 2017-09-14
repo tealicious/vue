@@ -8,8 +8,9 @@
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<a href="javascript:void(0);" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle"><i class="material-icons">menu</i></a>
-			  <!-- <a href="index.html" class="navbar-brand">
-			  </a> -->
+			  <a href="index.html" class="navbar-brand">
+					Plaid Room Records
+			  </a>
 			</div>
 		</div>
 
@@ -25,3 +26,10 @@ export default {
 		}
 }
 </script>
+<style scoped lang="scss">
+.navbar-brand {
+	@media screen and (max-width:767px) {
+		display:none;
+	}
+}
+</style>

@@ -35,3 +35,10 @@
    </div>
   </footer>
 </template>
+<style>
+@media (max-width: 767px){
+  .admin-footer {
+      margin-top: -70px;
+  }
+}
+</style>
