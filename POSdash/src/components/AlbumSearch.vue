@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid full-width-container">
         <search-form></search-form>
-        <div class="row component-section">
+        <div v-if="toggle"  class="row component-section">
 			<div class="col-md-10 col-md-push-1 component-box">
 				<div class="component-box">
 					<!-- table card example -->
@@ -36,91 +36,48 @@
     							</tr>
     						</thead>
                             <tbody v-for="(listing, index) in paginated('musicSearch')">
-                                <tr>
-                                  <td class="pmd-table-row-action">
-                                      <a  class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"
-                                      :class="{'child-table-collapse' : isOpen}"
-                                      @click.capture="switchOpen"><i class="material-icons md-dark pmd-sm"></i></a>
-                                      <a @click.prevent="doNothing" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm" @click="remove">
-                                          <i class="material-icons md-dark pmd-sm">delete</i>
-                                      </a>
-                                  </td>
-                                  <td><a :href="listing.resource_url" target="blank">{{listing.title}}</a></td>
-                                  <td>{{listing.id}}</td>
-                                  <td>{{listing.singleUpc}}</td>
-                                  <td>{{listing.year}}</td>
-                                  <td>{{listing.format}}</td>
-                                </tr>
-                                <tr class="child-table">
-            						<td colspan="12">
-            							<div class="direct-child-table" :class="{showme : isOpen}">
-            								<table class="table pmd-table table-striped table-sm">
-            									<thead>
-            										<tr>
-            											<th>Title</th>
-            											<th>Amount (%)</th>
-            											<th>Status</th>
-            											<th>Created</th>
-            											<th></th>
-            										</tr>
-            									</thead>
-            									<tbody>
-      									           <tr>
-                										<td>Service Tax </td>
-                										<td>14.5</td>
-                										<td><span class="status-btn red-bg">InActive</span></td>
-                										<td>2014-03-03</td>
-                										<td class="pmd-table-row-action">
-                											<a href="javascript:void(0);" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-xs"><i class="material-icons md-dark pmd-xs">edit</i></a>
-                											<a href="javascript:void(0);" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-xs"><i class="material-icons md-dark pmd-xs">delete</i></a>
-                										</td>
-        									         </tr>
-    							                </tbody>
-                							</table>
-                						</div>
-                					</td>
-                				</tr>
+                                    <tr>
+                                      <td class="pmd-table-row-action">
+                                          <a  class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"
+                                          @click="switchOpen"
+                                          ><i class="material-icons md-dark pmd-sm"></i></a>
+                                          <a class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm" @click="remove">
+                                              <i class="material-icons md-dark pmd-sm">delete</i>
+                                          </a>
+                                      </td>
+                                      <td><a :href="listing.resource_url" target="blank">{{listing.title}}</a></td>
+                                      <td>{{listing.id}}</td>
+                                      <td>{{listing.singleUpc}}</td>
+                                      <td>{{listing.year}}</td>
+                                      <td>{{listing.format}}</td>
+                                    </tr>
+                                    <tr class="child-table">
+                						<td colspan="12">
+                							<div class="direct-child-table">
+                								<table class="table pmd-table table-striped table-sm">
+                									<thead>
+                										<tr>
+                											<th>Type</th>
+                											<th>Country</th>
+                											<th>CatNo</th>
+                										</tr>
+                									</thead>
+                									<tbody>
+          									           <tr>
+                    										<td>{{listing.type}}</td>
+                    										<td>{{listing.country}}</td>
+                    										<td>{{listing.catno}}</td>
+            									         </tr>
+        							                </tbody>
+                    							</table>
+                    						</div>
+                    					</td>
+                    				</tr>
                             </tbody>
             		</paginate>
             		</div>
-					<div class="pmd-card pmd-z-depth pmd-card-custom-view">
-						<div class="table-responsive">
-    						<table id="example-checkbox" class="table pmd-table table-hover table-striped display responsive nowrap dataTable" cellspacing="0" width="100%">
-    						<thead>
-    							<tr>
-    								<th>
-                                    </th>
-    								<th>Title</th>
-    								<th>ID</th>
-    								<th>UPC</th>
-    								<th>Year</th>
-                                    <th>Format</th>
-    							</tr>
-    						</thead>
-                            <paginate
-                              name="musicSearch"
-                              :list="musicSearch"
-                              :per="10"
-                              tag="tbody">
-                                <tr v-for="(listing, index) in paginated('musicSearch')">
-                                  <!-- <td class="select-checkbox checkbox pmd-default-theme">
-                                      <label class="checkbox-inline pmd-checkbox">
-                                      <input type="checkbox" value="" checked>
-                                      </label>
-                                  </td> -->
-                                  <td @click="remove" class="closeIcon"><i class="fa fa-times" aria-hidden="true"></i></td>
-                                  <td><a :href="listing.resource_url" target="blank">{{listing.title}}</a></td>
-                                  <td>{{listing.id}}</td>
-                                  <td>{{listing.singleUpc}}</td>
-                                  <td>{{listing.year}}</td>
-                                  <td>{{listing.format}}</td>
-                                </tr>
-                            </paginate>
-    					</table>
-    				</div>
-    			</div> <!-- table card example end -->
 				</div>
-			</div> <!-- inverse table code and example end-->
+			</div>
 		</div>
     </div>
 </template>
@@ -133,7 +90,7 @@
             return {
                 musicSearch: [],
                 paginate:['musicSearch'],
-                isOpen: false
+                toggle: false
             }
         },
         methods: {
@@ -141,13 +98,18 @@
                 this.musicSearch.splice(index, 1);
             },
             switchOpen(e) {
-                if (!e.target.matches('a')) return;
                 console.log(e.target);
                 var target = e.target;
-                $(target).toggleClass( "child-table-collapse" );
-            },
-            doNothing(e) {
-                event.stopPropagation();
+                if (!target.matches('a')){
+                    var $parent = target.parentNode;
+                    $($parent).toggleClass( "child-table-collapse" );
+                } else {
+                    $(target).toggleClass( "child-table-collapse" );
+                }
+                var $parentTR = $(target).closest('tr');
+                var $uncleTR = $($parentTR).siblings('tr');
+                var $childTable = $($uncleTR).find('.direct-child-table');
+                $($childTable).toggleClass('showme');
             }
         },
         components: {
@@ -166,7 +128,12 @@
                 }
             });
             this.musicSearch = search;
-          })
+            if(search.length > 0){
+                this.toggle = true;
+            } else {
+                this.toggle = false;
+            }
+        })
       }
     }
 </script>
@@ -215,13 +182,6 @@
             border:none;
         }
     }
-    .pmd-table.table > thead > tr, .pmd-table.table.table > tbody > tr {
-        td, th {
-            &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(6), &:last-of-type {
-                text-align:right !important;
-            }
-        }
-    }
     .fa {
         font-size: 18px;
         transform:translateY(3px);
@@ -235,5 +195,34 @@
     }
     .pmd-table-row-action {
         width: 110px;
+    }
+    .pmd-table.table > thead > tr, .pmd-table.table.table > tbody > tr {
+        td, th {
+            &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(6), &:last-of-type {
+                text-align:right !important;
+            }
+        }
+    }
+    .direct-child-table {
+        .pmd-table.table > thead > tr, .pmd-table.table.table > tbody > tr {
+            td, th {
+                &:nth-of-type(2) {
+                    text-align:center !important;
+                }
+                &:last-of-type {
+                    text-align:right !important;
+                }
+            }
+        }
+    }
+
+      /*TRANSITION ANIMATIONS*/
+    .fade-enter-active, .fade-leave-active, .fade-move {
+      transition: all .3s ease;
+      /* set beziers on active classes */
+    }
+    .fade-enter, .fade-leave-to
+    /* 2.1.8 and up - set tranisitions on enter and leave-to*/ {
+      opacity:0;
     }
 </style>
