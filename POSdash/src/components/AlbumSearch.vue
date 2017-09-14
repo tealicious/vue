@@ -26,6 +26,7 @@
                               :list="musicSearch"
                               :per="10"
                               tag="table" class="table table-mc-red pmd-table">
+                              <!-- <table class="table table-mc-red pmd-table"> -->
                 				<thead>
         							<tr>
         								<th>Actions</th>
@@ -36,13 +37,13 @@
                                         <th>Format</th>
         							</tr>
         						</thead>
-                                <tbody v-for="(listing, index) in paginated('musicSearch')">
+                                <tbody v-for="(listing, index) in musicSearch">
                                         <tr>
                                           <td class="pmd-table-row-action">
                                               <a  class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"
                                               @click="switchOpen"
                                               ><i class="material-icons md-dark pmd-sm"></i></a>
-                                              <a class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm" @click="remove">
+                                              <a class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm" @click="remove(index, $event)">
                                                   <i class="material-icons md-dark pmd-sm">delete</i>
                                               </a>
                                           </td>
@@ -51,6 +52,7 @@
                                           <td>{{listing.singleUpc}}</td>
                                           <td>{{listing.year}}</td>
                                           <td>{{listing.format}}</td>
+                                          <td>{{ index }}</td>
                                         </tr>
                                         <tr class="child-table">
                     						<td colspan="12">
@@ -76,6 +78,7 @@
                         				</tr>
                                 </tbody>
                 		</paginate>
+                        <!-- </table> -->
                 		</div>
     				</div>
     			</div>
@@ -96,7 +99,8 @@
             }
         },
         methods: {
-            remove(e, index) {
+            remove(index, e) {
+                console.log(e, index);
                 this.musicSearch.splice(index, 1);
                 var target = e.target;
                 if (!target.matches('a')){
@@ -109,7 +113,7 @@
                 var $uncleTR = $($parentTR).siblings('tr');
                 var $childTable = $($uncleTR).find('.direct-child-table');
                 if($($childTable).hasClass('showMe')){
-                    $($childTable).removeClass('showMe').slideToggle(300);
+                    $($childTable).removeClass('showMe').slideToggle(200);
                 }
             },
             switchOpen(e) {
@@ -123,7 +127,7 @@
                 var $parentTR = $(target).closest('tr');
                 var $uncleTR = $($parentTR).siblings('tr');
                 var $childTable = $($uncleTR).find('.direct-child-table');
-                $($childTable).addClass('showMe').slideToggle(300);
+                $($childTable).addClass('showMe').slideToggle(200);
             }
         },
         components: {
