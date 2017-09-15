@@ -25,3 +25,17 @@ other must haves:
 "vuex": "^2.4.0",
 
 "babel-preset-stage-2": "^6.24.1"
+
+babel.rc:
+
+{
+
+  "presets": [
+  
+    ["es2015", { "modules": false }],
+    
+    ["stage-2"]
+    
+  ]
+  
+}
