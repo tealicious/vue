@@ -19,7 +19,7 @@ import {eventBus} from '../main';
                 musicSearch: [],
                 requestMusic: "http://api.discogs.com/database/search?q=",
                 Oauth: "&key=COmwGBAqWkMRnFFmdiON&secret=vffgxgmpqRGbjVkRyJihMZBaOluuoHXY",
-                query: 'nirvana',
+                query: 'Nirvana',
                 toggle: true
             }
         },

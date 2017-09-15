@@ -32,11 +32,10 @@
         							<tr>
         								<th>Actions</th>
         								<th>Title</th>
-        								<th>ID</th>
-        								<th>UPC</th>
+        								<th>Country</th>
+        								<th>Single UPC</th>
         								<th>Year</th>
                                         <th>Format</th>
-                                        <th>Index</th>
         							</tr>
         						</thead>
                                 <tbody v-for="(listing, index) in paginated('musicSearch')">
@@ -49,12 +48,11 @@
                                                   <i class="material-icons md-dark pmd-sm">delete</i>
                                               </a>
                                           </td>
-                                          <td><a :href="listing.resource_url" target="blank">{{listing.title}}</a></td>
-                                          <td>{{listing.id}}</td>
+                                          <td><a :href="'https://www.discogs.com' + listing.uri" target="top">{{listing.title}}</a></td>
+                                          <td>{{listing.country}}</td>
                                           <td>{{listing.singleUpc}}</td>
                                           <td>{{listing.year}}</td>
-                                          <td>{{listing.format}}</td>
-                                          <td>{{ index }}</td>
+                                          <td>{{listing.singleFormat}}</td>
                                         </tr>
                                         <tr class="child-table">
                     						<td colspan="12">
@@ -62,17 +60,43 @@
                     								<table class="table pmd-table table-striped table-sm">
                     									<thead>
                     										<tr>
-                    											<th>Type</th>
-                    											<th>Country</th>
-                    											<th>CatNo</th>
+                                                                <th></th>
+                                                                <th>Label</th>
+                    											<th class="text-right">Other UPC's</th>
+                    											<th class="text-right">ID</th>
+                    											<th class="text-right">CatNo</th>
+                                                                <th>Other Formats</th>
                     										</tr>
                     									</thead>
                     									<tbody>
               									           <tr>
-                        										<td>{{listing.type}}</td>
-                        										<td>{{listing.country}}</td>
-                        										<td>{{listing.catno}}</td>
-                									         </tr>
+                                                            <td class="really-no-padding">
+                                                                <a :href="'https://www.discogs.com' + listing.uri" target="top"><img :src="listing.thumb"/></a>
+                                                            </td>
+                                                            <td>
+                                                                <ul class="really-no-padding">
+                                                                    <li v-for="label in listing.label" class="no-padding">
+                                                                        {{label}}
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                    										<td class="no-padding">
+                                                                <ul class="really-no-padding">
+                                                                    <li v-for="upc in listing.barcode" class="text-right">
+                                                                        {{upc}}
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                    										<td class="text-right">{{listing.id}}</td>
+                    										<td class="text-right">{{listing.catno}}</td>
+                                                            <td class="no-padding">
+                                                                <ul>
+                                                                    <li v-for="format in listing.format" class="text-right">
+                                                                        {{format}}
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                									       </tr>
             							                </tbody>
                         							</table>
                         						</div>
@@ -131,6 +155,9 @@
                 var $childTable = $($uncleTR).find('.direct-child-table');
                 $($childTable).addClass('showMe').slideToggle(200);
             }
+            // showInfo(e) {
+            //     console.log(e.toElement.href);
+            // }
         },
         components: {
             searchForm: SearchForm
@@ -147,7 +174,7 @@
                 }
                 if(item.format){
                 const formatArray = item.format;
-                item.format = formatArray.shift();
+                item.singleFormat = formatArray.shift();
                 }
             });
             this.musicSearch = search;
@@ -222,22 +249,52 @@
     }
     .pmd-table.table > thead > tr, .pmd-table.table.table > tbody > tr {
         td, th {
-            &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(6), &:last-of-type {
+            &:nth-of-type(3), &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(6) {
                 text-align:right !important;
             }
         }
-    }
-    .direct-child-table {
-        .pmd-table.table > thead > tr, .pmd-table.table.table > tbody > tr {
-            td, th {
-                &:nth-of-type(2) {
-                    text-align:center !important;
-                }
-                &:last-of-type {
-                    text-align:right !important;
-                }
-            }
+
+        .text-right {
+            text-align:right;
         }
     }
-
+    // .pmd-table.table.table > tbody > tr {
+    //     td {
+    //         border:1px solid whitesmoke;
+    //         border-bottom:none;
+    //     }
+    // }
+    .direct-child-table {
+        .pmd-table.table > thead > tr, .pmd-table.table.table > tbody > tr {
+            font-size:.8rem;
+            .really-no-padding{
+                padding:0;
+            }
+            img {
+                padding:0;
+            }
+            td, th {
+                border:none;
+                vertical-align:top;
+                // &:nth-of-type(2), &:nth-of-type(3) {
+                //     text-align:right !important;
+                // }
+            }
+        }
+        .text-right {
+            text-align:right;
+        }
+    }
+    .no-padding {
+        padding-left:0 !important;
+        padding-right:0 !important;
+    }
+    .text-right {
+        text-align:right;
+    }
+    table ul li{
+            padding:4px 12px;
+            list-style:none;
+            border-bottom:1px dashed lightgray;
+        }
 </style>
