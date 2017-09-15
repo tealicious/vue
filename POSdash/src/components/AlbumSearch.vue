@@ -25,7 +25,8 @@
                               name="musicSearch"
                               :list="musicSearch"
                               :per="10"
-                              tag="table" class="table table-mc-red pmd-table">
+                              tag="table"
+                              class="table table-mc-red pmd-table">
                               <!-- <table class="table table-mc-red pmd-table"> -->
                 				<thead>
         							<tr>
@@ -35,9 +36,10 @@
         								<th>UPC</th>
         								<th>Year</th>
                                         <th>Format</th>
+                                        <th>Index</th>
         							</tr>
         						</thead>
-                                <tbody v-for="(listing, index) in musicSearch">
+                                <tbody v-for="(listing, index) in paginated('musicSearch')">
                                         <tr>
                                           <td class="pmd-table-row-action">
                                               <a  class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"
