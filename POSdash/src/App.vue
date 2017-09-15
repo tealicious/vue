@@ -65,5 +65,16 @@ import {eventBus} from './main';
       opacity: .5;
   }
 }
-
+    /*TRANSITION ANIMATIONS*/
+    .fade-enter, .fade-leave-to {
+        /* set tranisition styles on enter and leave-to*/
+        opacity:0;
+    }
+    .fade-enter {
+        transform:scale(1.1);
+    }
+    .fade-enter-active, .fade-leave-active {
+        transition:opacity 300ms cubic-bezier(0.68, -0.1, 0.265, 1.55);
+        /* set beziers on active classes */
+    }
 </style>

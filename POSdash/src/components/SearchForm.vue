@@ -23,15 +23,15 @@
                         <span for="CD">CD</span>
                       </label>
                       <label class="radio-inline pmd-radio pmd-radio-ripple-effect">
-                        <input type="radio" name="optionsRadios" id="Album" value="Album" v-model="title.format">
-                        <span for="Album">Vinyl</span>
+                        <input type="radio" name="optionsRadios" id="Vinyl" value="Vinyl" v-model="title.format">
+                        <span for="Vinyl">Vinyl</span>
                       </label>
                       <label class="radio-inline pmd-radio pmd-radio-ripple-effect">
                         <input type="radio" name="optionsRadios" id="Cassette" value="Cassette" v-model="title.format">
                         <span for="Cassette">Tape</span>
                       </label>
                       <label class="radio-inline pmd-radio pmd-radio-ripple-effect">
-                        <input type="radio" name="optionsRadios" id="any" value="" v-model="title.format">
+                        <input type="radio" name="optionsRadios" id="any" value="Album" v-model="title.format">
                         <span for="any">Any</span>
                       </label>
                     </div>
@@ -58,10 +58,10 @@
                 fullQuery: "",
                 toggle: true,
                 title: {
-                    name: '',
+                    name: 'Happy End',
                     album: '',
                     upc: '',
-                    format: ""
+                    format: "Vinyl"
                 }
               }
         },
