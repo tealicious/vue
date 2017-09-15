@@ -1,19 +1,26 @@
 <template>
-    <div>
-        <button class="btn btn-primary" @click="increment">Increment</button>
-        <button class="btn btn-primary" @click="decrement">Decrement</button>
-    </div>
+<div>
+  <button class="btn btn-warning" @click="decrement">-</button>
+  <button class="btn btn-info" @click="increment">+</button>
+  <button class="btn btn-danger" @click="clear">Clear</button>
+</div>
 </template>
 
 <script>
-    export default {
-        methods: {
-            increment() {
-                this.$store.state.counter++;
-            },
-            decrement() {
-                this.$store.state.counter--;
-            }
-        }
+export default {
+  methods: {
+    increment() {
+      this.$store.state.counter++;
+      this.$store.state.clicks++;
+    },
+    decrement() {
+      this.$store.state.counter--;
+      this.$store.state.clicks++;
+    },
+    clear() {
+      this.$store.state.counter = 0;
+      this.$store.state.clicks = 0;
     }
+  }
+}
 </script>

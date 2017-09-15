@@ -1,13 +1,13 @@
 <template>
-    <p>Counter is: {{ counter }}</p>
+<p>Local counter is: {{ counter }}</p>
 </template>
 
 <script>
-    export default {
-        computed: {
-          counter() {
-            return this.$store.state.counter * 2;
-          }
-        }
+export default {
+  computed: {
+    counter() {
+      return this.$store.state.counter;
     }
+  }
+}
 </script>
