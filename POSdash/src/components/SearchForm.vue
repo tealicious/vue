@@ -58,10 +58,10 @@
                 fullQuery: "",
                 toggle: true,
                 title: {
-                    name: 'Nirvana',
-                    album: 'Bleach',
+                    name: 'Happy End',
+                    album: '',
                     upc: '',
-                    format: "Album"
+                    format: "Vinyl"
                 }
               }
         },

@@ -207,6 +207,9 @@
         margin:0;
         cursor:pointer;
     }
+    .table {
+        margin-bottom:0;
+    }
     .table > tbody > tr > td {
         border:none;
     }
