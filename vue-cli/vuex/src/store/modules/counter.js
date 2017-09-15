@@ -1,5 +1,6 @@
 const state = {
   counter: 0,
+  clicks: 0
 };
 
 const getters = {
