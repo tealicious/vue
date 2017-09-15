@@ -17,3 +17,9 @@ npm run dev
 add this to package.json for sass support:
 
 "vue-style-loader": "^2.0.5"
+
+other must haves:
+
+"vue-router": "^2.0.1",
+"vuex": "^2.4.0",
+"babel-preset-stage-2": "^6.24.1"
