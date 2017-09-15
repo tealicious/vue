@@ -7,6 +7,9 @@ export default {
   computed: {
     counter() {
       return this.$store.state.counter;
+    },
+    clicks() {
+      return this.$store.state.clicks;
     }
   }
 }
