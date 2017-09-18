@@ -14,13 +14,16 @@
 import {
   mapGetters
 } from 'vuex';
+import * as types from '../store/types';
 export default {
   computed: {
     ...mapGetters([
       'singleCounter',
-      'doubleCounter',
       'tripleCounter',
-      'stringCounter'
+      {
+        doubleCounter: types.DOUBLE_COUNTER,
+        stringCounter: types.CLICK_COUNTER,
+      }
     ]),
     quadrupalCounter() {
       return this.$store.state.counter.counter * 4;
