@@ -10,16 +10,16 @@
 export default {
   methods: {
     increment() {
-      this.$store.state.counter++;
-      this.$store.state.clicks++;
+      this.$store.state.counter.counter++;
+      this.$store.state.counter.clicks++;
     },
     decrement() {
-      this.$store.state.counter--;
-      this.$store.state.clicks++;
+      this.$store.state.counter.counter--;
+      this.$store.state.counter.clicks++;
     },
     clear() {
-      this.$store.state.counter = 0;
-      this.$store.state.clicks = 0;
+      this.$store.state.counter.counter = 0;
+      this.$store.state.counter.clicks = 0;
     }
   }
 }

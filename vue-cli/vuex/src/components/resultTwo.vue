@@ -23,7 +23,7 @@ export default {
       'stringCounter'
     ]),
     quadrupalCounter() {
-      return this.$store.state.counter * 4;
+      return this.$store.state.counter.counter * 4;
     }
   }
 

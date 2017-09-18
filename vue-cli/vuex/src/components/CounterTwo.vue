@@ -21,12 +21,12 @@ export default {
       'clear'
     ]),
     makeItOneThousand() {
-      this.$store.state.counter += 1000;
-      this.$store.state.clicks++;
+      this.$store.state.counter.counter += 1000;
+      this.$store.state.counter.clicks++;
     },
     takeAwayOneThousand() {
-      this.$store.state.counter -= 1000;
-      this.$store.state.clicks++;
+      this.$store.state.counter.counter -= 1000;
+      this.$store.state.counter.clicks++;
     }
   }
 

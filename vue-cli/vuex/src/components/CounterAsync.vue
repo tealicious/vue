@@ -46,14 +46,14 @@ export default {
     ]),
     makeItOneThousand() {
       setTimeout(() => {
-        this.$store.state.counter += 1000;
-        this.$store.state.clicks++;
+        this.$store.state.counter.counter += 1000;
+        this.$store.state.counter.clicks++;
       }, this.payLoad)
     },
     takeAwayOneThousand() {
       setTimeout(() => {
-        this.$store.state.counter -= 1000;
-        this.$store.state.clicks++;
+        this.$store.state.counter.counter -= 1000;
+        this.$store.state.counter.clicks++;
       }, this.payLoad)
     }
   }
