@@ -1,0 +1,33 @@
+export default [{
+  id: 1,
+  name: 'Bitcoin',
+  price: 110
+}, {
+  id: 2,
+  name: 'Ethereum',
+  price: 110
+}, {
+  id: 3,
+  name: 'Litecoin',
+  price: 110
+}, {
+  id: 4,
+  name: 'Dash',
+  price: 110
+}, {
+  id: 5,
+  name: 'Ripple',
+  price: 110
+}, {
+  id: 6,
+  name: 'NEM',
+  price: 110
+}, {
+  id: 7,
+  name: 'Monero',
+  price: 110
+}, {
+  id: 8,
+  name: 'IOTA',
+  price: 110
+}];
