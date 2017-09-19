@@ -3,7 +3,7 @@
   <div class="card mt-3">
     <div class="card-header d-flex flex-row justify-content-between align-items-center">
       <h4 class="card-title m-0">{{stock.name}}</h4>
-      <h6 class="card-subtitle text-muted m-0">Price: {{stock.price}}</h6>
+      <h6 class="card-subtitle text-muted m-0">Price: {{stock.price_usd}}</h6>
     </div>
     <div class="card-body">
       <div class="d-flex flex-row justify-content-between align-items-center">
@@ -24,12 +24,12 @@ export default {
   },
   methods: {
     buyStock() {
-      const order = {
-        stockId: this.stock.id,
-        stockPrice: this.stock.price,
+      const order = { // to be send to portfolio.js file
+        id: this.stock.id,
+        price: this.stock.price_usd,
         quantity: this.quantity
       };
-      console.log(Number.isInteger(this.quantity));
+      this.$store.dispatch('buyStock', order); //order is the payload
       this.quantity = 0;
     }
   }
