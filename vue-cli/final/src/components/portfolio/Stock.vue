@@ -18,7 +18,9 @@
 </div>
 </template>
 <script>
-import {mapActions} from 'vuex';
+import {
+  mapActions
+} from 'vuex';
 export default {
   props: ['stock'],
   methods: {
@@ -26,7 +28,7 @@ export default {
       'sellStock'
     ]),
     sell() {
-      const order = { // to be send to portfolio.js file
+      const order = { // to be sent to portfolio.js file
         id: this.stock.id,
         price: this.stock.price,
         quantity: this.quantity
@@ -35,3 +37,4 @@ export default {
     }
   }
 }
+</script>

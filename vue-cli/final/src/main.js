@@ -1,14 +1,15 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router';
+import VueRouter from 'vue-router'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import App from './App.vue'
 
 import {
   routes
 } from './routes';
-import {
-  store
-} from './store/store';
+import store from './store/store';
 
+Vue.use(VueAxios, axios)
 Vue.use(VueRouter);
 
 const router = new VueRouter({

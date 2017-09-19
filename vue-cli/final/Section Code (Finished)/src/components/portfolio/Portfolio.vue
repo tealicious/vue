@@ -1,6 +1,6 @@
 <template>
-<div class="row">
-  <app-stock v-for="(stock, key) in stocks" :stock="stock" :key="stock.id"></app-stock>
+<div>
+  <app-stock v-for="stock in stocks" :stock="stock"></app-stock>
 </div>
 </template>
 
@@ -12,8 +12,7 @@ import Stock from './Stock.vue';
 export default {
   computed: {
     ...mapGetters({
-      stocks: 'portfolioStocks',
-      stocks2: 'staticStocks'
+      stocks: 'stockPortfolio'
     })
   },
   components: {
