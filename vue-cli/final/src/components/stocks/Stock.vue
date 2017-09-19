@@ -29,7 +29,7 @@ export default {
         price: this.stock.price_usd,
         quantity: this.quantity
       };
-      this.$store.dispatch('buyStock', order); //order is the payload
+      this.$store.dispatch('buyStock', order); //triggert the 'buyStock method in store.js and pass the order object  as the payload
       this.quantity = 0;
     }
   }

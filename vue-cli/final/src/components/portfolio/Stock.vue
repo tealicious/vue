@@ -14,6 +14,9 @@
         <button type="submit" class="btn btn-warning rounded-0 rounded-right" style="cursor:pointer" @click="sell" :disabled="stock.quantity <= 0 || !Number.isInteger(stock.quantity)">Sell</button>
       </div>
     </div>
+    <div class="card-footer text-muted">
+      {{stock.id}}
+    </div>
   </div>
 </div>
 </template>
@@ -27,13 +30,16 @@ export default {
     ...mapActions([
       'sellStock'
     ]),
+    // data() {
+    //   quantity: 0
+    // },
     sell() {
       const order = { // to be sent to portfolio.js file
         id: this.stock.id,
         price: this.stock.price,
         quantity: this.quantity
       };
-      this.sellStock();
+      this.sellStock(order);
     }
   }
 }
