@@ -19,8 +19,9 @@ const mutations = {
         quantity: quantity // give it the amount we purchase
         // we don't assign a price because the marklet determines the price of a stock, not our portfolio!
       });
+      console.log(state.funds, price, quantity);
       state.funds -= price * quantity; //pay for this
-      console.log(state.portfolioStocks)
+      console.log(state.funds, price, quantity);
     }
   },
   sellStock(state, {
@@ -36,7 +37,10 @@ const mutations = {
     } else { // if we're out
       state.portfolioStocks.splice(state.portfolioStocks.indexOf(record)); //make sure to remove it from the portfolio stocks array
     }
+    // price = Number(price);
+    console.log(state.funds, price, quantity);
     state.funds += price * quantity; // get payed for this
+    console.log(state.funds, price, record.quantity, quantity);
   }
 };
 

@@ -30,16 +30,17 @@ export default {
     ...mapActions([
       'sellStock'
     ]),
-    // data() {
-    //   quantity: 0
-    // },
+    data() {
+      quantity: 0
+    },
     sell() {
       const order = { // to be sent to portfolio.js file
         id: this.stock.id,
         price: this.stock.price,
-        quantity: this.quantity
+        quantity: this.stock.quantity
       };
       this.sellStock(order);
+      //this.quantity = 0;
     }
   }
 }
