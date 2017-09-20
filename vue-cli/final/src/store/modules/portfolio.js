@@ -22,7 +22,6 @@ const mutations = {
     }
     state.funds -= price * quantity; //pay for this
     console.log(state.funds, Number(price), quantity);
-
   },
   sellStock(state, {
     id,
