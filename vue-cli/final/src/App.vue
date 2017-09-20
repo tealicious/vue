@@ -1,9 +1,11 @@
 <template>
 <div>
   <app-header></app-header>
-  <div class="container">
-    <router-view></router-view>
-  </div>
+  <main class="pt-4">
+    <div class="container">
+      <router-view></router-view>
+    </div>
+  </main>
 </div>
 </template>
 
@@ -20,6 +22,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+button {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
 </style>

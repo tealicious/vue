@@ -12,17 +12,17 @@ const mutations = {
       return element.id == id // check against our portfolio, does the stock exist yet?
     });
     if (record) { // if we own this alread....
-      record.quantity += quantity; // add to the maount we own
+      record.quantity += quantity; // add to the amount we own
     } else { // if we don't
       state.portfolioStocks.push({ // push it into the portfolio stocks array
         id: id, // give it its ID for reference later
         quantity: quantity // give it the amount we purchase
         // we don't assign a price because the marklet determines the price of a stock, not our portfolio!
       });
-      console.log(state.funds, price, quantity);
-      state.funds -= price * quantity; //pay for this
-      console.log(state.funds, price, quantity);
     }
+    state.funds -= price * quantity; //pay for this
+    console.log(state.funds, Number(price), quantity);
+
   },
   sellStock(state, {
     id,
@@ -32,15 +32,16 @@ const mutations = {
     const record = state.portfolioStocks.find(element => {
       return element.id == id // find the stock object by its id
     });
+    console.log(record.quantity, quantity)
     if (record.quantity > quantity) { // if we have enough to sell
       record.quantity -= quantity // sell some and adjust the quantity to reflect
     } else { // if we're out
-      state.portfolioStocks.splice(state.portfolioStocks.indexOf(record)); //make sure to remove it from the portfolio stocks array
+      state.portfolioStocks.splice(state.portfolioStocks.indexOf(record), 1);
+      //make sure to remove it from the portfolio stocks array
+      //splice demands a second param with number of items to remove or else it wipes all items following the called index
     }
     // price = Number(price);
-    console.log(state.funds, price, quantity);
     state.funds += price * quantity; // get payed for this
-    console.log(state.funds, price, record.quantity, quantity);
   }
 };
 
