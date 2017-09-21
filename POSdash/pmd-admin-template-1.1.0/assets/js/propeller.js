@@ -385,7 +385,7 @@ $(document).ready(function () {
 			}
 		});
 
-		// custom function for expand all and collapse all button 
+		// custom function for expand all and collapse all button
 		$('#expandAll').on('click', function () {
 			var GetID = $(this).attr("data-target");
 			$('#' + GetID + ' ' + 'a[data-toggle="collapse"]').each(function () {
