@@ -63,6 +63,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+animate.css@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-3.5.2.tgz#91e668dc069a808e5e499514867b97aae0166c36"
+
 ansi-html@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/ansi-html/-/ansi-html-0.0.7.tgz#813584021962a9e9e6fd039f940d12f56ca7859e"
@@ -4263,6 +4267,12 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-animate-transitions@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vue-animate-transitions/-/vue-animate-transitions-1.0.0.tgz#504c576db0764080a52c2470eaf718e1bc7b8372"
+  dependencies:
+    animate.css "^3.5.2"
+
 vue-animate@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/vue-animate/-/vue-animate-0.0.4.tgz#bf7afcdfec4694e4d19147a75f6761ecf3735f8f"
@@ -4292,6 +4302,10 @@ vue-loader@^12.1.0:
     vue-hot-reload-api "^2.1.0"
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.2.2"
+
+vue-on-click-outside@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/vue-on-click-outside/-/vue-on-click-outside-1.0.3.tgz#6b7200c2b50fa45eb77dce2daad7ab436d9dd611"
 
 vue-router@^2.0.1:
   version "2.7.0"

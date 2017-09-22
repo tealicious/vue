@@ -16,7 +16,7 @@
         <a class="btn btn-danger btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="toggleDropdown">
     Save & Load
     </a>
-        <div class="dropdown-menu" :class="dropDown ? 'show' : null" aria-labelledby="dropdownMenuLink">
+        <div class="dropdown-menu" :class="dropDown ? 'show' : null" aria-labelledby="dropdownMenuLink" v-if="dropDown" v-on-click-outside="closeDropdown">
           <a class="dropdown-item" href="#">Save</a>
           <a class="dropdown-item" href="#">Load</a>
         </div>
@@ -33,7 +33,11 @@ import {
 import {
   mapActions
 } from 'vuex';
+import {
+  mixin as onClickOutside
+} from 'vue-on-click-outside'
 export default {
+  mixins: [onClickOutside],
   data() {
     return {
       dropDown: false
@@ -49,6 +53,9 @@ export default {
     },
     toggleDropdown() {
       this.dropDown = !this.dropDown;
+    },
+    closeDropdown() {
+      this.dropDown = false;
     }
   }
 }

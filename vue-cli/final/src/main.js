@@ -3,6 +3,15 @@ import VueRouter from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import App from './App.vue'
+import { directive as onClickOutside } from 'vue-on-click-outside'
+Vue.directive('on-click-outside', onClickOutside)
+
+// local mixin
+// import { mixin as onClickOutside } from 'vue-on-click-outside'
+// const clickMixin = {
+//   mixins: [onClickOutside]
+// }
+// export default clickMixin
 
 import {
   routes
