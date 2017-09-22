@@ -3,7 +3,9 @@
   <app-header></app-header>
   <main class="pt-4">
     <div class="container">
-      <router-view></router-view>
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </div>
   </main>
 </div>
@@ -29,5 +31,17 @@ button {
     &:disabled {
         cursor: not-allowed;
     }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: all 0.35s;
+    transform: scale(1);
+}
+/* .fade-leave-active below version 2.1.8 */
+.fade-enter,
+.fade-leave-to {
+    transform: scale(.9);
+    opacity: 0;
 }
 </style>

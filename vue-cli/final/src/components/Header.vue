@@ -12,11 +12,11 @@
         <router-link class="nav-item" to="/stocks" activeClass="active" tag="li"><a class="nav-link">Stocks</a></router-link>
       </ul>
       <a role="button" class="btn btn-info btn-sm mr-sm-2" href="#" @click="endDay">End Day</a>
-      <div class="dropdown show mr-sm-3">
-        <a class="btn btn-danger btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="dropdown mr-sm-3" :class="dropDown ? 'show' : null">
+        <a class="btn btn-danger btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="toggleDropdown">
     Save & Load
     </a>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <div class="dropdown-menu" :class="dropDown ? 'show' : null" aria-labelledby="dropdownMenuLink">
           <a class="dropdown-item" href="#">Save</a>
           <a class="dropdown-item" href="#">Load</a>
         </div>
@@ -34,6 +34,11 @@ import {
   mapActions
 } from 'vuex';
 export default {
+  data() {
+    return {
+      dropDown: false
+    }
+  },
   computed: {
     ...mapGetters(['funds'])
   },
@@ -41,6 +46,9 @@ export default {
     ...mapActions(['randomizeStocks']),
     endDay() {
       this.randomizeStocks();
+    },
+    toggleDropdown() {
+      this.dropDown = !this.dropDown;
     }
   }
 }
