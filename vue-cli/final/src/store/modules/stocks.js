@@ -5,8 +5,8 @@ const state = {
   staticStocks: []
 };
 const mutations = {
-  setStocks(state, staticStocks) {
-    state.staticStocks = staticStocks;
+  setStocks(state, stocks) {
+    state.staticStocks = stocks;
   },
   randomizeStocks(state) {
     state.stocks.forEach(stock => {

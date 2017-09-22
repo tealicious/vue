@@ -17,8 +17,8 @@
     Save & Load
     </a>
         <div class="dropdown-menu" :class="dropDown ? 'show' : null" aria-labelledby="dropdownMenuLink" v-if="dropDown" v-on-click-outside="closeDropdown">
-          <a class="dropdown-item" href="#">Save</a>
-          <a class="dropdown-item" href="#">Load</a>
+          <a class="dropdown-item" href="" @click.prevent="saveData">Save</a>
+          <a class="dropdown-item" href="" @click.prevent="loadData">Load</a>
         </div>
       </div>
       <a class="navbar-brand mr-0">{{funds | currency}}</a>
@@ -36,6 +36,7 @@ import {
 import {
   mixin as onClickOutside
 } from 'vue-on-click-outside'
+import axios from 'axios';
 export default {
   mixins: [onClickOutside],
   data() {
@@ -47,7 +48,7 @@ export default {
     ...mapGetters(['funds'])
   },
   methods: {
-    ...mapActions(['randomizeStocks']),
+    ...mapActions(['randomizeStocks', 'fetchData']),
     endDay() {
       this.randomizeStocks();
     },
@@ -56,6 +57,17 @@ export default {
     },
     closeDropdown() {
       this.dropDown = false;
+    },
+    saveData() {
+      const data = {
+        funds: this.$store.getters.funds,
+        portfolioStocks: this.$store.getters.portfolioStocks,
+        stocks: this.$store.getters.stocks
+      };
+      axios.put('https://vue-project-final.firebaseio.com/data.json', data);
+    },
+    loadData() {
+      this.fetchData();
     }
   }
 }
