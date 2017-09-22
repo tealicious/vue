@@ -11,7 +11,7 @@
         <router-link class="nav-item" to="/portfolio" activeClass="active" tag="li"><a class="nav-link">Portfolio</a></router-link>
         <router-link class="nav-item" to="/stocks" activeClass="active" tag="li"><a class="nav-link">Stocks</a></router-link>
       </ul>
-      <a role="button" class="btn btn-info btn-sm mr-sm-2" href="#">End Day</a>
+      <a role="button" class="btn btn-info btn-sm mr-sm-2" href="#" @click="endDay">End Day</a>
       <div class="dropdown show mr-sm-3">
         <a class="btn btn-danger btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Save & Load

@@ -8,7 +8,11 @@ const mutations = {
   setStocks(state, staticStocks) {
     state.staticStocks = staticStocks;
   },
-  randomizeStocks() {},
+  randomizeStocks(state) {
+    state.stocks.forEach(stock => {
+      stock.price_usd = stock.price_usd * (1 + Math.random() - 0.5);
+    });
+  },
   getCryptoCurrencies(state) {
     const getUrl = 'https://api.coinmarketcap.com/v1/ticker/?limit=10';
     axios.get(getUrl).then((response) => {
@@ -36,7 +40,7 @@ const actions = {
   randomizeStocks: ({
     commit
   }) => {
-    commit('rndStocks')
+    commit('randomizeStocks')
   }
 };
 
