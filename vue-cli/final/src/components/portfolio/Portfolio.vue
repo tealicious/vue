@@ -1,8 +1,8 @@
 <template>
 <div class="row">
-  <transition-group v-for="(stock, key) in stocks" tag="div" name="fade-slide" mode="out-in" class="col-sm-6 col-lg-4">
+  <div v-for="(stock, key) in stocks" tag="div" name="fade-slide" mode="out-in" class="col-sm-6 col-lg-4">
     <app-stock :stock="stock" :key="stock.id"></app-stock>
-  </transition-group>
+  </div>
 </div>
 </template>
 
@@ -23,25 +23,24 @@ export default {
   }
 }
 </script>
-<style>
-.fade-slide-item {
-  transition: all .25s;
-  display: inline-block;
+<style lang='scss'>
+/*.fade-slide-item {
+    transition: all 0.25s;
+    display: inline-block;
 }
 
 .fade-slide-enter,
 .fade-slide-leave-to {
-  opacity: 0;
-  transform: scale(.9);
+    opacity: 0;
+    transform: scale(.9);
 }
-
 
 .fade-slide-leave,
 .fade-slide-leave-active {
-  position: absolute;
+    position: absolute;
 }
 
 .fade-slide-enter-active {
-  transition-delay: .25s;
-}
+    transition-delay: 0.25s;
+}*/
 </style>

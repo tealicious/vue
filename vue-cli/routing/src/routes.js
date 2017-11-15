@@ -30,16 +30,36 @@ const UserStart = resolve => {
 };
 
 
-export const routes =  [
-  { path: '', component: Home},
+export const routes = [{
+    path: '',
+    component: Home
+  },
   //{ path: '/user/:id', component: User, props: true }, // '/:{{key}}' expects user/some-sub-url-path
-  { path: '/user', component: User, children: [ // I THINK the children object automatically tells the router that <router-view> will start rendering the components designated to it
-    { path: '', component: UserStart }, // @ no string render the UserStart.vue component
-    { path: ':id', component: UserDetail , beforeEnter: (to, from, next) => {
-      console.log('inside routes setup');
-      next(); // explicitly tell beforeEach method to allow route actions to continues
-    }}, // @id (we use names here) render the url + '/id' via the userDetail component
-    { path: ':id/edit', component: UserEdit, name: 'userEdit' } // I think the name key bings the links in the vue to this route ? not sure
-  ] },
-  {path: '*', redirect: '/'} // catch all unhandled routes (404's)
+  {
+    path: '/user',
+    component: User,
+    children: [ // I THINK the children object automatically tells the router that <router-view> will start rendering the components designated to it
+      {
+        path: '',
+        component: UserStart
+      }, // @ no string render the UserStart.vue component
+      {
+        path: ':id',
+        component: UserDetail,
+        beforeEnter: (to, from, next) => {
+          console.log('inside routes setup');
+          next(); // explicitly tell beforeEach method to allow route actions to continues
+        }
+      }, // @id (we use names here) render the url + '/id' via the userDetail component
+      {
+        path: ':id/edit',
+        component: UserEdit,
+        name: 'userEdit'
+      } // I think the name key bings the links in the vue to this route ? not sure
+    ]
+  },
+  {
+    path: '*',
+    redirect: '/'
+  } // catch all unhandled routes (404's)
 ];
