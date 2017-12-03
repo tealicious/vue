@@ -6,14 +6,14 @@ import store from './store'
 
 axios.defaults.baseURL = "https://axios-tutorial.firebaseio.com";
 // you can set up auth headers and shit this way too
-axios.interceptors.request.use(config => {
-  console.log("request interceptor");
-  return config;
-})
-axios.interceptors.response.use(response => {
-  console.log("response interceptor");
-  return response;
-})
+// axios.interceptors.request.use(config => {
+//   console.log("request interceptor");
+//   return config;
+// })
+// axios.interceptors.response.use(response => {
+//   console.log("response interceptor");
+//   return response;
+// })
 new Vue({
   el: '#app',
   router,

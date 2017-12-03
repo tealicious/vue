@@ -51,8 +51,6 @@
 </template>
 
 <script>
-// import axios from "axios"
-import axios from "../../js/axios-auth"; // importing a customized axios instance, with its own base URL from the axios-auth.js file
 export default {
   data() {
     return {
@@ -86,11 +84,12 @@ export default {
         hobbies: this.hobbyInputs.map(hobby => hobby.value),
         terms: this.terms
       };
+      const authData = {
+        email: formData.email,
+        password: formData.password
+      };
       console.log(formData);
-      axios
-        .post("/users.json", formData)
-        .then(res => console.log(res))
-        .catch(error => console.log(error));
+      this.$store.dispatch("signup", authData);
     }
   }
 };
