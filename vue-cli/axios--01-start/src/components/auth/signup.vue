@@ -84,12 +84,8 @@ export default {
         hobbies: this.hobbyInputs.map(hobby => hobby.value),
         terms: this.terms
       };
-      const authData = {
-        email: formData.email,
-        password: formData.password
-      };
       console.log(formData);
-      this.$store.dispatch("signup", authData);
+      this.$store.dispatch("signup", formData);
     }
   }
 };

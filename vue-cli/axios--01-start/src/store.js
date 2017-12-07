@@ -7,70 +7,97 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     idToken: null, // core auth data needed for firebase signup and login rest api
-    userId: null // core auth data needed for firebase signup and login rest api
+    userId: null, // core auth data needed for firebase signup and login rest api
+    user: null
   },
   getters: {
-
+    user(state) {
+      return state.user;
+    }
   },
   mutations: {
-    authUser (state, userData) {
+    authUser(state, userData) {
       state.idToken = userData.token,
-      state.userId = userData.userId
+        state.userId = userData.userId
+    },
+    storeLocalUser(state, user) {
+      state.user = user;
     }
   },
   actions: {
     signup({
-      commit
+      commit, // commit mutation methods
+      dispatch // dispatch action methods
     }, authData) {
+      console.log(`auth user data: ${authData}`);
       axios.post("/signupNewUser?key=AIzaSyBZluWBHBrwDsMsum03zQNmh_x_DLAA-ck", {
           email: authData.email,
           password: authData.password,
           returnSecureToken: true
-        })
+        }) // post the object to sign user up
         .then(res => {
-          console.log(res)
-          commit('authUser', { // commit authUser mutation and pass the following object into the userData parameter
-            token: res.data.idToken,
-            userId: res.data.localId
+          console.log(res.data) // get a response with auth token in it
+          commit('authUser', { // commit authUser mutation to set our current, local user ID and token
+            token: res.data.idToken, // pass the new user token
+            userId: res.data.localId // pass the new user unique id
           })
         })
+      dispatch('storeUser', authData) // dispatch storeUser action which will add our user to the firebase users database
         .catch(error => console.log(error));
     },
-    login({commit}, authData) {
+    login({
+      commit
+    }, authData) {
       axios
         .post("/verifyPassword?key=AIzaSyBZluWBHBrwDsMsum03zQNmh_x_DLAA-ck", {
           email: authData.email,
           password: authData.password,
           returnSecureToken: true
         })
-        .then(res => console.log(res.data))
+        .then(res => {
+          console.log(res.data)
+          commit('authUser', {
+            token: res.data.idToken, // pass the new user token
+            userId: res.data.localId
+          })
+        })
         .catch(error => console.log(error));
     },
-    storeUser({commit}, userData) {
-      globalAxios.post('/users.json', userData)
-      .then (res => {
-        console.log(res)
-      })
-      .catch(error => console.log(error));
+    storeUser({
+      commit,
+      state
+    }, userData) {
+      if (!state.idToken) { // check if there is a current user
+        return
+      }
+      globalAxios.post(`/users.json?auth=${state.idToken}`, userData) // post the user to users.json db
+        .then(res => {
+          console.log(res)
+        })
+        .catch(error => console.log(error));
     },
     fetchUser({
-      commit
+      commit,
+      state
     }) {
-      axios
-      .get("/users.json")
-      .then(response => {
-        const data = response.data; //json object of users
-        const users = []; // begin converting the json object to an array of users
-        for (let key in data) {
-          // key = object key
-          const user = data[key]; // for each object in the data json object, assign it to a variable and reconstruct it as an indiviual object
-          user.id = key; // add new property
-          users.push(user); // reconstruct our own array
-        }
-        this.email = users[0].email; //assign one to the email key in this.data
-        console.log(data, users);
-      })
-      .catch(error => console.log(error));
+      if (!state.idToken) {
+        return
+      }
+      globalAxios.get(`/users.json?auth=${state.idToken}`)
+        .then(response => {
+          const data = response.data; //json object of users
+          const users = []; // begin converting the json object to an array of users
+          for (let key in data) {
+            // key = object key
+            const user = data[key]; // for each object in the data json object, assign it to a variable and reconstruct it as an indiviual object
+            user.id = key; // add new property
+            users.push(user); // reconstruct our own array
+            commit('storeLocalUser', users[0]);
+          }
+          this.email = users[0].email; //assign one to the email key in this.data
+          console.log(data, users);
+        })
+        .catch(error => console.log(error));
     }
   }
 })

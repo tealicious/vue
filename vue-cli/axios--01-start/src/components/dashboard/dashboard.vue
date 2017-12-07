@@ -1,20 +1,25 @@
 <template>
   <div id="dashboard">
     <h1>That's the dashboard!</h1>
-    <p>You should only get here if you're authenticated!</p>
-    <p>Your email address: {{email}}</p>
+    <div v-if="email">
+      <p>Your email address: {{email}}</p>
+    </div>
+    <div v-else>
+      <p>Please login or sign up to use the dashboard!</p>
+    </div>
   </div>
 </template>
 <script>
 import axios from "axios";
 export default {
-  data() {
-    return {
-      email: ""
-    };
+  computed: {
+    email() {
+      let user = this.$store.getters.user;
+      return !user ? false : user.email;
+    }
   },
   created() {
-
+    this.$store.dispatch("fetchUser");
   }
 };
 </script>
@@ -23,7 +28,6 @@ h1,
 p {
   text-align: center;
 }
-
 p {
   color: red;
 }
