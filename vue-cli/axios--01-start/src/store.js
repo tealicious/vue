@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from "./js/axios-auth"
 import globalAxios from 'axios'
+import router from "./router.js";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -13,6 +14,9 @@ export default new Vuex.Store({
   getters: {
     user(state) {
       return state.user;
+    },
+    isAuthenticated(state) {
+      return state.idToken != null; //return true if user is logged in
     }
   },
   mutations: {
@@ -22,6 +26,10 @@ export default new Vuex.Store({
     },
     storeLocalUser(state, user) {
       state.user = user;
+    },
+    clearAuthData(state) {
+      state.idToken = null,
+        state.userId = null
     }
   },
   actions: {
@@ -60,8 +68,15 @@ export default new Vuex.Store({
             token: res.data.idToken, // pass the new user token
             userId: res.data.localId
           })
+          router.replace("/dashboard")
         })
         .catch(error => console.log(error));
+    },
+    logout({
+      commit
+    }) {
+      commit('clearAuthData')
+      router.replace("/signin")
     },
     storeUser({
       commit,
