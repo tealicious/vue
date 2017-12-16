@@ -2,9 +2,11 @@
   <div id="signup">
     <div class="signup-form">
       <form @submit.prevent="onSubmit">
-        <div class="input">
+        <div class="input" :class="{invalid: $v.email.$error}">
           <label for="email">Mail</label>
-          <input type="email" id="email" v-model="email">
+          <input type="email" id="email" v-model="email" @blur="$v.email.$touch()">
+          <!-- vuelidate -->
+          <p v-if="!$v.email.email">Please provide a valid email address</p>
         </div>
         <div class="input">
           <label for="age">Your Age</label>
@@ -51,7 +53,15 @@
 </template>
 
 <script>
+import { required, email } from "vuelidate/lib/validators";
 export default {
+  validations: {
+    email: {
+      // use key names that are already v-modeled in the component
+      required: required,
+      email: email
+    }
+  },
   data() {
     return {
       email: "",
@@ -84,7 +94,6 @@ export default {
         hobbies: this.hobbyInputs.map(hobby => hobby.value),
         terms: this.terms
       };
-      console.log(formData);
       this.$store.dispatch("signup", formData);
     }
   }
@@ -135,6 +144,11 @@ export default {
 .input select {
   border: 1px solid #ccc;
   font: inherit;
+}
+
+.input.invalid input {
+  border-color: red;
+  background-color: #ffcc9a;
 }
 
 .hobbies button {

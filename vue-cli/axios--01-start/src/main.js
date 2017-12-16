@@ -3,7 +3,9 @@ import App from './App.vue'
 import axios from 'axios'
 import router from './router'
 import store from './store'
+import Vuelidate from 'vuelidate'
 
+Vue.use(Vuelidate)
 axios.defaults.baseURL = "https://axios-tutorial.firebaseio.com";
 // you can set up auth headers and shit this way too
 // axios.interceptors.request.use(config => {
