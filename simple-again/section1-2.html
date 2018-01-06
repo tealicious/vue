@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
+</head>
+
+<body>
+    <div id="app">
+        <h1 v-once>v-once: {{title}}</h1>
+        <h2>{{sayHello()}}</h2>
+        <h3>{{titleAgain()}}</h3>
+        <h4>
+            <a :href="link" target="_blank">Google</a>
+        </h4>
+        <h4 v-html="rawHtml"></h4>
+        <button @click="increase(1, $event)">add</button>
+        <button @click="decrease(1, $event)">subtract</button>
+        <p>counter: {{counter}}</p>
+        <p>computed counter times two: {{counterTimes2}}</p>
+        <p>{{checkGreaterThanTen}}</p>
+        <div class="coord" @mousemove="trackMouse">
+            <div @mousemove="stopTracking">
+                <h5>e.stopPropagation()
+                </h5>
+            </div>
+            <div @mousemove.stop="">
+                <h5>@mousemove.stop=""</h5>
+            </div>
+        </div>
+        <p>mouse is: {{x}}px to the left of & {{y}}px from the top of the window</p>
+        <input type="text" @keyup.enter="alertMe" v-model="alert">
+        <h2>Dynamic Class Binding</h2>
+        <input v-model="color">
+        <div class="block-container">
+            <div class="block" :class="{'red': attachRed}" @click="attachRed = !attachRed"></div>
+            <div class="block" :class="divClasses" @click="attachRed = !attachRed"></div>
+            <div class="block" :class="[color, divClasses]" @click="attachRed = !attachRed"></div>
+        </div>
+        <hr>
+        <h2>Dynamic Style Binding</h2>
+        <input v-model="colorStyle">
+        <input type="range" v-model="slideX" min="200" max="300">
+        <input type="range" v-model="slideY" min="200" max="300">
+        <div class="block-container">
+            <div class="block" :style="{backgroundColor: colorStyle}"></div>
+            <div class="block" :style="divStyles"></div>
+            <div class="block" :style="[{backgroundColor: colorStyle}, divStyles]"></div>
+        </div>
+    </div>
+</body>
+<script src='js/vue.js'></script>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                title: 'Vue.js',
+                link: '//www.google.com/',
+                rawHtml: '<a href="//www.google.com/" target="_blank">Raw Google</a>',
+                counter: 0,
+                x: 0,
+                y: 0,
+                alert: "hit enter",
+                attachRed: false,
+                color: "slategray",
+                colorStyle: "",
+                slideX: 200,
+                slideY: 200
+            }
+        },
+        computed: { //synchronous
+            counterTimes2() {
+                return this.counter * 2;
+            },
+            checkGreaterThanTen() {
+                return this.counter > 10 ? "Counter is greater than 10" : "Counter is not yet greater than 10";
+            },
+            divClasses: function () {
+                return {
+                    red: this.attachRed,
+                    blue: !this.attachRed
+                }
+            },
+            divStyles: function () {
+                return {
+                    width: this.slideX + 'px',
+                    height: this.slideY + 'px'
+                }
+            }
+        },
+        watch: { //asynchronous
+            counter: function (value) {
+                setTimeout(() => {
+                    this.counter = 0;
+                }, 2000);
+            }
+        },
+        methods: {
+            sayHello() {
+                return 'Hello';
+            },
+            titleAgain() {
+                this.title = "Vue.js > React";
+                return this.title;
+            },
+            increase(step, event) {
+                this.counter += step;
+            },
+            decrease(step, event) {
+                this.counter -= step;
+            },
+            trackMouse(e) {
+                this.x = e.clientX;
+                this.y = e.clientY;
+            },
+            stopTracking(e) {
+                e.stopPropagation();
+            },
+            alertMe() {
+                alert(`${this.alert}`);
+            }
+        }
+    })
+</script>
+<style>
+    .coord {
+        border: 1px solid #2c8898;
+        height: 300px;
+        width: 500px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .coord div {
+        width: 50%;
+        height: 33%;
+        background: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 5%;
+    }
+
+    .coord div h5 {
+        color: white;
+    }
+
+    .block-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .block {
+        width: 200px;
+        height: 200px;
+        background: gray;
+        margin: .5rem;
+    }
+
+
+    .red {
+        background: red !important;
+    }
+
+    .blue {
+        background: blue;
+    }
+
+    .slategray {
+        background: lightgray;
+    }
+</style>
+
+</html>
