@@ -13,6 +13,28 @@
         margin: 0;
         color: white;
     }
+
+    .log ul .player-turn {
+        color: blue;
+        background-color: #e4e8ff;
+        float: left;
+        width: 50%;
+        margin: 0;
+        padding: 10px 0;
+        text-align: left;
+        text-indent: 15px;
+    }
+
+    .log ul .monster-turn {
+        color: red;
+        background-color: #ffc0c1;
+        float: right;
+        width: 50%;
+        margin: 0;
+        padding: 10px 0;
+        text-align: left;
+        text-indent: 15px;
+    }
 </style>
 
 <body>
@@ -44,10 +66,12 @@
                 <button @click="giveUp" id="give-up">GIVE UP</button>
             </div>
         </section>
-        <section class="row log">
+        <section class="row log" v-if="turns.length > 0">
             <div class="small-12 columns">
                 <ul>
-                    <li v-for="entry in log">{{entry}}</li>
+                    <li v-for="turn in turns" :class="{'player-turn': turn.isUser, 'monster-turn': !turn.isUser}">
+                        {{turn.text}}
+                    </li>
                 </ul>
             </div>
         </section>
@@ -63,53 +87,52 @@
                     userDamage: 0,
                     monsterDamage: 0,
                     playerHealing: 20,
-                    log: []
+                    turns: []
                 }
             },
             methods: {
                 attack() {
                     this.userAttacks(20);
                     this.monsterAttacks(20);
-                    this.logDamage();
                     this.checkWinner();
                 },
                 specialAttack() {
                     this.userAttacks(30);
                     this.monsterAttacks(30);
-                    this.logDamage();
                     this.checkWinner();
                 },
                 heal() {
                     this.userHealth += 20;
                     this.monsterAttacks(20);
-                    this.logHealing();
+                    this.turns.unshift({
+                        isUser: true,
+                        text: `player heals for 20`
+                    });
                     this.checkWinner();
                 },
                 userAttacks(num) {
                     let damage = Math.round(Math.random() * num);
                     this.userDamage = damage;
+                    this.turns.unshift({
+                        isUser: true,
+                        text: `player attacks for ${damage} damage`
+                    });
                     this.monsterHealth -= damage;
                 },
                 monsterAttacks(num) {
                     let damage = Math.round(Math.random() * num);
                     this.monsterDamage = damage;
+                    this.turns.unshift({
+                        isUser: false,
+                        text: `monster attacks for ${damage} damage`
+                    });
                     this.userHealth -= damage;
-                },
-                logHealing() {
-                    this.log.push(
-                        `player heals for ${this.playerHealing} health. monster hits for ${this.monsterDamage} damage.`
-                    )
-                },
-                logDamage() {
-                    this.log.push(
-                        `monster attacks for ${this.monsterDamage} damage. user attacks for ${this.userDamage}`
-                    )
                 },
                 giveUp() {
                     this.isRunning = false;
                     this.userHealth = 100;
                     this.monsterHealth = 100;
-                    this.log = [];
+                    this.turns = [];
                 },
                 checkWinner() {
                     if (this.userHealth <= 0) {
