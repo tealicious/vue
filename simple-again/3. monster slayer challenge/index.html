@@ -86,7 +86,6 @@
                     monsterHealth: 100,
                     userDamage: 0,
                     monsterDamage: 0,
-                    playerHealing: 20,
                     turns: []
                 }
             },
@@ -103,7 +102,7 @@
                 },
                 heal() {
                     this.userHealth += 20;
-                    this.monsterAttacks(20);
+                    this.monsterAttacks(30);
                     this.turns.unshift({
                         isUser: true,
                         text: `player heals for 20`
