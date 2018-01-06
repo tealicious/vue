@@ -4,14 +4,14 @@
 <div id="exercise">
   <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
   <div>
-    <button @click="startEffect">Start Effect</button>
+    <button @click="toggleEffect">Toggle Effect</button>
     <div id="effect" :class="tickEffect"></div>
   </div>
   <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
-  <div>I got no class :(</div>
+  <div :class="[colorClass, condClasses]">I got no class :(</div>
   <!-- 3) Let the user enter a class (create some example classes) and attach it -->
   <div>
-    <input type="text">
+    <input type="text" v-model="userClass" :class="userClass">
     <div></div>
   </div>
   <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
@@ -22,13 +22,13 @@
   </div>
   <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
   <div>
-    <input type="text">
+    <input type="text" v-model="width" :style="{width: width + 'px'}">
     <div></div>
   </div>
   <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
   <div>
-    <button v-on:click="startProgress">Start Progress</button>
-    <div></div>
+    <button v-on:click="toggleProgress">Toggle Progress</button>
+    <div class="progress" :style="{width:progressWidth + 'px'}"></div>
   </div>
 </div>
 <script>
@@ -36,7 +36,14 @@
     el: "#exercise",
     data() {
       return {
-        tick: false
+        tick: false,
+        start: false,
+        colorClass: "redText",
+        userClass: null,
+        width: 100,
+        progressWidth: 100,
+        interval: null,
+        progInterval: null
       }
     },
     computed: {
@@ -45,17 +52,49 @@
           highlight: this.tick,
           shrink: !this.tick
         }
+      },
+      condClasses: function () {
+        return {
+          dude: this.tick,
+          sweet: !this.tick
+        }
       }
     },
     methods: {
+      toggleProgress() {
+        this.progStart = !this.progStart;
+        if (this.progStart) {
+          this.startProgress();
+        } else {
+          this.stopProgress();
+        }
+      },
       startProgress() {
-        return
+        this.progInterval = setInterval(() => {
+          this.progressWidth += 10;
+        }, 1000)
+      },
+      stopProgress() {
+        this.progressWidth = 100;
+        clearInterval(this.progInterval);
+      },
+      toggleEffect() {
+        this.start = !this.start;
+        if (this.start) {
+          this.startEffect();
+        } else {
+          this.stopEffect();
+        }
       },
       startEffect() {
         this.tick = !this.tick;
-        setInterval(() => {
-          this.tick = !this.tick;
+        this.interval = setInterval(() => {
+          return this.tick = !this.tick;
         }, 1000)
+      },
+      stopEffect() {
+        this.tick = false;
+        clearInterval(this.interval);
       }
     }
   })
@@ -68,12 +107,33 @@
   }
 
   .highlight {
-    background-color: red;
+    background-color: white;
     width: 200px !important;
+    transition: all .5s ease;
   }
 
   .shrink {
     background-color: gray;
-    width: 50px !important;
+    width: 150px !important;
+    transition: all .5s ease;
+  }
+
+  .redText {
+    color: red;
+  }
+
+  .dude {
+    font-size: 14px;
+  }
+
+  .sweet {
+    font-size: 16px;
+  }
+
+  .progress {
+    margin-top: 1rem;
+    height: 2px;
+    background: blue;
+    transition: width 1s linear;
   }
 </style>
