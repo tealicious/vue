@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
+</head>
+
+<body>
+    <div id="app1">
+        <h1>
+            {{title}}
+        </h1>
+        <button @click="changeTitle">Change Both Titles</button>
+    </div>
+    <div id="app2">
+        <h1>
+            {{title}}
+        </h1>
+        <button ref="myButton" @click="changeTitle">Change App1 Title</button>
+        <hello></hello>
+    </div>
+    <div id="app3">
+    </div>
+</body>
+<script src='js/vue.js'></script>
+<script>
+    const title1 = "Hello World From App1!"
+    const title2 = "Hello World From App2!"
+    Vue.component('hello', {
+        template: "<h1>Hello from the Vue comonpent!</h1>"
+    });
+    var vm1 = new Vue({
+        data() {
+            return {
+                title: title1
+            }
+        },
+        methods: {
+            changeTitle() {
+                vm2.title = title1;
+                console.log(vm2.$refs);
+                vm2.$refs.myButton.innerHTML = "I have been violated!";
+                vm2.$refs.myButton.click();
+            }
+        }
+    })
+    // vue templates can be mounted from outside the vue constructor with the $mount() method
+    vm1.$mount("#app1");
+    var vm2 = new Vue({
+        el: "#app2",
+        data() {
+            return {
+                title: title2
+            }
+        },
+        methods: {
+            changeTitle() {
+                vm1.title = title2; //access vue instance from somehwere else
+            }
+        }
+    })
+
+    let vm3 = new Vue({
+        template: '<h1>Hello From App3 Mounted Instance!</h1>'
+    })
+    //vm3.$mount("#app3")
+    vm3.$mount()
+    document.getElementById("app3").appendChild(vm3.$el)
+</script>
+
+</html>
