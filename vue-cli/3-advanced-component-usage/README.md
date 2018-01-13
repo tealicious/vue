@@ -1,4 +1,4 @@
-# 1.intro
+# vue-cli
 
 > A Vue.js project
 
