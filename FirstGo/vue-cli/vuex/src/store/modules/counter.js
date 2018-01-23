@@ -62,7 +62,6 @@ const actions = {
   }
 };
 
-
 export default {
   state, // data
   getters, // computed properties (data changed and returned when called)
