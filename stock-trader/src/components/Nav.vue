@@ -41,9 +41,9 @@ export default {
       miniVariant: true,
       title: "Crypto-Trader",
       routes: [
-        { to: "/", name: "home", icon: "dashboard" },
-        { to: "/about", name: "about", icon: "question_answer" },
-        { to: "/hello", name: "hello world", icon: "public" }
+        { to: "/", name: "home", icon: "account_circle" },
+        { to: "/stocks", name: "stocks", icon: "trending_up" },
+        { to: "/portfolio", name: "portfolio", icon: "work" }
       ]
     };
   },
