@@ -3,10 +3,10 @@
     <app-nav></app-nav>
     <v-content>
       <div class="container">
-        <router-view/>
+        <router-view />
       </div>
     </v-content>
-    <!-- <app-foot></app-foot> -->
+    <app-foot></app-foot>
   </v-app>
 </template>
 
