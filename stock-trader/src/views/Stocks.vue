@@ -2,31 +2,53 @@
   <div class="stocks">
     <h1>{{ name }}</h1>
     <v-layout row wrap>
-      <v-flex xs12 sm6 md4>
-        <v-card>
-          <v-img src="https://source.unsplash.com/random/600x218" aspect-ratio="2.75"></v-img>
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-              <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-              </div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn flat color="orange">Share</v-btn>
-            <v-btn flat color="orange">Explore</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
+      <app-stock v-for="stock in stocks" :stock="stock" :key="stock.id"></app-stock>
     </v-layout>
   </div>
 </template>
 
 <script>
+import Stock from "../components/Stock.vue";
 export default {
+  components: {
+    appStock: Stock
+  },
   data() {
     return {
+      number: null,
       name: "Stocks",
-      stocks: [{}]
+      stocks: [
+        {
+          id: 1,
+          name: "ibm",
+          price: 100
+        },
+        {
+          id: 2,
+          name: "ibm",
+          price: 100
+        },
+        {
+          id: 3,
+          name: "ibm",
+          price: 100
+        },
+        {
+          id: 4,
+          name: "ibm",
+          price: 100
+        },
+        {
+          id: 5,
+          name: "ibm",
+          price: 100
+        },
+        {
+          id: 6,
+          name: "ibm",
+          price: 100
+        }
+      ]
     };
   }
 };

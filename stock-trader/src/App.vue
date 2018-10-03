@@ -2,7 +2,7 @@
   <v-app dark>
     <app-nav></app-nav>
     <v-content>
-      <div class="container">
+      <div class="container grid-list-lg">
         <router-view />
       </div>
     </v-content>

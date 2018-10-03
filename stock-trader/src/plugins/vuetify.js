@@ -11,7 +11,10 @@ import {
   VToolbar,
   transitions,
   VCard,
-  VImg
+  VImg,
+  VTextField,
+  VDivider,
+  VForm
 } from "vuetify";
 import "vuetify/src/stylus/app.styl";
 
@@ -27,7 +30,10 @@ Vue.use(Vuetify, {
     VToolbar,
     transitions,
     VCard,
-    VImg
+    VImg,
+    VTextField,
+    VDivider,
+    VForm
   },
   theme: {
     primary: "#ee44aa",
