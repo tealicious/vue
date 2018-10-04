@@ -17,6 +17,9 @@ export default {
   components: {
     appNav: Nav,
     appFoot: Foot
+  },
+  created() {
+    this.$store.dispatch("initStocks");
   }
 };
 </script>

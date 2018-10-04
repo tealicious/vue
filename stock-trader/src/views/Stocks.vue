@@ -16,40 +16,13 @@ export default {
   data() {
     return {
       number: null,
-      name: "Stocks",
-      stocks: [
-        {
-          id: 1,
-          name: "ibm",
-          price: 100
-        },
-        {
-          id: 2,
-          name: "ibm",
-          price: 100
-        },
-        {
-          id: 3,
-          name: "ibm",
-          price: 100
-        },
-        {
-          id: 4,
-          name: "ibm",
-          price: 100
-        },
-        {
-          id: 5,
-          name: "ibm",
-          price: 100
-        },
-        {
-          id: 6,
-          name: "ibm",
-          price: 100
-        }
-      ]
+      name: "Stocks"
     };
+  },
+  computed: {
+    stocks() {
+      return this.$store.getters.stocks;
+    }
   }
 };
 </script>
