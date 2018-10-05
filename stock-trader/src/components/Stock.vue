@@ -4,10 +4,12 @@
       <v-layout row style="margin:0;">
         <v-flex>
           <v-card-title primary-title class="pa-2">
-            <img  :title="stock.CoinName"  :src="'https://www.cryptocompare.com'+stock.ImageUrl" height="100px" width="100px" max-width="100px">
+            <img :title="stock.CoinName" :src="'https://www.cryptocompare.com'+stock.ImageUrl" height="100px" width="100px" max-width="100px">
             <div style="text-align:right;margin-left:auto;">
               <h3 class="headline mb-0">{{stock.CoinName}}</h3>
-              <div>${{stock.Price}}</div>
+              <div v-if="portfolioItem">Owned: {{stock.Quantity}}</div>
+              <div>Value: ${{stock.Price}}</div>
+              <div v-if="portfolioItem">Total Value: ${{totalValue}}</div>
             </div>
           </v-card-title>
         </v-flex>
@@ -18,7 +20,8 @@
           <v-text-field v-model="quantity" type="number" label="Quantity" :color="color" :rules="quantityRules"></v-text-field>
           <v-spacer></v-spacer>
           <v-btn flat @click="clear">Clear</v-btn>
-          <v-btn :disabled="!valid" :color="color" @click="buyStock">Buy</v-btn>
+          <v-btn v-if="!portfolioItem" :disabled="!valid || quantity * stock.Price > funds" :color="color" @click="buyStock">Buy</v-btn>
+          <v-btn v-else :disabled="quantity > stock.Quantity" :color="color" @click="sellStock">sell</v-btn>
         </v-form>
       </v-card-actions>
     </v-card>
@@ -26,7 +29,7 @@
 </template>
 <script>
 export default {
-  props: ["stock"],
+  props: ["stock", "portfolioItem"],
   data() {
     return {
       valid: true,
@@ -38,15 +41,34 @@ export default {
       color: "green"
     };
   },
+  computed: {
+    totalValue() {
+      return Math.round(this.stock.Price * this.stock.Quantity * 100) / 100;
+    },
+    funds() {
+      return Math.round(this.$store.getters.funds * 100) / 100;
+    }
+  },
   methods: {
     buyStock() {
       if (this.$refs.form.validate()) {
         const order = {
-          id: this.stock.id,
-          name: this.stock.name,
-          price: this.stock.price
+          stockId: this.stock.Id,
+          Quantity: this.quantity,
+          stockPrice: this.stock.Price
         };
-        console.log(order);
+        this.$store.dispatch("buyStock", order);
+        this.clear();
+      }
+    },
+    sellStock() {
+      if (this.$refs.form.validate()) {
+        const order = {
+          stockId: this.stock.Id,
+          Quantity: this.quantity,
+          stockPrice: this.stock.Price
+        };
+        this.$store.dispatch("sellStock", order);
         this.clear();
       }
     },

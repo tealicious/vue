@@ -27,7 +27,7 @@ export default {
     calls: function() {
       setTimeout(() => {
         this.$store.dispatch("setStocks");
-      }, 30000);
+      }, 31000);
     }
   },
   methods: {

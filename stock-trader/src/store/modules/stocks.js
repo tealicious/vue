@@ -31,7 +31,6 @@ const mutations = {
       Promise.all(promises).then(function() {
         state.stocks = Object.assign({}, stocksArray);
         state.calls += 1;
-        console.log(state.stocks[0].Price);
       });
     });
   }
@@ -39,7 +38,7 @@ const mutations = {
 
 const actions = {
   buyStock: ({ commit }, order) => {
-    commit();
+    commit("BUY_STOCK", order);
   },
   setStocks: ({ commit }) => {
     commit("SET_STOCKS");

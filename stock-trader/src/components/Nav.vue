@@ -28,6 +28,10 @@
         </v-navigation-drawer>
         <v-toolbar dark class="blue" app :clipped-left="clipped">
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+            <v-spacer></v-spacer>
+            <div><strong>Funds: ${{funds}}</strong></div>
+            <div class="ml-3"><strong>Stocks Owned: ${{portfolioValue}}</strong></div>
+            <div class="ml-3"><strong>Portfolio Value: ${{totalWorth}}</strong></div>
         </v-toolbar>
     </div>
 </template>
@@ -50,6 +54,20 @@ export default {
   methods: {
     pushRoute(route) {
       this.$router.push(route);
+    },
+    roundToTwo(value) {
+      return Math.round(value * 100) / 100;
+    }
+  },
+  computed: {
+    funds() {
+      return this.roundToTwo(this.$store.getters.funds);
+    },
+    portfolioValue() {
+      return this.roundToTwo(this.$store.getters.portfolioValue);
+    },
+    totalWorth() {
+      return this.roundToTwo(this.funds + this.portfolioValue);
     }
   }
 };

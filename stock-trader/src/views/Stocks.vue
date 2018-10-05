@@ -2,7 +2,7 @@
   <div class="stocks">
     <h1>{{ name }}</h1>
     <v-layout row wrap>
-      <app-stock v-for="stock in stocks" :stock="stock" :key="stock.id"></app-stock>
+      <app-stock v-for="stock in stocks" :stock="stock" :key="stock.id" :portfolioItem="false"></app-stock>
     </v-layout>
   </div>
 </template>
@@ -26,5 +26,3 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss">
-</style>
