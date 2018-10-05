@@ -20,8 +20,8 @@
           <v-text-field v-model="quantity" type="number" label="Quantity" :color="color" :rules="quantityRules"></v-text-field>
           <v-spacer></v-spacer>
           <v-btn flat @click="clear">Clear</v-btn>
-          <v-btn v-if="!portfolioItem" :disabled="!valid || quantity * stock.Price > funds" :color="color" @click="buyStock">Buy</v-btn>
-          <v-btn v-else :disabled="quantity > stock.Quantity" :color="color" @click="sellStock">sell</v-btn>
+          <v-btn dark v-if="!portfolioItem" :disabled="!valid || quantity * stock.Price > funds" :color="color" @click="buyStock">Buy</v-btn>
+          <v-btn dark v-else :disabled="quantity > stock.Quantity" :color="color" @click="sellStock">sell</v-btn>
         </v-form>
       </v-card-actions>
     </v-card>
