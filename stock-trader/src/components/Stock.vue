@@ -1,19 +1,19 @@
 <template>
-  <v-flex xs12 sm6 lg4 xl3>
+  <v-flex xs12 sm6 lg4>
     <v-card>
       <v-layout row style="margin:0;">
         <v-flex>
-          <v-card-title primary-title class="pa-1">
+          <v-card-title primary-title class="pt-1 pb-1 pl-2 pr-3">
             <v-img class="mr-3" :src="'https://www.cryptocompare.com'+stock.ImageUrl" height="100px" width="100px" max-width="100px" contain ratio="1"></v-img>
-            <div>
+            <div style="text-align:right;margin-left:auto;">
               <h3 class="headline mb-0">{{stock.CoinName}}</h3>
-              <div>${{stock.price}}</div>
+              <div>${{stock.Price}}</div>
             </div>
           </v-card-title>
         </v-flex>
       </v-layout>
       <v-divider light></v-divider>
-      <v-card-actions class="pl-3 pr-3">
+      <v-card-actions class="pl-3 pr-3 grey lighten-3">
         <v-form ref="form" v-model="valid" lazy-validation class="flex-form">
           <v-text-field v-model="quantity" type="number" label="Quantity" :color="color" :rules="quantityRules"></v-text-field>
           <v-spacer></v-spacer>

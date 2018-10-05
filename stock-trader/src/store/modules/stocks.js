@@ -1,28 +1,37 @@
 import axios from "axios";
 
+const cryptoCompare = "https://min-api.cryptocompare.com/data";
 const state = {
   stocks: null
 };
 
 const mutations = {
   SET_STOCKS(state) {
-    axios
-      .get("https://min-api.cryptocompare.com/data/all/coinlist")
-      .then(function(response) {
-        const stocks = response.data.Data;
-        const stocksArray = Object.keys(stocks).map(key => {
+    axios.get(`${cryptoCompare}/all/coinlist`).then(function(response) {
+      const stocks = response.data.Data;
+      const stocksArray = Object.keys(stocks)
+        .map(key => {
           return stocks[key];
-        });
-        state.stocks = stocksArray
-          .filter(stock => stock.IsTrading == true)
-          .sort((a, b) => {
-            return parseInt(a.SortOrder) - parseInt(b.SortOrder);
-          })
-          .slice(0, 99);
-      })
-      .catch(function(error) {
-        console.log(error);
+        })
+        .filter(stock => stock.IsTrading == true)
+        .sort((a, b) => {
+          return parseInt(a.SortOrder) - parseInt(b.SortOrder);
+        })
+        .slice(0, 99);
+      const setPrices = new Promise(function(resolve) {
+        for (let stock of stocksArray) {
+          axios
+            .get(`${cryptoCompare}/price?fsym=${stock.Symbol}&tsyms=USD`)
+            .then(function(response) {
+              stock.Price = response.data.USD;
+            });
+        }
+        resolve();
       });
+      setPrices.then(function() {
+        state.stocks = stocksArray;
+      });
+    });
   },
   RND_STOCKS(state) {}
 };

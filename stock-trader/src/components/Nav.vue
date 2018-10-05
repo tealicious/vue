@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-navigation-drawer persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" enable-resize-watcher fixed app>
+        <v-navigation-drawer persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" enable-resize-watcher fixed app dark>
             <v-list>
                 <v-list-tile @click.stop="miniVariant = !miniVariant">
                     <v-list-tile-action>
@@ -26,7 +26,7 @@
                 </v-list-tile>
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar app :clipped-left="clipped">
+        <v-toolbar dark class="blue" app :clipped-left="clipped">
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         </v-toolbar>
     </div>
@@ -55,7 +55,4 @@ export default {
 };
 </script>
 <style lang="scss">
-.v-list .route {
-  text-transform: capitalize;
-}
 </style>
