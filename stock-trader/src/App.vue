@@ -18,8 +18,25 @@ export default {
     appNav: Nav,
     appFoot: Foot
   },
+  computed: {
+    calls() {
+      return this.$store.getters.calls;
+    }
+  },
+  watch: {
+    calls: function() {
+      setTimeout(() => {
+        this.$store.dispatch("setStocks");
+      }, 30000);
+    }
+  },
+  methods: {
+    getStocks() {
+      this.$store.dispatch("setStocks");
+    }
+  },
   created() {
-    this.$store.dispatch("initStocks");
+    this.getStocks();
   }
 };
 </script>

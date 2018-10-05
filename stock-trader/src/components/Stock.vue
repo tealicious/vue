@@ -3,8 +3,8 @@
     <v-card>
       <v-layout row style="margin:0;">
         <v-flex>
-          <v-card-title primary-title class="pt-1 pb-1 pl-2 pr-3">
-            <v-img class="mr-3" :src="'https://www.cryptocompare.com'+stock.ImageUrl" height="100px" width="100px" max-width="100px" contain ratio="1"></v-img>
+          <v-card-title primary-title class="pa-2">
+            <img  :title="stock.CoinName"  :src="'https://www.cryptocompare.com'+stock.ImageUrl" height="100px" width="100px" max-width="100px">
             <div style="text-align:right;margin-left:auto;">
               <h3 class="headline mb-0">{{stock.CoinName}}</h3>
               <div>${{stock.Price}}</div>

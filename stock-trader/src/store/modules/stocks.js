@@ -1,8 +1,8 @@
 import axios from "axios";
-
 const cryptoCompare = "https://min-api.cryptocompare.com/data";
 const state = {
-  stocks: null
+  stocks: null,
+  calls: 0
 };
 
 const mutations = {
@@ -17,40 +17,41 @@ const mutations = {
         .sort((a, b) => {
           return parseInt(a.SortOrder) - parseInt(b.SortOrder);
         })
-        .slice(0, 99);
-      const setPrices = new Promise(function(resolve) {
-        for (let stock of stocksArray) {
+        .slice(0, 33);
+      const promises = [];
+      for (let stock of stocksArray) {
+        promises.push(
           axios
             .get(`${cryptoCompare}/price?fsym=${stock.Symbol}&tsyms=USD`)
             .then(function(response) {
               stock.Price = response.data.USD;
-            });
-        }
-        resolve();
-      });
-      setPrices.then(function() {
-        state.stocks = stocksArray;
+            })
+        );
+      }
+      Promise.all(promises).then(function() {
+        state.stocks = Object.assign({}, stocksArray);
+        state.calls += 1;
+        console.log(state.stocks[0].Price);
       });
     });
-  },
-  RND_STOCKS(state) {}
+  }
 };
 
 const actions = {
   buyStock: ({ commit }, order) => {
     commit();
   },
-  initStocks: ({ commit }) => {
+  setStocks: ({ commit }) => {
     commit("SET_STOCKS");
-  },
-  randomizeStocks: ({ commit }) => {
-    commit("RND_STOCKS");
   }
 };
 
 const getters = {
   stocks: state => {
     return state.stocks;
+  },
+  calls: state => {
+    return state.calls;
   }
 };
 
