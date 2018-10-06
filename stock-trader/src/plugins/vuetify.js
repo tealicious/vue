@@ -15,7 +15,8 @@ import {
   VTextField,
   VDivider,
   VForm,
-  VMenu
+  VMenu,
+  VSpeedDial
 } from "vuetify";
 import "vuetify/src/stylus/app.styl";
 
@@ -35,7 +36,8 @@ Vue.use(Vuetify, {
     VTextField,
     VDivider,
     VForm,
-    VMenu
+    VMenu,
+    VSpeedDial
   },
   theme: {
     primary: "#ee44aa",

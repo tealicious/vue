@@ -4,6 +4,7 @@
     <v-content>
       <div class="container grid-list-lg">
         <router-view />
+        <app-save></app-save>
       </div>
     </v-content>
     <app-foot></app-foot>
@@ -13,10 +14,12 @@
 <script>
 import Nav from "./components/Nav.vue";
 import Foot from "./components/Foot.vue";
+import Save from "./components/Save.vue";
 export default {
   components: {
     appNav: Nav,
-    appFoot: Foot
+    appFoot: Foot,
+    appSave: Save
   },
   computed: {
     calls() {
