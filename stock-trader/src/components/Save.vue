@@ -5,10 +5,10 @@
             <v-icon>close</v-icon>
         </v-btn>
         <v-btn fab dark small color="green">
-            <v-icon>save</v-icon>
+            <v-icon title="Save">save</v-icon>
         </v-btn>
         <v-btn fab dark small color="indigo">
-            <v-icon>launch</v-icon>
+            <v-icon title="Load">launch</v-icon>
         </v-btn>
     </v-speed-dial>
 </template>
