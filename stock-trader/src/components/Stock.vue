@@ -5,7 +5,7 @@
         <v-flex>
           <v-card-title primary-title class="pa-2">
             <img :title="stock.CoinName" :src="'https://www.cryptocompare.com'+stock.ImageUrl" height="100px" width="100px" max-width="100px">
-            <div style="text-align:right;margin-left:auto;">
+            <div style="text-align:right;margin-left:auto;flex:1;">
               <h3 class="headline mb-0">{{stock.CoinName}}</h3>
               <div v-if="portfolioItem">Owned: {{stock.Quantity}}</div>
               <div>Value: {{stock.Price | currency}}</div>
