@@ -7,19 +7,20 @@ const mutations = {
   BUY_STOCK(state, { stockId, Quantity, stockPrice }) {
     const record = state.portfolio.find(element => element.Id == stockId);
     if (record) {
-      record.Quantity += Quantity;
+      record.Quantity += parseInt(Quantity);
     } else {
       state.portfolio.push({
         Id: stockId,
-        Quantity: Quantity
+        Quantity: parseInt(Quantity)
       });
     }
+    console.log(Quantity, stockPrice, state.funds);
     state.funds -= stockPrice * Quantity;
   },
   SELL_STOCK(state, { stockId, Quantity, stockPrice }) {
     const record = state.portfolio.find(element => element.Id == stockId);
     if (record.Quantity > Quantity) {
-      record.Quantity -= Quantity;
+      record.Quantity -= parseInt(Quantity);
     } else {
       state.portfolio.splice(state.portfolio.indexOf(record), 1); //remove stock if all sold
     }

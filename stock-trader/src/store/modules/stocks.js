@@ -9,7 +9,7 @@ const mutations = {
   SET_STOCKS(state) {
     axios.get(`${cryptoCompare}/all/coinlist`).then(function(response) {
       const stocks = response.data.Data;
-      const stocksArray = Object.keys(stocks)
+      let stocksArray = Object.keys(stocks)
         .map(key => {
           return stocks[key];
         })
