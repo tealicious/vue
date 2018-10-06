@@ -8,8 +8,8 @@
             <div style="text-align:right;margin-left:auto;">
               <h3 class="headline mb-0">{{stock.CoinName}}</h3>
               <div v-if="portfolioItem">Owned: {{stock.Quantity}}</div>
-              <div>Value: ${{stock.Price}}</div>
-              <div v-if="portfolioItem">Total Value: ${{totalValue}}</div>
+              <div>Value: {{stock.Price | currency}}</div>
+              <div v-if="portfolioItem">Total Value: {{totalValue | currency}}</div>
             </div>
           </v-card-title>
         </v-flex>

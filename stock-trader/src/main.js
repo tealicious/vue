@@ -7,7 +7,27 @@ import router from "./router";
 import store from "./store/store";
 
 Vue.config.productionTip = false;
-
+Vue.filter("currency", value => {
+  return "$" + value.toLocaleString();
+});
+Vue.mixin({
+  methods: {
+    roundToTwo(value) {
+      return Math.round(value * 100) / 100;
+    }
+  },
+  computed: {
+    funds() {
+      return this.roundToTwo(this.$store.getters.funds);
+    },
+    portfolioValue() {
+      return this.roundToTwo(this.$store.getters.portfolioValue);
+    },
+    totalWorth() {
+      return this.roundToTwo(this.funds + this.portfolioValue);
+    }
+  }
+});
 new Vue({
   router,
   store,

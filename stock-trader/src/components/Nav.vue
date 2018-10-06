@@ -29,9 +29,22 @@
         <v-toolbar dark class="blue" app :clipped-left="clipped">
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-spacer></v-spacer>
-            <div><strong>Funds: ${{funds}}</strong></div>
-            <div class="ml-3"><strong>Stocks Owned: ${{portfolioValue}}</strong></div>
-            <div class="ml-3"><strong>Portfolio Value: ${{totalWorth}}</strong></div>
+            <div><strong>Funds: {{funds | currency}}</strong></div>
+            <div class="ml-3"><strong>Portfolio: {{portfolioValue | currency}}</strong></div>
+            <div class="ml-3"><strong>Total: {{totalWorth | currency}}</strong></div>
+            <v-menu offset-y>
+                <v-btn depressed slot="activator" color="deep-orange" dark class="ml-3">
+                    <v-icon>save</v-icon>
+                </v-btn>
+                <v-list>
+                    <v-list-tile @click="save">
+                        <v-list-tile-title>Save</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile @click="load">
+                        <v-list-tile-title>Load</v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-menu>
         </v-toolbar>
     </div>
 </template>
@@ -55,8 +68,11 @@ export default {
     pushRoute(route) {
       this.$router.push(route);
     },
-    roundToTwo(value) {
-      return Math.round(value * 100) / 100;
+    save() {
+      return;
+    },
+    load() {
+      return;
     }
   },
   computed: {
