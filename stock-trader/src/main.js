@@ -5,7 +5,8 @@ import "./plugins/vuetify";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store/store";
-
+export const fireBase = "https://stock-trader-b44bf.firebaseio.com/";
+export const cryptoCompare = "https://min-api.cryptocompare.com/data";
 Vue.config.productionTip = false;
 Vue.filter("currency", value => {
   return "$" + value.toLocaleString();

@@ -4,22 +4,24 @@
       <v-icon>save</v-icon>
       <v-icon>close</v-icon>
     </v-btn>
-    <v-btn title="Save" @click="save" fab dark small color="green">
-      <v-icon>save</v-icon>
+    <v-btn title="Load" @click="load" fab dark color="indigo">
+      <v-icon>cloud_download</v-icon>
     </v-btn>
-    <v-btn title="Load" @click="load" fab dark small color="indigo">
-      <v-icon>launch</v-icon>
+    <v-btn title="Save" @click="save" fab dark color="green">
+      <v-icon>cloud_upload</v-icon>
     </v-btn>
   </v-speed-dial>
 </template>
 <script>
+import axios from "axios";
+import { fireBase } from "../main";
 export default {
   data() {
     return {
       direction: "top",
       fab: false,
       fling: false,
-      hover: true,
+      hover: false,
       tabs: null,
       top: false,
       right: true,
@@ -30,10 +32,14 @@ export default {
   },
   methods: {
     save() {
-      return;
+      const data = {
+        funds: this.$store.state.funds,
+        portfolio: this.$store.state.portfolio
+      };
+      axios.put(`${fireBase}data.json`, data);
     },
     load() {
-      return;
+      this.$store.dispatch("loadData");
     }
   }
 };

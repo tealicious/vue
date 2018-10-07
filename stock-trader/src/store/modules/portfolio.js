@@ -14,7 +14,6 @@ const mutations = {
         Quantity: parseInt(Quantity)
       });
     }
-    console.log(Quantity, stockPrice, state.funds);
     state.funds -= stockPrice * Quantity;
   },
   SELL_STOCK(state, { stockId, Quantity, stockPrice }) {
@@ -25,6 +24,10 @@ const mutations = {
       state.portfolio.splice(state.portfolio.indexOf(record), 1); //remove stock if all sold
     }
     state.funds += stockPrice * Quantity;
+  },
+  LOAD_PORTFOLIO(state, { funds, portfolio }) {
+    state.funds = funds;
+    state.portfolio = portfolio;
   }
 };
 

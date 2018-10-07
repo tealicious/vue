@@ -1,5 +1,5 @@
 import axios from "axios";
-const cryptoCompare = "https://min-api.cryptocompare.com/data";
+import { cryptoCompare } from "../../main";
 const state = {
   stocks: null,
   calls: 0
