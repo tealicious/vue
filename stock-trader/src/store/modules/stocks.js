@@ -11,7 +11,8 @@ const mutations = {
   SET_STOCKS(state, stocks) {
     state.stocks = Object.assign({}, stocks);
     state.calls += 1;
-  }
+  },
+  SET_STOCK_PRICES(state, stocks) {}
 };
 
 const actions = {
@@ -19,16 +20,19 @@ const actions = {
     commit("BUY_STOCK", order);
   },
   setStocks: ({ commit }) => {
-    return new Promise((resolve, reject) => {
-      const coinApi = new CoinApi();
-      axios.get(`${cryptoCompare}/all/coinlist`).then(function(response) {
-        const orderedCoins = coinApi.parseCoinList(response);
-        const resolvedCoins = coinApi.assignToPromises(orderedCoins);
-        Promise.all(resolvedCoins.promises).then(function() {
-          commit("SET_STOCKS", resolvedCoins.coins);
-          resolve();
-        });
-      });
+    new CoinApi().fetchCoins(
+      orderedCoins => {
+        commit("SET_STOCKS", orderedCoins);
+      },
+      fail => {
+        console.log(fail);
+      }
+    );
+  },
+  setStockPrices: ({ state, commit }) => {
+    Promise.all(resolvedCoins.promises).then(function() {
+      commit("SET_STOCK_PRICES", coins);
+      resolve();
     });
   }
 };
