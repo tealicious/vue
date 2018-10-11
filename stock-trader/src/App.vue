@@ -30,12 +30,14 @@ export default {
     calls: function() {
       setTimeout(() => {
         this.$store.dispatch("setStocks");
-      }, 31000);
+      }, 30000);
     }
   },
   methods: {
     getStocks() {
-      this.$store.dispatch("setStocks");
+      this.$store.dispatch("setStocks").then(() => {
+        this.$store.dispatch("loadPortfolio");
+      });
     }
   },
   created() {

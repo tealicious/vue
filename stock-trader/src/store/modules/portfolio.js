@@ -25,9 +25,14 @@ const mutations = {
     }
     state.funds += stockPrice * Quantity;
   },
-  LOAD_PORTFOLIO(state, { funds, portfolio }) {
-    state.funds = funds;
-    state.portfolio = portfolio;
+  LOAD_PORTFOLIO(state, data) {
+    const portfolio = data.portfolio;
+    if (portfolio.funds) {
+      state.funds = portfolio.funds;
+    }
+    if (portfolio.portfolio) {
+      state.portfolio = portfolio.portfolio;
+    }
   }
 };
 

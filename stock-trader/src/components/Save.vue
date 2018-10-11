@@ -5,10 +5,10 @@
       <v-icon>close</v-icon>
     </v-btn>
     <v-btn title="Load" @click="load" fab dark color="indigo">
-      <v-icon>cloud_download</v-icon>
+      <v-icon>get_app</v-icon>
     </v-btn>
     <v-btn title="Save" @click="save" fab dark color="green">
-      <v-icon>cloud_upload</v-icon>
+      <v-icon>save</v-icon>
     </v-btn>
   </v-speed-dial>
 </template>
@@ -39,7 +39,7 @@ export default {
       axios.put(`${fireBase}data.json`, data);
     },
     load() {
-      this.$store.dispatch("loadData");
+      this.$store.dispatch("loadPortfolio");
     }
   }
 };
