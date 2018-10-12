@@ -88,13 +88,3 @@ export default {
   }
 };
 </script>
-<style >
-.headline {
-  text-transform: uppercase;
-}
-.flex-form {
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-</style>

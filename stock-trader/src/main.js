@@ -5,12 +5,16 @@ import "./plugins/vuetify";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store/store";
+import "./scss/app.scss";
 export const fireBase = "https://stock-trader-b44bf.firebaseio.com/";
 export const cryptoCompare = "https://min-api.cryptocompare.com/data";
 
 Vue.config.productionTip = false;
 
 Vue.filter("currency", value => {
+  if (!value) {
+    return;
+  }
   return "$" + value.toLocaleString();
 });
 
@@ -29,6 +33,12 @@ Vue.mixin({
     },
     totalWorth() {
       return this.roundToTwo(this.funds + this.portfolioValue);
+    },
+    coinCount() {
+      if (!this.$store.getters.portfolio) {
+        return;
+      }
+      return this.$store.getters.portfolio.length;
     }
   }
 });

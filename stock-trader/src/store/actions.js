@@ -1,8 +1,12 @@
-import axios from "axios";
-import { fireBase } from "../main";
+import PortfolioApi from "./api/portfolioapi";
 
 export const loadPortfolio = ({ commit }) => {
-  axios.get(`${fireBase}data.json`).then(res => {
-    commit("LOAD_PORTFOLIO", res.data);
-  });
+  return new PortfolioApi().fetchPortfolio(
+    portfolio => {
+      commit("LOAD_PORTFOLIO", portfolio);
+    },
+    fail => {
+      alert(fail);
+    }
+  );
 };

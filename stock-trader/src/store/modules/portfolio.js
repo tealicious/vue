@@ -1,6 +1,10 @@
+import PortfolioApi from "../api/portfolioapi";
+const portfolioApi = new PortfolioApi();
+
 const state = {
   funds: 100000,
-  portfolio: []
+  portfolio: [],
+  hasLoaded: false
 };
 
 const mutations = {
@@ -26,53 +30,55 @@ const mutations = {
     state.funds += stockPrice * Quantity;
   },
   LOAD_PORTFOLIO(state, data) {
-    const portfolio = data.portfolio;
-    if (portfolio.funds) {
-      state.funds = portfolio.funds;
-    }
-    if (portfolio.portfolio) {
-      state.portfolio = portfolio.portfolio;
-    }
+    state.funds = data.funds;
+    state.portfolio = data.portfolio;
+    state.hasLoaded = true;
   }
 };
 
 const actions = {
-  sellStock({ commit }, order) {
+  sellStock({ commit, dispatch }, order) {
     commit("SELL_STOCK", order);
+    dispatch("savePortfolio");
+  },
+  loadPortfolio({ commit }) {
+    return new PortfolioApi().fetchPortfolio(
+      portfolio => {
+        // successCallback
+        commit("LOAD_PORTFOLIO", portfolio);
+      },
+      fail => {
+        // failureCallback
+        alert(fail);
+      }
+    );
+  },
+  savePortfolio({ state }) {
+    const currentPortfolio = {
+      funds: state.funds,
+      portfolio: state.portfolio
+    };
+    return new PortfolioApi().savePortfolio(
+      currentPortfolio,
+      success => {
+        console.log(success);
+      },
+      fail => {
+        alert(fail);
+      }
+    );
   }
 };
 
 const getters = {
-  portfolio(state, getters) {
-    return state.portfolio
-      .map(portfolioStock => {
-        const stocks = Object.values(getters.stocks);
-        const record = stocks.find(element => element.Id == portfolioStock.Id);
-        record.Quantity = portfolioStock.Quantity;
-        return record;
-      })
-      .sort((a, b) => {
-        return parseInt(a.SortOrder) - parseInt(b.SortOrder);
-      });
-  },
   funds(state) {
     return state.funds;
   },
+  portfolio(state, getters) {
+    return portfolioApi.setPortfolio(state.portfolio, getters.stocks);
+  },
   portfolioValue(state, getters) {
-    let value = 0;
-    const portfolio = state.portfolio.map(portfolioStock => {
-      const stocks = Object.values(getters.stocks);
-      const record = stocks.find(element => element.Id == portfolioStock.Id);
-      record.Quantity = portfolioStock.Quantity;
-      return record;
-    });
-    return (
-      Math.round(
-        portfolio.reduce((a, b) => {
-          return a + b.Price * b.Quantity;
-        }, 0) * 100
-      ) / 100
-    );
+    return portfolioApi.setPortfolioValue(getters.stocks, state.portfolio);
   }
 };
 

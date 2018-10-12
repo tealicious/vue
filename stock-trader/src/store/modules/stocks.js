@@ -1,45 +1,50 @@
-import axios from "axios";
-import { cryptoCompare } from "../../main";
 import CoinApi from "../api/coinapi";
 
 const state = {
-  stocks: null,
+  stocksAsArray: [],
+  stocks: [],
   calls: 0
 };
 
 const mutations = {
   SET_STOCKS(state, stocks) {
-    state.stocks = Object.assign({}, stocks);
+    state.stocksAsArray = stocks;
     state.calls += 1;
+  },
+  SET_STOCK_PRICES(state, stocks) {
+    state.stocks = Object.assign([], stocks);
   }
 };
 
 const actions = {
-  buyStock: ({ commit }, order) => {
+  buyStock: ({ commit, dispatch }, order) => {
     commit("BUY_STOCK", order);
+    dispatch("savePortfolio");
   },
   setStocks: ({ commit }) => {
-    return new Promise((resolve, reject) => {
-      const coinApi = new CoinApi();
-      axios.get(`${cryptoCompare}/all/coinlist`).then(function(response) {
-        const orderedCoins = coinApi.parseCoinList(response);
-        const resolvedCoins = coinApi.assignToPromises(orderedCoins);
-        Promise.all(resolvedCoins.promises).then(function() {
-          commit("SET_STOCKS", resolvedCoins.coins);
-          resolve();
-        });
-      });
+    return new CoinApi().fetchCoins(
+      // successCallback
+      orderedCoins => {
+        commit("SET_STOCKS", orderedCoins);
+      },
+      // failureCallback
+      fail => {
+        alert(fail);
+      }
+    );
+  },
+  setStockPrices: ({ state, commit }) => {
+    const resolvedCoins = new CoinApi().assignToPromises(state.stocksAsArray);
+    Promise.all(resolvedCoins.promises).then(function() {
+      commit("SET_STOCK_PRICES", resolvedCoins.coins);
     });
   }
 };
-function compare(a, b) {
-  if (a.SortOrder < b.SortOrder) return -1;
-  if (a.SortOrder > b.SortOrder) return 1;
-  return 0;
-}
 const getters = {
   stocks: state => {
-    return state.stocks;
+    return state.stocks.sort((a, b) => {
+      return parseInt(a.SortOrder) - parseInt(b.SortOrder);
+    });
   },
   calls: state => {
     return state.calls;
