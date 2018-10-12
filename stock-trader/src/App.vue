@@ -53,9 +53,6 @@ export default {
   },
   created() {
     this.getStocksAndPortfolio();
-  },
-  mounted() {
-    console.log(this.$store.state.portfolio.hasLoaded);
   }
 };
 </script>

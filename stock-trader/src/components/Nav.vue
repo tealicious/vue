@@ -30,9 +30,9 @@
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-spacer></v-spacer>
             <template v-if="hasLoadedPortfolio">
-                <div><strong>Funds: {{funds | currency}}</strong></div>
-                <div class="ml-3"><strong>Portfolio: {{portfolioValue | currency}}</strong></div>
-                <div class="ml-3"><strong>Total: {{totalWorth | currency}}</strong></div>
+                <div class="hidden-md-and-down"><strong>Funds: {{funds | currency}}</strong></div>
+                <div class="hidden-md-and-down ml-3"><strong>Portfolio: {{portfolioValue | currency}}</strong></div>
+                <div class="hidden-md-and-down ml-3"><strong>Total: {{totalWorth | currency}}</strong></div>
             </template>
         </v-toolbar>
     </div>
