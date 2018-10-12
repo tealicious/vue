@@ -3,7 +3,8 @@ const portfolioApi = new PortfolioApi();
 
 const state = {
   funds: 100000,
-  portfolio: []
+  portfolio: [],
+  hasLoaded: false
 };
 
 const mutations = {
@@ -31,6 +32,7 @@ const mutations = {
   LOAD_PORTFOLIO(state, data) {
     state.funds = data.funds;
     state.portfolio = data.portfolio;
+    state.hasLoaded = true;
   }
 };
 

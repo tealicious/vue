@@ -1,6 +1,5 @@
 import { cryptoCompare } from "../../main";
 import Api from "./api";
-import axios from "axios";
 export default class CoinApi extends Api {
   constructor() {
     super();
@@ -35,13 +34,13 @@ export default class CoinApi extends Api {
     for (let coin of coinArray) {
       resolvedCoins.promises.push(
         new Promise((resolve, reject) => {
-          axios
-            .get(`${cryptoCompare}/price?fsym=${coin.Symbol}&tsyms=USD`)
-            .then(function(response) {
+          this.get({ resource: `/price?fsym=${coin.Symbol}&tsyms=USD` }).then(
+            function(response) {
               coin.Price = response.data.USD;
               resolvedCoins.coins.push(coin);
               resolve();
-            });
+            }
+          );
         })
       );
     }

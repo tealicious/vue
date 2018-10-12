@@ -55,19 +55,6 @@ export default {
     pushRoute(route) {
       this.$router.push(route);
     }
-  },
-  computed: {
-    funds() {
-      return this.roundToTwo(this.$store.getters.funds);
-    },
-    portfolioValue() {
-      return this.roundToTwo(this.$store.getters.portfolioValue);
-    },
-    totalWorth() {
-      return this.roundToTwo(this.funds + this.portfolioValue);
-    }
   }
 };
 </script>
-<style lang="scss">
-</style>
