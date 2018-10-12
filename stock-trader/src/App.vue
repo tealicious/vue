@@ -1,10 +1,13 @@
 <template>
   <v-app light>
-    <app-nav></app-nav>
+    <app-nav :hasLoadedPortfolio="hasLoadedPortfolio"></app-nav>
     <v-content>
-      <div class="container grid-list-lg">
+      <div v-if="hasLoadedPortfolio" class="container grid-list-lg">
         <router-view />
         <!-- <app-save></app-save> -->
+      </div>
+      <div v-else class="loader-wrap">
+        <v-progress-circular indeterminate :size="50" color="#1f2f46"></v-progress-circular>
       </div>
     </v-content>
     <app-foot></app-foot>
@@ -24,6 +27,9 @@ export default {
   computed: {
     calls() {
       return this.$store.getters.calls;
+    },
+    hasLoadedPortfolio() {
+      return this.$store.getters.hasLoaded;
     }
   },
   watch: {
@@ -47,6 +53,9 @@ export default {
   },
   created() {
     this.getStocksAndPortfolio();
+  },
+  mounted() {
+    console.log(this.$store.state.portfolio.hasLoaded);
   }
 };
 </script>

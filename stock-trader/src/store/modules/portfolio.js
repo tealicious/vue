@@ -32,7 +32,9 @@ const mutations = {
   LOAD_PORTFOLIO(state, data) {
     state.funds = data.funds;
     state.portfolio = data.portfolio;
-    state.hasLoaded = true;
+    setTimeout(() => {
+      state.hasLoaded = true;
+    }, 500);
   }
 };
 
@@ -79,6 +81,9 @@ const getters = {
   },
   portfolioValue(state, getters) {
     return portfolioApi.setPortfolioValue(getters.stocks, state.portfolio);
+  },
+  hasLoaded() {
+    return state.hasLoaded;
   }
 };
 

@@ -29,14 +29,17 @@
         <v-toolbar dark class="blue" app :clipped-left="clipped">
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-spacer></v-spacer>
-            <div><strong>Funds: {{funds | currency}}</strong></div>
-            <div class="ml-3"><strong>Portfolio: {{portfolioValue | currency}}</strong></div>
-            <div class="ml-3"><strong>Total: {{totalWorth | currency}}</strong></div>
+            <template v-if="hasLoadedPortfolio">
+                <div><strong>Funds: {{funds | currency}}</strong></div>
+                <div class="ml-3"><strong>Portfolio: {{portfolioValue | currency}}</strong></div>
+                <div class="ml-3"><strong>Total: {{totalWorth | currency}}</strong></div>
+            </template>
         </v-toolbar>
     </div>
 </template>
 <script>
 export default {
+  props: ["hasLoadedPortfolio"],
   data() {
     return {
       clipped: false,

@@ -16,7 +16,8 @@ import {
   VDivider,
   VForm,
   VMenu,
-  VSpeedDial
+  VSpeedDial,
+  VProgressCircular
 } from "vuetify";
 import "vuetify/src/stylus/app.styl";
 
@@ -37,7 +38,8 @@ Vue.use(Vuetify, {
     VDivider,
     VForm,
     VMenu,
-    VSpeedDial
+    VSpeedDial,
+    VProgressCircular
   },
   theme: {
     primary: "#ee44aa",
