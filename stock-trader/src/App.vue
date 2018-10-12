@@ -29,19 +29,24 @@ export default {
   watch: {
     calls: function() {
       setTimeout(() => {
-        this.$store.dispatch("setStocks");
+        this.getStocks();
       }, 30000);
     }
   },
   methods: {
     getStocks() {
-      this.$store.dispatch("setStocks").then(() => {
+      return this.$store.dispatch("setStocks").then(() => {
+        this.$store.dispatch("setStockPrices");
+      });
+    },
+    getStocksAndPortfolio() {
+      this.getStocks().then(() => {
         this.$store.dispatch("loadPortfolio");
       });
     }
   },
   created() {
-    this.getStocks();
+    this.getStocksAndPortfolio();
   }
 };
 </script>

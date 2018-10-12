@@ -1,3 +1,5 @@
+import PortfolioApi from "../api/portfolioapi";
+
 const state = {
   funds: 100000,
   portfolio: []
@@ -27,18 +29,26 @@ const mutations = {
   },
   LOAD_PORTFOLIO(state, data) {
     const portfolio = data.portfolio;
-    if (portfolio.funds) {
-      state.funds = portfolio.funds;
-    }
-    if (portfolio.portfolio) {
-      state.portfolio = portfolio.portfolio;
-    }
+    state.funds = portfolio.funds;
+    state.portfolio = portfolio.portfolio;
   }
 };
 
 const actions = {
   sellStock({ commit }, order) {
     commit("SELL_STOCK", order);
+  },
+  loadPortfolio({ commit }) {
+    return new PortfolioApi().fetchPortfolio(
+      portfolio => {
+        // successCallback
+        commit("LOAD_PORTFOLIO", portfolio);
+      },
+      fail => {
+        // failureCallback
+        alert(fail);
+      }
+    );
   }
 };
 

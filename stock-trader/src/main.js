@@ -11,6 +11,9 @@ export const cryptoCompare = "https://min-api.cryptocompare.com/data";
 Vue.config.productionTip = false;
 
 Vue.filter("currency", value => {
+  if (!value) {
+    return;
+  }
   return "$" + value.toLocaleString();
 });
 

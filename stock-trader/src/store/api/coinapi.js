@@ -1,12 +1,13 @@
 import { cryptoCompare } from "../../main";
 import Api from "./api";
+import axios from "axios";
 export default class CoinApi extends Api {
   constructor() {
     super();
     this.baseUrl = cryptoCompare;
   }
   fetchCoins = (successCallback, failureCallback) => {
-    this.get({ resource: "/all/coinlist" })
+    return this.get({ resource: "/all/coinlist" })
       .then(response => this.parseCoinList(response))
       .then(orderedCoinList => successCallback(orderedCoinList))
       .catch(error => failureCallback(error));
