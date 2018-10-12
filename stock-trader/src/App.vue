@@ -4,7 +4,7 @@
     <v-content>
       <div class="container grid-list-lg">
         <router-view />
-        <app-save></app-save>
+        <!-- <app-save></app-save> -->
       </div>
     </v-content>
     <app-foot></app-foot>

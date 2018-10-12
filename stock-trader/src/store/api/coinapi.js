@@ -6,12 +6,14 @@ export default class CoinApi extends Api {
     super();
     this.baseUrl = cryptoCompare;
   }
+
   fetchCoins = (successCallback, failureCallback) => {
     return this.get({ resource: "/all/coinlist" })
       .then(response => this.parseCoinList(response))
       .then(orderedCoinList => successCallback(orderedCoinList))
       .catch(error => failureCallback(error));
   };
+
   parseCoinList = response => {
     const stocks = response.data.Data;
     return Object.keys(stocks)
@@ -24,6 +26,7 @@ export default class CoinApi extends Api {
       })
       .slice(0, 33);
   };
+
   assignToPromises = coinArray => {
     const resolvedCoins = {
       promises: [],

@@ -1,23 +1,25 @@
 import CoinApi from "../api/coinapi";
 
 const state = {
+  stocksAsArray: [],
   stocks: [],
   calls: 0
 };
 
 const mutations = {
   SET_STOCKS(state, stocks) {
-    state.stocks = stocks;
+    state.stocksAsArray = stocks;
     state.calls += 1;
   },
   SET_STOCK_PRICES(state, stocks) {
-    state.stocks = Object.assign({}, stocks);
+    state.stocks = Object.assign([], stocks);
   }
 };
 
 const actions = {
-  buyStock: ({ commit }, order) => {
+  buyStock: ({ commit, dispatch }, order) => {
     commit("BUY_STOCK", order);
+    dispatch("savePortfolio");
   },
   setStocks: ({ commit }) => {
     return new CoinApi().fetchCoins(
@@ -32,7 +34,7 @@ const actions = {
     );
   },
   setStockPrices: ({ state, commit }) => {
-    const resolvedCoins = new CoinApi().assignToPromises(state.stocks);
+    const resolvedCoins = new CoinApi().assignToPromises(state.stocksAsArray);
     Promise.all(resolvedCoins.promises).then(function() {
       commit("SET_STOCK_PRICES", resolvedCoins.coins);
     });
@@ -40,7 +42,9 @@ const actions = {
 };
 const getters = {
   stocks: state => {
-    return state.stocks;
+    return state.stocks.sort((a, b) => {
+      return parseInt(a.SortOrder) - parseInt(b.SortOrder);
+    });
   },
   calls: state => {
     return state.calls;

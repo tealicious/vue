@@ -5,4 +5,12 @@ export default class Api {
       return response;
     });
   };
+
+  put = (config = {}) => {
+    return axios
+      .put(`${this.baseUrl}${config.resource}`, config.payload)
+      .then(response => {
+        return response;
+      });
+  };
 }

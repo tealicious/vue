@@ -32,11 +32,7 @@ export default {
   },
   methods: {
     save() {
-      const data = {
-        funds: this.$store.state.funds,
-        portfolio: this.$store.state.portfolio
-      };
-      axios.put(`${fireBase}data.json`, data);
+      this.$store.dispatch("savePortfolio");
     },
     load() {
       this.$store.dispatch("loadPortfolio");
