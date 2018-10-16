@@ -1,10 +1,27 @@
 import PortfolioApi from "../api/portfolioapi";
+import HomeApi from "../api/homeapi";
 const portfolioApi = new PortfolioApi();
 
 const state = {
   funds: 100000,
   portfolio: [],
-  hasLoaded: false
+  hasLoaded: false,
+  portfolioHistories: []
+};
+
+const getters = {
+  funds(state) {
+    return state.funds;
+  },
+  portfolio(state, getters) {
+    return portfolioApi.setPortfolio(state.portfolio, getters.stocks);
+  },
+  portfolioValue(state, getters) {
+    return portfolioApi.setPortfolioValue(getters.stocks, state.portfolio);
+  },
+  hasLoaded() {
+    return state.hasLoaded;
+  }
 };
 
 const mutations = {
@@ -15,6 +32,7 @@ const mutations = {
     } else {
       state.portfolio.push({
         Id: stockId,
+        Name: stockName,
         Quantity: parseInt(Quantity)
       });
     }
@@ -35,6 +53,9 @@ const mutations = {
     setTimeout(() => {
       state.hasLoaded = true;
     }, 500);
+  },
+  SET_PORTFOLIO_HISTORIES(state, histories) {
+    state.portfolioHistories = Object.assign([], histories);
   }
 };
 
@@ -69,21 +90,15 @@ const actions = {
         alert(fail);
       }
     );
-  }
-};
-
-const getters = {
-  funds(state) {
-    return state.funds;
   },
-  portfolio(state, getters) {
-    return portfolioApi.setPortfolio(state.portfolio, getters.stocks);
-  },
-  portfolioValue(state, getters) {
-    return portfolioApi.setPortfolioValue(getters.stocks, state.portfolio);
-  },
-  hasLoaded() {
-    return state.hasLoaded;
+  setPortfolioHistories: ({ getters, commit }) => {
+    console.log(getters.portfolio);
+    // const resolvedHistories = new HomeApi().assignHistoryToPromises(
+    //   getters.portfolio
+    // );
+    // Promise.all(resolvedHistories.promises).then(function() {
+    //   commit("SET_PORTFOLIO_HISTORIES", resolvedHistories.coins);
+    // });
   }
 };
 

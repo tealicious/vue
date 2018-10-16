@@ -47,7 +47,9 @@ export default {
     },
     getStocksAndPortfolio() {
       this.getStocks().then(() => {
-        this.$store.dispatch("loadPortfolio");
+        this.$store.dispatch("loadPortfolio").then(() => {
+          this.$store.dispatch("setPortfolioHistories");
+        });
       });
     }
   },

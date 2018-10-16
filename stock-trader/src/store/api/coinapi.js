@@ -26,7 +26,7 @@ export default class CoinApi extends Api {
       .slice(0, 33);
   };
 
-  assignToPromises = coinArray => {
+  assignPricesToPromises = coinArray => {
     const resolvedCoins = {
       promises: [],
       coins: []

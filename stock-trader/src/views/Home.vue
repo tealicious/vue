@@ -1,20 +1,27 @@
 <template>
   <div class="stocks">
     <h1>{{ name }}</h1>
-    <h2 class="mt-3">
-      <strong>Funds: {{funds | currency}}</strong>
-    </h2>
-    <h2 class="mt-3">
-      <strong>Portfolio: {{portfolioValue | currency}}</strong>
-    </h2>
-    <h2 class="mt-3">
-      <strong>Total: {{totalWorth | currency}}</strong>
-    </h2>
-    <h2 class="mt-3">
-      <strong>Diversity: {{coinCount}} Coins</strong>
-    </h2>
-    <apexcharts type="donut" :options="chartOptions" :series="series">
-    </apexcharts>
+    <v-layout wrap>
+      <v-flex xs12 sm6 md6>
+        <v-card class="pa-3">
+          <p class="mb-2"><strong>Funds: {{funds | currency}}</strong></p>
+          <p class="mb-2"><strong>Portfolio: {{portfolioValue | currency}}</strong></p>
+          <p class="mb-2"><strong>Total: {{totalWorth | currency}}</strong></p>
+          <p class="mb-2"><strong>Diversity: {{coinCount}} Coins</strong></p>
+        </v-card>
+      </v-flex>
+      <v-flex xs12 md6>
+        <v-card>
+          <v-card-title primary-title>
+            <div>
+              <h3 class="headline mb-0">Portfolio Value By Coin</h3>
+            </div>
+          </v-card-title>
+          <apexcharts type="donut" :options="chartOptions" :series="series">
+          </apexcharts>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
@@ -36,7 +43,18 @@ export default {
         coinNames.push(coin.CoinName);
       }
       return {
-        labels: coinNames
+        labels: coinNames,
+        tooltip: {
+          x: {
+            show: false
+          },
+          y: {
+            show: false
+          },
+          z: {
+            show: false
+          }
+        }
       };
     },
     series() {

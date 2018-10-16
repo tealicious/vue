@@ -63,6 +63,7 @@ export default {
       if (this.$refs.form.validate()) {
         const order = {
           stockId: this.stock.Id,
+          stockName: this.stock.Name,
           Quantity: this.quantity,
           stockPrice: this.stock.Price
         };

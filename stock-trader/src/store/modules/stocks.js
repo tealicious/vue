@@ -34,7 +34,9 @@ const actions = {
     );
   },
   setStockPrices: ({ state, commit }) => {
-    const resolvedCoins = new CoinApi().assignToPromises(state.stocksAsArray);
+    const resolvedCoins = new CoinApi().assignPricesToPromises(
+      state.stocksAsArray
+    );
     Promise.all(resolvedCoins.promises).then(function() {
       commit("SET_STOCK_PRICES", resolvedCoins.coins);
     });
