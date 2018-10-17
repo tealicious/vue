@@ -20,8 +20,7 @@ export default class CoinApi extends Api {
             }&tsym=USD&limit=10&aggregate=3&e=CCCAGG`
           })
             .then(response => {
-              console.log(response);
-              coin.History = response.data;
+              coin.History = response.data.Data;
               resolvedCoins.coins.push(coin);
               resolve();
             })

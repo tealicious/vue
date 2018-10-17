@@ -42,13 +42,16 @@ export default {
   methods: {
     getStocks() {
       return this.$store.dispatch("setStocks").then(() => {
-        this.$store.dispatch("setStockPrices");
+        return this.$store.dispatch("setStockPrices");
       });
     },
     getStocksAndPortfolio() {
-      this.getStocks().then(() => {
-        this.$store.dispatch("loadPortfolio").then(() => {
-          this.$store.dispatch("setPortfolioHistories");
+      return this.getStocks().then(() => {
+        return this.$store.dispatch("loadPortfolio").then(() => {
+          console.log(
+            this.$store.getters.stocks,
+            this.$store.getters.portfolio
+          );
         });
       });
     }

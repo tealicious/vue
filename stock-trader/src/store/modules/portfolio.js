@@ -90,15 +90,6 @@ const actions = {
         alert(fail);
       }
     );
-  },
-  setPortfolioHistories: ({ getters, commit }) => {
-    console.log(getters.portfolio);
-    // const resolvedHistories = new HomeApi().assignHistoryToPromises(
-    //   getters.portfolio
-    // );
-    // Promise.all(resolvedHistories.promises).then(function() {
-    //   commit("SET_PORTFOLIO_HISTORIES", resolvedHistories.coins);
-    // });
   }
 };
 

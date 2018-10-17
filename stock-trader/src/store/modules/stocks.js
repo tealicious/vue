@@ -37,8 +37,15 @@ const actions = {
     const resolvedCoins = new CoinApi().assignPricesToPromises(
       state.stocksAsArray
     );
-    Promise.all(resolvedCoins.promises).then(function() {
-      commit("SET_STOCK_PRICES", resolvedCoins.coins);
+    return new Promise((resolve, reject) => {
+      Promise.all(resolvedCoins.promises)
+        .then(function() {
+          commit("SET_STOCK_PRICES", resolvedCoins.coins);
+          resolve();
+        })
+        .catch(() => {
+          console.log(reject);
+        });
     });
   }
 };
