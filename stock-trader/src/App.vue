@@ -31,32 +31,40 @@ export default {
     appSave: Save
   },
   computed: {
-    calls() {
-      return this.$store.getters.calls;
+    callsStocks() {
+      return this.$store.getters.callsStocks;
+    },
+    callsHistories() {
+      return this.$store.getters.callsHistories;
     },
     hasLoadedPortfolio() {
       return this.$store.getters.hasLoaded;
     }
   },
   watch: {
-    calls: function() {
+    callsStocks: function() {
+      setTimeout(() => {
+        this.getStocks();
+      }, 30000);
+    },
+    callsHistories: function() {
       setTimeout(() => {
         this.getStocks();
         this.$store.dispatch("setHistoricalPrices");
-      }, 30000);
+      }, 1800000);
     }
   },
   methods: {
     getStocks() {
       return this.$store.dispatch("setStocks").then(() => {
-        return this.$store.dispatch("setStockPrices");
+        return this.$store.dispatch("setStockPrices").then(() => {
+          return this.$store.dispatch("setHistoricalPrices");
+        });
       });
     },
     getStocksAndPortfolio() {
       this.getStocks().then(() => {
-        this.$store.dispatch("loadPortfolio").then(() => {
-          this.$store.dispatch("setHistoricalPrices");
-        });
+        this.$store.dispatch("loadPortfolio");
       });
     }
   },

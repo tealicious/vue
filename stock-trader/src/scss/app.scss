@@ -5,7 +5,14 @@
 .v-list .route {
   text-transform: capitalize;
 }
-
+.v-card {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  .v-card__actions {
+    margin-top: auto;
+  }
+}
 .theme--dark {
   &.v-list,
   &.v-navigation-drawer {

@@ -1,16 +1,9 @@
 <template>
-  <v-card>
-    <v-card-title primary-title>
-      <div>
-        <h3 class="headline mb-0">{{coin.Name}}</h3>
-      </div>
-    </v-card-title>
-    <apexcharts
-      type="line"
-      :options="chartOptions"
-      :series="series"
-    ></apexcharts>
-  </v-card>
+  <apexcharts
+    type="line"
+    :options="chartOptions"
+    :series="series"
+  ></apexcharts>
 </template>
 <script>
 import VueApexCharts from "vue-apexcharts";

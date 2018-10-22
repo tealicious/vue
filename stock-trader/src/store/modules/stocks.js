@@ -3,13 +3,13 @@ import CoinApi from "../api/coinapi";
 const state = {
   stocksAsArray: [],
   stocks: [],
-  calls: 0
+  callsStocks: 0
 };
 
 const mutations = {
   SET_STOCKS(state, stocks) {
     state.stocksAsArray = stocks;
-    state.calls += 1;
+    state.callsStocks += 1;
   },
   SET_STOCK_PRICES(state, stocks) {
     state.stocks = Object.assign([], stocks);
@@ -55,7 +55,7 @@ const getters = {
     });
   },
   calls: state => {
-    return state.calls;
+    return state.callsStocks;
   }
 };
 
