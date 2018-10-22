@@ -1,24 +1,35 @@
 <template>
   <div class="stocks">
     <h1>{{ name }}</h1>
-    <v-layout wrap>
-      <v-flex xs12 sm6 md6>
-        <v-card class="pa-3">
-          <p class="mb-2"><strong>Funds: {{funds | currency}}</strong></p>
-          <p class="mb-2"><strong>Portfolio: {{portfolioValue | currency}}</strong></p>
-          <p class="mb-2"><strong>Total: {{totalWorth | currency}}</strong></p>
-          <p class="mb-2"><strong>Diversity: {{coinCount}} Coins</strong></p>
-        </v-card>
+    <v-layout wrap="">
+      <v-flex
+        xs12
+        md6
+        v-for="(history, i) in histories"
+        :key="i"
+      >
+        <app-line-chart
+          :coin="history"
+          v-if="history.History.length > 0"
+        ></app-line-chart>
       </v-flex>
       <v-flex xs12 md6>
-        <v-card>
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">Portfolio Value By Coin</h3>
-            </div>
-          </v-card-title>
-          <apexcharts type="donut" :options="chartOptions" :series="series">
-          </apexcharts>
+        <app-pie-chart></app-pie-chart>
+      </v-flex>
+      <v-flex xs12 sm6 md6>
+        <v-card class="pa-3">
+          <p class="mb-2">
+            <strong>Funds: {{funds | currency}}</strong>
+          </p>
+          <p class="mb-2">
+            <strong>Portfolio: {{portfolioValue | currency}}</strong>
+          </p>
+          <p class="mb-2">
+            <strong>Total: {{totalWorth | currency}}</strong>
+          </p>
+          <p class="mb-2">
+            <strong>Diversity: {{coinCount}} Coins</strong>
+          </p>
         </v-card>
       </v-flex>
     </v-layout>
@@ -26,10 +37,13 @@
 </template>
 
 <script>
-import VueApexCharts from "vue-apexcharts";
+import PieChart from "../components/PieChart.vue";
+import LineCharts from "../components/LineCharts.vue";
+
 export default {
   components: {
-    apexcharts: VueApexCharts
+    appPieChart: PieChart,
+    appLineChart: LineCharts
   },
   data() {
     return {
@@ -37,32 +51,8 @@ export default {
     };
   },
   computed: {
-    chartOptions() {
-      const coinNames = [];
-      for (let coin of this.$store.getters.portfolio) {
-        coinNames.push(coin.CoinName);
-      }
-      return {
-        labels: coinNames,
-        tooltip: {
-          x: {
-            show: false
-          },
-          y: {
-            show: false
-          },
-          z: {
-            show: false
-          }
-        }
-      };
-    },
-    series() {
-      const coinCount = [];
-      for (let coin of this.$store.getters.portfolio) {
-        coinCount.push(coin.Quantity * coin.Price);
-      }
-      return coinCount;
+    histories() {
+      return this.$store.getters.histories;
     }
   }
 };

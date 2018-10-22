@@ -15,9 +15,9 @@ export default class CoinApi extends Api {
       resolvedCoins.promises.push(
         new Promise((resolve, reject) => {
           this.get({
-            resource: `/histominute?fsym=${
+            resource: `/histohour?fsym=${
               coin.Symbol
-            }&tsym=USD&limit=10&aggregate=3&e=CCCAGG`
+            }&tsym=USD&limit=5&aggregate=3&e=CCCAGG`
           })
             .then(response => {
               coin.History = response.data.Data;

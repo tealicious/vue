@@ -2,12 +2,18 @@
   <v-app light>
     <app-nav :hasLoadedPortfolio="hasLoadedPortfolio"></app-nav>
     <v-content>
-      <div v-if="hasLoadedPortfolio" class="container grid-list-lg">
-        <router-view />
-        <!-- <app-save></app-save> -->
+      <div
+        v-if="hasLoadedPortfolio"
+        class="container grid-list-lg"
+      >
+        <router-view/>
       </div>
       <div v-else class="loader-wrap">
-        <v-progress-circular indeterminate :size="50" color="#1f2f46"></v-progress-circular>
+        <v-progress-circular
+          indeterminate
+          :size="50"
+          color="#1f2f46"
+        ></v-progress-circular>
       </div>
     </v-content>
     <app-foot></app-foot>
@@ -36,6 +42,7 @@ export default {
     calls: function() {
       setTimeout(() => {
         this.getStocks();
+        this.$store.dispatch("setHistoricalPrices");
       }, 30000);
     }
   },
@@ -46,12 +53,9 @@ export default {
       });
     },
     getStocksAndPortfolio() {
-      return this.getStocks().then(() => {
-        return this.$store.dispatch("loadPortfolio").then(() => {
-          console.log(
-            this.$store.getters.stocks,
-            this.$store.getters.portfolio
-          );
+      this.getStocks().then(() => {
+        this.$store.dispatch("loadPortfolio").then(() => {
+          this.$store.dispatch("setHistoricalPrices");
         });
       });
     }

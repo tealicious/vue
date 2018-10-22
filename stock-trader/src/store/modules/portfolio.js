@@ -5,8 +5,7 @@ const portfolioApi = new PortfolioApi();
 const state = {
   funds: 100000,
   portfolio: [],
-  hasLoaded: false,
-  portfolioHistories: []
+  hasLoaded: false
 };
 
 const getters = {
@@ -53,9 +52,6 @@ const mutations = {
     setTimeout(() => {
       state.hasLoaded = true;
     }, 500);
-  },
-  SET_PORTFOLIO_HISTORIES(state, histories) {
-    state.portfolioHistories = Object.assign([], histories);
   }
 };
 
