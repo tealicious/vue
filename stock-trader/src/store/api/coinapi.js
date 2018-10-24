@@ -26,25 +26,32 @@ export default class CoinApi extends Api {
       .slice(0, 33);
   };
 
+  setNewValue = (array1, array2, key, flip = false) => {
+    const array1Clone = [...array1];
+    const responseCoinClone = [...array2];
+    if (flip) {
+      return responseCoinClone.map(stock => {
+        const record = array1Clone.find(element => element.Id == stock.Id);
+        record[key] = stock[key];
+        return record;
+      });
+    } else {
+      return array1Clone.map(stock => {
+        const record = responseCoinClone.find(
+          element => element.Id == stock.Id
+        );
+        stock[key] = record[key];
+        return stock;
+      });
+    }
+  };
+
   assignPrices = (stocks, responseCoin) => {
-    console.log(stocks[0].Price, responseCoin[0].Price);
-    const stocksClone = [...stocks];
-    const responseCoinClone = [...responseCoin];
-    return stocksClone.map(stock => {
-      const record = responseCoinClone.find(element => element.Id == stock.Id);
-      stock.Price = record.Price;
-      return stock;
-    });
+    return this.setNewValue(stocks, responseCoin, "Price");
   };
 
   assignHistories = (stocks, histories) => {
-    const stocksClone = [...stocks];
-    const historiesClone = [...histories];
-    return historiesClone.map(history => {
-      const record = stocksClone.find(element => element.Id == history.Id);
-      record.History = history.History;
-      return record;
-    });
+    return this.setNewValue(stocks, histories, "History", true);
   };
 
   assignPricesToPromises = coinArray => {
