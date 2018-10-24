@@ -3,14 +3,23 @@
     <v-card>
       <v-layout row style="margin:0;">
         <v-flex>
-          <v-card-title primary-title class="pa-2">
-            <img
-              :title="stock.CoinName"
-              :src="'https://www.cryptocompare.com'+stock.ImageUrl"
-              height="100px"
-              width="100px"
-              max-width="100px"
+          <v-card-title
+            primary-title
+            class="pt-2 pl-2 pr-2 pb-0"
+          >
+            <a
+              class="pa-0 ma-0"
+              :href="'https://www.cryptocompare.com'+stock.Url"
+              target="_blank"
             >
+              <img
+                :title="stock.CoinName"
+                :src="'https://www.cryptocompare.com'+stock.ImageUrl"
+                height="100px"
+                width="100px"
+                max-width="100px"
+              >
+            </a>
             <div
               style="text-align:right;margin-left:auto;flex:1;"
             >

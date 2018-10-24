@@ -30,26 +30,43 @@ export default {
     times() {
       const coinTimes = [];
       for (let history of this.history) {
-        coinTimes.push(moment.unix(history.time).format("H:mm"));
+        const hour = moment.unix(history.time).format("H");
+        const time = moment.unix(history.time).format("h");
+        if (hour > 12) {
+          time += " PM";
+        } else {
+          time += " AM";
+        }
+        coinTimes.push(time);
       }
       return coinTimes;
     },
     chartOptions() {
       return {
-        labels: [],
         xaxis: {
           categories: this.times
         },
         stroke: {
           width: [5],
           curve: "smooth"
+        },
+        chart: {
+          animations: {
+            enabled: false
+          },
+          zoom: {
+            enabled: false
+          },
+          toolbar: {
+            show: false
+          }
         }
       };
     },
     series() {
       return [
         {
-          name: "Prices",
+          name: "Price",
           data: this.prices
         }
       ];
