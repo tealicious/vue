@@ -3,16 +3,49 @@ import CoinApi from "../api/coinapi";
 const state = {
   stocksAsArray: [],
   stocks: [],
-  callsStocks: 0
+  callsStocks: 0,
+  histories: [],
+  callsHistories: 0
+};
+
+const getters = {
+  stocks: state => {
+    return state.stocks.sort((a, b) => {
+      return parseInt(a.SortOrder) - parseInt(b.SortOrder);
+    });
+  },
+  callsStocks: state => {
+    return state.callsStocks;
+  },
+  callsHistories: state => {
+    return state.callsHistories;
+  },
+  histories: state => {
+    return state.histories.sort((a, b) => {
+      return parseInt(a.SortOrder) - parseInt(b.SortOrder);
+    });
+  }
 };
 
 const mutations = {
   SET_STOCKS(state, stocks) {
-    state.stocksAsArray = stocks;
+    state.stocks = [...stocks];
+  },
+  SET_STOCK_PRICES(state, responseCoins) {
+    const updatedCoinListClone = new CoinApi().assignPrices(
+      state.stocks,
+      responseCoins
+    );
+    state.stocks = [...updatedCoinListClone];
     state.callsStocks += 1;
   },
-  SET_STOCK_PRICES(state, stocks) {
-    state.stocks = Object.assign([], stocks);
+  SET_COIN_HISTORIES(state, histories) {
+    const updatedCoinListClone = new CoinApi().assignHistories(
+      state.stocks,
+      histories
+    );
+    state.stocks = [...updatedCoinListClone];
+    state.callsHistories += 1;
   }
 };
 
@@ -34,9 +67,7 @@ const actions = {
     );
   },
   setStockPrices: ({ state, commit }) => {
-    const resolvedCoins = new CoinApi().assignPricesToPromises(
-      state.stocksAsArray
-    );
+    const resolvedCoins = new CoinApi().assignPricesToPromises(state.stocks);
     return new CoinApi().resolveMultiplePromises(
       resolvedCoins.promises,
       success => {
@@ -46,16 +77,20 @@ const actions = {
         alert(fail);
       }
     );
-  }
-};
-const getters = {
-  stocks: state => {
-    return state.stocks.sort((a, b) => {
-      return parseInt(a.SortOrder) - parseInt(b.SortOrder);
-    });
   },
-  calls: state => {
-    return state.callsStocks;
+  setHistoricalPrices: ({ state, commit }) => {
+    const resolvedHistories = new CoinApi().assignHistoryToPromises(
+      state.stocks
+    );
+    return new CoinApi().resolveMultiplePromises(
+      resolvedHistories.promises,
+      success => {
+        commit("SET_COIN_HISTORIES", resolvedHistories.coins);
+      },
+      fail => {
+        alert(fail);
+      }
+    );
   }
 };
 

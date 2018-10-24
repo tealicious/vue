@@ -30,7 +30,6 @@ export default {
     times() {
       const coinTimes = [];
       for (let history of this.history) {
-        console.log(moment.unix(history.time).format("h:mm"));
         coinTimes.push(moment.unix(history.time).format("H:mm"));
       }
       return coinTimes;

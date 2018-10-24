@@ -28,7 +28,7 @@
       </v-layout>
       <app-line-chart
         :coin="stock"
-        v-if="stock.History.length > 0"
+        v-if="stock.History && stock.History.length > 0"
       ></app-line-chart>
       <v-divider light></v-divider>
       <v-card-actions class="pl-3 pr-3 grey lighten-3">
@@ -85,6 +85,11 @@ export default {
       quantity: null,
       color: "green"
     };
+  },
+  watch: {
+    portfolioValue: function() {
+      this.$forceUpdate();
+    }
   },
   computed: {
     totalValue() {

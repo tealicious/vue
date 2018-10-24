@@ -44,17 +44,19 @@ export default {
   watch: {
     callsStocks: function() {
       setTimeout(() => {
-        this.getStocks();
+        this.getStockPricesOnly();
       }, 30000);
     },
     callsHistories: function() {
       setTimeout(() => {
-        this.getStocks();
         this.$store.dispatch("setHistoricalPrices");
       }, 1800000);
     }
   },
   methods: {
+    getStockPricesOnly() {
+      this.$store.dispatch("setStockPrices");
+    },
     getStocks() {
       return this.$store.dispatch("setStocks").then(() => {
         return this.$store.dispatch("setStockPrices").then(() => {

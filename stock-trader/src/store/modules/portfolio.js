@@ -1,5 +1,4 @@
 import PortfolioApi from "../api/portfolioapi";
-import HomeApi from "../api/homeapi";
 const portfolioApi = new PortfolioApi();
 
 const state = {
