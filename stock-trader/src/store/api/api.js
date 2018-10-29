@@ -49,4 +49,8 @@ export default class Api {
         });
     });
   };
+
+  deepCloneArray(someArray) {
+    return JSON.parse(JSON.stringify(someArray));
+  }
 }

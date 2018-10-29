@@ -4,7 +4,6 @@ const state = {
   stocksAsArray: [],
   stocks: [],
   callsStocks: 0,
-  histories: [],
   callsHistories: 0
 };
 
@@ -19,11 +18,6 @@ const getters = {
   },
   callsHistories: state => {
     return state.callsHistories;
-  },
-  histories: state => {
-    return state.histories.sort((a, b) => {
-      return parseInt(a.SortOrder) - parseInt(b.SortOrder);
-    });
   }
 };
 
@@ -31,12 +25,13 @@ const mutations = {
   SET_STOCKS(state, stocks) {
     state.stocks = [...stocks];
   },
-  SET_STOCK_PRICES(state, responseCoins) {
+  SET_COIN_PRICES(state, responseCoins) {
     const updatedCoinListClone = new CoinApi().assignPrices(
       state.stocks,
       responseCoins
     );
     state.stocks = [...updatedCoinListClone];
+    //Vue.set(state, "stocks", [...updatedCoinListClone]);
     state.callsStocks += 1;
   },
   SET_COIN_HISTORIES(state, histories) {
@@ -66,12 +61,12 @@ const actions = {
       }
     );
   },
-  setStockPrices: ({ state, commit }) => {
+  setCoinPrices: ({ state, commit }) => {
     const resolvedCoins = new CoinApi().assignPricesToPromises(state.stocks);
     return new CoinApi().resolveMultiplePromises(
       resolvedCoins.promises,
       success => {
-        commit("SET_STOCK_PRICES", resolvedCoins.coins);
+        commit("SET_COIN_PRICES", resolvedCoins.coins);
       },
       fail => {
         alert(fail);

@@ -97,7 +97,7 @@ export default {
   },
   watch: {
     portfolioValue: function() {
-      this.$forceUpdate();
+      //this.$forceUpdate();
     }
   },
   computed: {

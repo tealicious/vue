@@ -55,11 +55,13 @@ export default {
   },
   methods: {
     getStockPricesOnly() {
-      this.$store.dispatch("setStockPrices");
+      return this.$store.dispatch("setCoinPrices").then(() => {
+        console.log(this.$store.state.stocks.stocks[0].Price);
+      });
     },
     getStocks() {
       return this.$store.dispatch("setStocks").then(() => {
-        return this.$store.dispatch("setStockPrices").then(() => {
+        return this.$store.dispatch("setCoinPrices").then(() => {
           return this.$store.dispatch("setHistoricalPrices");
         });
       });

@@ -27,8 +27,8 @@ export default class CoinApi extends Api {
   };
 
   setNewValue = (array1, array2, key, flip = false) => {
-    const array1Clone = [...array1];
-    const responseCoinClone = [...array2];
+    const array1Clone = this.deepCloneArray(array1);
+    const responseCoinClone = this.deepCloneArray(array2);
     if (flip) {
       return responseCoinClone.map(stock => {
         const record = array1Clone.find(element => element.Id == stock.Id);
