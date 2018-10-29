@@ -23,7 +23,13 @@
             <div
               style="text-align:right;margin-left:auto;flex:1;"
             >
-              <h3 class="headline mb-0">{{stock.CoinName}}</h3>
+              <a
+                class="pa-0 ma-0 blue--text"
+                :href="'https://www.cryptocompare.com'+stock.Url"
+                target="_blank"
+              >
+                <h3 class="headline mb-0">{{stock.CoinName}}</h3>
+              </a>
               <div
                 v-if="portfolioItem"
               >Owned: {{stock.Quantity}}</div>
@@ -94,11 +100,6 @@ export default {
       quantity: null,
       color: "green"
     };
-  },
-  watch: {
-    portfolioValue: function() {
-      //this.$forceUpdate();
-    }
   },
   computed: {
     totalValue() {

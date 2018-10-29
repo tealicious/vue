@@ -137,7 +137,17 @@
 }
 
 //stocks
+a.blue--text {
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    .headline {
+      text-decoration: underline;
+    }
+  }
+}
 .headline {
+  display: inline-block;
   text-transform: uppercase;
 }
 .flex-form {
