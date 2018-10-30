@@ -42,7 +42,7 @@ export default {
     series() {
       const coinCount = [];
       for (let coin of this.$store.getters.portfolio) {
-        coinCount.push(coin.Quantity * coin.Price);
+        coinCount.push(parseInt(coin.Quantity * coin.Price));
       }
       return coinCount;
     }
