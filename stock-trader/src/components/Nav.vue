@@ -55,22 +55,16 @@
                 @click.stop="drawer = !drawer"
             ></v-toolbar-side-icon>
             <v-spacer></v-spacer>
-            <div class="nav-wrap-wrap">
+            <div class="nav-wrap-wrap hidden-md-and-down">
                 <div class="nav-wrap">
                     <template v-if="hasLoadedPortfolio">
-                        <div
-                            class="hidden-md-and-down mr-4"
-                        >
+                        <div class="mr-4">
                             <strong>Funds: {{funds | currency}}</strong>
                         </div>
-                        <div
-                            class="hidden-md-and-down mr-4"
-                        >
+                        <div class="mr-4">
                             <strong>Portfolio: {{portfolioValue | currency}}</strong>
                         </div>
-                        <div
-                            class="hidden-md-and-down mr-4"
-                        >
+                        <div class="mr-4">
                             <strong>Total: {{totalWorth | currency}}</strong>
                         </div>
                         <app-signout></app-signout>
@@ -92,7 +86,7 @@ export default {
       clipped: false,
       drawer: true,
       fixed: true,
-      miniVariant: true,
+      miniVariant: false,
       title: "Crypto-Trader",
       routes: [
         { to: "/user/home", name: "home", icon: "account_circle" },
