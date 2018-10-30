@@ -3,18 +3,6 @@
     <v-card-title primary-title>
       <div>
         <h3 class="headline mb-0">Portfolio Value By Coin</h3>
-        <p class="mb-2">
-          <strong>Funds: {{funds | currency}}</strong>
-        </p>
-        <p class="mb-2">
-          <strong>Portfolio: {{portfolioValue | currency}}</strong>
-        </p>
-        <p class="mb-2">
-          <strong>Total: {{totalWorth | currency}}</strong>
-        </p>
-        <p class="mb-2">
-          <strong>Diversity: {{coinCount}} Coins</strong>
-        </p>
       </div>
     </v-card-title>
     <apexcharts

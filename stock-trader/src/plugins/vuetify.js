@@ -17,7 +17,8 @@ import {
   VForm,
   VMenu,
   VSpeedDial,
-  VProgressCircular
+  VProgressCircular,
+  VTooltip
 } from "vuetify";
 import "vuetify/src/stylus/app.styl";
 
@@ -39,14 +40,15 @@ Vue.use(Vuetify, {
     VForm,
     VMenu,
     VSpeedDial,
-    VProgressCircular
+    VProgressCircular,
+    VTooltip
   },
   theme: {
-    primary: "#ee44aa",
+    primary: "#2196F3",
     secondary: "#424242",
     accent: "#82B1FF",
     error: "#FF5252",
-    info: "#2196F3",
+    info: "#E91E63",
     success: "#4CAF50",
     warning: "#FFC107"
   }
