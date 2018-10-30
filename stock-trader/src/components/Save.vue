@@ -1,20 +1,45 @@
 <template>
-  <v-speed-dial v-model="fab" :top="top" :bottom="bottom" :right="right" :left="left" :direction="direction" :open-on-hover="hover" :transition="transition">
-    <v-btn slot="activator" v-model="fab" color="deep-orange" dark fab>
+  <v-speed-dial
+    v-model="fab"
+    :top="top"
+    :bottom="bottom"
+    :right="right"
+    :left="left"
+    :direction="direction"
+    :open-on-hover="hover"
+    :transition="transition"
+  >
+    <v-btn
+      slot="activator"
+      v-model="fab"
+      color="deep-orange"
+      dark
+      fab
+    >
       <v-icon>save</v-icon>
       <v-icon>close</v-icon>
     </v-btn>
-    <v-btn title="Load" @click="load" fab dark color="indigo">
+    <v-btn
+      title="Load"
+      @click="load"
+      fab
+      dark
+      color="indigo"
+    >
       <v-icon>get_app</v-icon>
     </v-btn>
-    <v-btn title="Save" @click="save" fab dark color="green">
+    <v-btn
+      title="Save"
+      @click="save"
+      fab
+      dark
+      color="green"
+    >
       <v-icon>save</v-icon>
     </v-btn>
   </v-speed-dial>
 </template>
 <script>
-import axios from "axios";
-import { fireBase } from "../main";
 export default {
   data() {
     return {

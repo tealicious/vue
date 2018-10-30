@@ -1,9 +1,9 @@
-import { fireBase } from "../../main";
+import { fireBaseUrl } from "../../main";
 import Api from "./api";
 export default class PortfolioApi extends Api {
   constructor() {
     super();
-    this.baseUrl = fireBase;
+    this.baseUrl = fireBaseUrl;
   }
 
   fetchPortfolio = (successCallback, failureCallback) => {

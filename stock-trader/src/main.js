@@ -9,7 +9,7 @@ import VueApexCharts from "vue-apexcharts";
 import firebase from "firebase";
 import "./scss/app.scss";
 
-export const fireBase = "https://stock-trader-b44bf.firebaseio.com/";
+export const fireBaseUrl = "https://stock-trader-b44bf.firebaseio.com/";
 export const cryptoCompare = "https://min-api.cryptocompare.com/data";
 
 firebase.initializeApp({
