@@ -143,8 +143,8 @@ export default {
       }
     },
     clear() {
-      this.$refs.form.reset();
-      this.quantity = null;
+      //this.$refs.form.reset();
+      this.quantity = 1;
     }
   }
 };
