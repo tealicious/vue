@@ -3,7 +3,7 @@
         <v-content>
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
-                    <v-flex xs12 sm8 md4 lg3>
+                    <v-flex xs12 sm8 md6 lg4>
                         <div class="header">
                             <img
                                 src="../assets/Bitcoin-512.png"
@@ -11,9 +11,11 @@
                         </div>
                         <v-card class="elevation-3">
                             <v-toolbar dark color="primary">
-                                <v-toolbar-title>Login</v-toolbar-title>
+                                <v-toolbar-title>{{formTitle}}</v-toolbar-title>
                             </v-toolbar>
-                            <v-card-text>
+                            <v-card-text
+                                class="grey lighten-4"
+                            >
                                 <v-form
                                     ref="form"
                                     v-model="valid"
@@ -40,13 +42,20 @@
                                 <v-spacer></v-spacer>
                                 <v-btn
                                     color="error"
-                                    @click="pushRoute('/register')"
-                                >Register</v-btn>
+                                    @click="optionLogin = !optionLogin"
+                                >{{!optionLogin ? "Login" : "Register"}}</v-btn>
                                 <v-btn
                                     color="primary"
                                     :disabled="!valid"
-                                    @click="submit"
+                                    @click="login"
+                                    v-if="optionLogin"
                                 >Login</v-btn>
+                                <v-btn
+                                    v-else
+                                    color="primary"
+                                    :disabled="!valid"
+                                    @click="signup"
+                                >signup</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-flex>
@@ -58,6 +67,7 @@
 <script>
 export default {
   data: () => ({
+    optionLogin: true,
     valid: true,
     password: "",
     passwordRules: [
@@ -71,10 +81,13 @@ export default {
     ],
     checkbox: false
   }),
-
+  computed: {
+    formTitle() {
+      return this.optionLogin ? "Login" : "Sign Up";
+    }
+  },
   methods: {
-    submit(e) {
-      e.preventDefault();
+    login() {
       if (this.$refs.form.validate()) {
         this.$store
           .dispatch("login", {
@@ -84,9 +97,23 @@ export default {
           .then(() => {
             this.pushRoute("/user/home");
           })
-          .catch(() => {
+          .catch(err => {
+            alert(err);
             this.pushRoute("/login");
           });
+      }
+    },
+    signup() {
+      if (this.$refs.form.validate()) {
+        this.$store
+          .dispatch("register", {
+            email: this.email,
+            password: this.password
+          })
+          .then(() => {
+            this.login();
+          })
+          .catch(err => alert(err));
       }
     },
     pushRoute(route) {

@@ -76,8 +76,10 @@ export default {
     if (this.$store.state.auth.user) {
       this.getStocksAndPortfolio();
     } else {
-      this.$store.dispatch("signout");
-      this.$router.push("/login");
+      this.$store.commit("RESET_PORTFOLIO");
+      this.$store.commit("RESET_STOCKS");
+      this.$store.commit("RESET_USER");
+      this.$router.replace("login");
     }
   }
 };

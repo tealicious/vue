@@ -36,21 +36,24 @@ const actions = {
           resolve();
         },
         fail => {
-          return fail;
+          reject(fail);
         }
       );
     });
   },
   login({ commit }, loginInfo) {
-    return new AuthApi().signIn(
-      loginInfo,
-      success => {
-        commit("SIGN_IN", success);
-      },
-      fail => {
-        return fail;
-      }
-    );
+    return new Promise((resolve, reject) => {
+      return new AuthApi().signIn(
+        loginInfo,
+        success => {
+          commit("SIGN_IN", success);
+          resolve();
+        },
+        fail => {
+          reject(fail);
+        }
+      );
+    });
   }
 };
 
