@@ -64,7 +64,7 @@ const actions = {
       },
       // failureCallback
       fail => {
-        alert(fail);
+        return fail;
       }
     );
   },
@@ -76,7 +76,7 @@ const actions = {
         commit("SET_COIN_PRICES", resolvedCoins.coins);
       },
       fail => {
-        alert(fail);
+        return fail;
       }
     );
   },
@@ -90,7 +90,7 @@ const actions = {
         commit("SET_COIN_HISTORIES", resolvedHistories.coins);
       },
       fail => {
-        alert(fail);
+        return fail;
       }
     );
   }

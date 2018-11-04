@@ -96,7 +96,7 @@ const actions = {
         console.log(success);
       },
       fail => {
-        alert(fail);
+        return fail;
       }
     );
   }

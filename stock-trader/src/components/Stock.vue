@@ -97,8 +97,8 @@ export default {
         v => !!v || "Quantity is required",
         v => v > 0 || "Invalid quantity"
       ],
-      quantity: null,
-      color: "green"
+      quantity: 1,
+      color: "primary"
     };
   },
   computed: {

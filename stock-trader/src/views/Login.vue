@@ -1,9 +1,14 @@
 <template>
-    <v-app light>
+    <v-app light class="authscreen">
         <v-content>
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
                     <v-flex xs12 sm8 md4 lg3>
+                        <div class="header">
+                            <img
+                                src="../assets/Bitcoin-512.png"
+                            >
+                        </div>
                         <v-card class="elevation-3">
                             <v-toolbar dark color="primary">
                                 <v-toolbar-title>Login</v-toolbar-title>
@@ -34,7 +39,7 @@
                             >
                                 <v-spacer></v-spacer>
                                 <v-btn
-                                    color="info"
+                                    color="error"
                                     @click="pushRoute('/register')"
                                 >Register</v-btn>
                                 <v-btn

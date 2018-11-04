@@ -23,7 +23,7 @@ export default class CoinApi extends Api {
       .sort((a, b) => {
         return parseInt(a.SortOrder) - parseInt(b.SortOrder);
       })
-      .slice(0, 33);
+      .slice(0, 15);
   };
 
   setNewValue = (array1, array2, key, flip = false) => {

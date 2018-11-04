@@ -23,7 +23,7 @@ const mutations = {
   },
   SIGN_IN(state, user) {
     state.user = user;
-    alert(`You are logged in as ${user.email}`);
+    return user.email;
   }
 };
 
@@ -36,7 +36,7 @@ const actions = {
           resolve();
         },
         fail => {
-          reject(fail);
+          return fail;
         }
       );
     });
@@ -48,7 +48,7 @@ const actions = {
         commit("SIGN_IN", success);
       },
       fail => {
-        alert(fail);
+        return fail;
       }
     );
   }

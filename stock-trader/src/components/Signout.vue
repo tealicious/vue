@@ -1,5 +1,5 @@
 <template>
-  <v-btn color="info" @click="logout">logout</v-btn>
+  <v-btn color="error" @click="logout">logout</v-btn>
 </template>
 <script>
 import firebase from "firebase";
