@@ -19,10 +19,17 @@ export default {
     apexcharts: VueApexCharts
   },
   computed: {
+    coinsOnHand() {
+      return this.$store.getters.portfolio.length > 0;
+    },
     chartOptions() {
       const coinNames = [];
-      for (let coin of this.$store.getters.portfolio) {
-        coinNames.push(coin.CoinName);
+      if (this.coinsOnHand) {
+        for (let coin of this.$store.getters.portfolio) {
+          coinNames.push(coin.CoinName);
+        }
+      } else {
+        coinNames.push("No Coins");
       }
       return {
         labels: coinNames,
@@ -41,8 +48,12 @@ export default {
     },
     series() {
       const coinCount = [];
-      for (let coin of this.$store.getters.portfolio) {
-        coinCount.push(parseInt(coin.Quantity * coin.Price));
+      if (!this.coinsOnHand) {
+        coinCount.push(1);
+      } else {
+        for (let coin of this.$store.getters.portfolio) {
+          coinCount.push(parseInt(coin.Quantity * coin.Price));
+        }
       }
       return coinCount;
     }

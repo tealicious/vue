@@ -36,8 +36,8 @@
                                 <v-spacer></v-spacer>
                                 <v-btn
                                     color="info"
-                                    @click="clear"
-                                >reset</v-btn>
+                                    @click="pushRoute('/login')"
+                                >login</v-btn>
                                 <v-btn
                                     color="primary"
                                     :disabled="!valid"
@@ -53,8 +53,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import firebase from "firebase";
 export default {
   data: () => ({
     valid: true,
@@ -73,22 +71,28 @@ export default {
   }),
 
   methods: {
+    pushRoute(route) {
+      this.$router.push(route);
+    },
     submit(e) {
       e.preventDefault();
       if (this.$refs.form.validate()) {
-        // Native form submission is not yet supported
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.email, this.password)
-          .then(
-            user => {
-              alert(`account created for ${user.email}`);
-              this.$router.push("/user");
-            },
-            err => {
-              alert(err.message);
-            }
-          );
+        return this.$store
+          .dispatch("register", {
+            email: this.email,
+            password: this.password
+          })
+          .then(() => {
+            this.$store
+              .dispatch("login", {
+                email: this.email,
+                password: this.password
+              })
+              .then(() => {
+                this.$router.push("/user/home");
+              });
+          })
+          .catch(err => alert(err));
       }
     },
     clear() {

@@ -6,14 +6,17 @@ export default class PortfolioApi extends Api {
     this.baseUrl = fireBaseUrl;
   }
 
-  fetchPortfolio = (successCallback, failureCallback) => {
-    return this.get({ resource: "data.json" })
+  fetchPortfolio = (uid, successCallback, failureCallback) => {
+    return this.get({ resource: `${uid}.json` })
       .then(response => successCallback(response.data))
       .catch(error => failureCallback(error));
   };
 
-  savePortfolio = (currentPortfolio, successCallback, failureCallback) => {
-    return this.put({ resource: "data.json", payload: currentPortfolio })
+  savePortfolio = (uid, currentPortfolio, successCallback, failureCallback) => {
+    return this.put({
+      resource: `${uid}.json`,
+      payload: currentPortfolio
+    })
       .then(response => successCallback(response))
       .catch(error => failureCallback(error));
   };

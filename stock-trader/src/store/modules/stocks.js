@@ -1,11 +1,12 @@
 import CoinApi from "../api/coinapi";
-
-const state = {
-  stocksAsArray: [],
-  stocks: [],
-  callsStocks: 0,
-  callsHistories: 0
-};
+function initialState() {
+  return {
+    stocks: [],
+    callsStocks: 0,
+    callsHistories: 0
+  };
+}
+const state = initialState();
 
 const getters = {
   stocks: state => {
@@ -22,6 +23,12 @@ const getters = {
 };
 
 const mutations = {
+  RESET_STOCKS(state) {
+    const s = initialState();
+    Object.keys(s).forEach(key => {
+      state[key] = s[key];
+    });
+  },
   SET_STOCKS(state, stocks) {
     state.stocks = [...stocks];
   },

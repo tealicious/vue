@@ -6,7 +6,7 @@
                     <v-flex xs12 sm8 md4 lg3>
                         <v-card class="elevation-3">
                             <v-toolbar dark color="primary">
-                                <v-toolbar-title>Register</v-toolbar-title>
+                                <v-toolbar-title>Login</v-toolbar-title>
                             </v-toolbar>
                             <v-card-text>
                                 <v-form
@@ -24,6 +24,7 @@
                                         v-model="password"
                                         :rules="passwordRules"
                                         label="password"
+                                        type="password"
                                         required
                                     ></v-text-field>
                                 </v-form>
@@ -50,8 +51,6 @@
     </v-app>
 </template>
 <script>
-import axios from "axios";
-import firebase from "firebase";
 export default {
   data: () => ({
     valid: true,
@@ -69,19 +68,21 @@ export default {
   }),
 
   methods: {
-    submit() {
+    submit(e) {
+      e.preventDefault();
       if (this.$refs.form.validate()) {
-        // Native form submission is not yet supported
-        axios.post("/api/submit", {
-          password: this.password,
-          email: this.email,
-          select: this.select,
-          checkbox: this.checkbox
-        });
+        this.$store
+          .dispatch("login", {
+            email: this.email,
+            password: this.password
+          })
+          .then(() => {
+            this.pushRoute("/user/home");
+          })
+          .catch(() => {
+            this.pushRoute("/login");
+          });
       }
-    },
-    clear() {
-      this.$refs.form.reset();
     },
     pushRoute(route) {
       this.$router.push(route);

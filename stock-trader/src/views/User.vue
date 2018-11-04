@@ -73,7 +73,12 @@ export default {
     }
   },
   created() {
-    this.getStocksAndPortfolio();
+    if (this.$store.state.auth.user) {
+      this.getStocksAndPortfolio();
+    } else {
+      this.$store.dispatch("signout");
+      this.$router.push("/login");
+    }
   }
 };
 </script>

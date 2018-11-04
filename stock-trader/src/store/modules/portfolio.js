@@ -1,11 +1,13 @@
 import PortfolioApi from "../api/portfolioapi";
 const portfolioApi = new PortfolioApi();
-
-const state = {
-  funds: 100000,
-  portfolio: [],
-  hasLoaded: false
-};
+function initialState() {
+  return {
+    funds: 100000,
+    portfolio: [],
+    hasLoaded: false
+  };
+}
+const state = initialState();
 
 const getters = {
   funds(state) {
@@ -23,7 +25,13 @@ const getters = {
 };
 
 const mutations = {
-  BUY_STOCK(state, { stockId, Quantity, stockPrice }) {
+  RESET_PORTFOLIO(state) {
+    const s = initialState();
+    Object.keys(s).forEach(key => {
+      state[key] = s[key];
+    });
+  },
+  BUY_STOCK(state, { stockId, stockName, Quantity, stockPrice }) {
     const record = state.portfolio.find(element => element.Id == stockId);
     if (record) {
       record.Quantity += parseInt(Quantity);
@@ -47,7 +55,9 @@ const mutations = {
   },
   LOAD_PORTFOLIO(state, data) {
     state.funds = data.funds;
-    state.portfolio = data.portfolio;
+    if (data.portfolio) {
+      state.portfolio = data.portfolio;
+    }
     setTimeout(() => {
       state.hasLoaded = true;
     }, 500);
@@ -59,24 +69,28 @@ const actions = {
     commit("SELL_STOCK", order);
     dispatch("savePortfolio");
   },
-  loadPortfolio({ commit }) {
+  loadPortfolio({ commit, dispatch, getters }) {
     return new PortfolioApi().fetchPortfolio(
+      getters.user.uid,
       portfolio => {
         // successCallback
         commit("LOAD_PORTFOLIO", portfolio);
       },
       fail => {
         // failureCallback
-        alert(fail);
+        dispatch("savePortfolio").then(() => {
+          dispatch("loadPortfolio");
+        });
       }
     );
   },
-  savePortfolio({ state }) {
+  savePortfolio({ state, getters }) {
     const currentPortfolio = {
       funds: state.funds,
       portfolio: state.portfolio
     };
     return new PortfolioApi().savePortfolio(
+      getters.user.uid,
       currentPortfolio,
       success => {
         console.log(success);
